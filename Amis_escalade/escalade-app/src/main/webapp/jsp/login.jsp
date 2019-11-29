@@ -7,9 +7,11 @@
 --%>
 <!DOCTYPE html>
 <html>
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
-    <title>S'inscrire</title>
+    <title>Se connecter</title>
     <link type="text/css" rel="stylesheet" href="">
 </head>
 <body>
@@ -18,13 +20,13 @@
             <legend>Se connecter</legend>
 
             <label for="email">Adresse e-mail</label>
-            <input type="text" id="email" name="email" value="<c:out value="${}"/>">
+            <input type="text" id="email" name="email" value="">
 
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" value="<c:out value="${}"/>">
+            <input type="password" id="password" name="password" value="">
             <span class="errors"></span>
         </fieldset>
     </form>
-
+    <a href="register">S'enregistrer</a>
 </body>
 </html>

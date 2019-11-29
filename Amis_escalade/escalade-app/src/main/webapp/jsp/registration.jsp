@@ -9,37 +9,44 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>S'inscrire</title>
+    <title>S'enregistrer</title>
     <link type="text/css" rel="stylesheet" href="">
 </head>
 <body>
-    <form method="post" action="registration">
+    <form method="post" action="register">
         <fieldset>
             <legend>S'inscrire</legend>
             <label for="username">Nom d'utilisateur</label>
             <input type="text" id="username" name="username" value="<c:out value="${user.username}"/>">
-            <span class="errors">${form.erreurs['username']}</span>
+            <span class="errors">${form.errors['username']}</span>
+            <br />
 
             <label for="firstname">Nom</label>
             <input type="text" id="firstname" name="firstname" value="<c:out value="${user.firstname}"/>">
-            <span class="errors">${form.erreurs['firstname']}</span>
+            <span class="errors">${form.errors['firstname']}</span>
+            <br />
 
             <label for="lastname">Prénom</label>
             <input type="text" id="lastname" name="lastname" value="<c:out value="${user.lastname}"/>">
-            <span class="errors">${form.erreurs['lastname']}</span>
+            <span class="errors">${form.errors['lastname']}</span>
 
             <label for="email">Adresse e-mail</label>
             <input type="email" id="email" name="email" value="<c:out value="${user.email}"/>">
-            <span class="errors">${form.erreurs['email']}</span>
+            <span class="errors">${form.errors['email']}</span>
             <br />
 
             <label for="password">Mot de passe</label>
             <input type="password" id="password" name="password">
-            <span class="errors">${form.erreurs['password']}</span>
+            <span class="errors">${form.errors['password']}</span>
+            <br />
 
             <label for="passwordConfirm">Confirmation du mot de passe</label>
             <input type="password" id="passwordConfirm" name="passwordConfirm">
-            <span class="errors">${form.erreurs['passConf']}</span>
+            <span class="errors">${form.errors['passConf']}</span>
+            <br />
+
+            <input type="submit" value="Créer votre compte" class="sansLabel" />
+            <br />
         </fieldset>
     </form>
 
