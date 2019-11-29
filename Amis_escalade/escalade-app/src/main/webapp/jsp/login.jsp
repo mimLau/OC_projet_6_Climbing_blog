@@ -17,11 +17,12 @@
         <fieldset>
             <legend>Se connecter</legend>
 
-            <label for="email">E-mail</label>
-            <input type="text" id="email" name="email">
+            <label for="email">Adresse e-mail</label>
+            <input type="text" id="email" name="email" value="<c:out value="${}"/>">
 
             <label for="password">Mot de passe</label>
-            <input type="text" id="password" name="password">
+            <input type="password" id="password" name="password" value="<c:out value="${}"/>">
+            <span class="errors"></span>
         </fieldset>
     </form>
 

@@ -17,13 +17,13 @@ public class RegistrationForm  {
     private static final String FIRSTNAME_FIELD = "firstname";
     private static final String LASTNAME_FIELD = "lastname";
 
-    private Map<String, String> erreurs = new HashMap<String, String>();
+    private Map<String, String> errors = new HashMap<String, String>();
     private UserDao userDao;
 
 
 
-    public Map<String, String> getErreurs(){
-        return erreurs;
+    public Map<String, String> getErrors(){
+        return errors;
     }
 
 
@@ -41,36 +41,36 @@ public class RegistrationForm  {
         try {
             emailValidation( email );
         } catch ( Exception e ) {
-            setErreur( EMAIL_FIELD, e.getMessage() );
+            setError( EMAIL_FIELD, e.getMessage() );
         }
         user.setEmail( email );
 
         try {
             usernameValidation( username );
         } catch ( Exception e ) {
-            setErreur( USERNAME_FIELD, e.getMessage() );
+            setError( USERNAME_FIELD, e.getMessage() );
         }
         user.setUsername(username);
 
         try {
             passValidation( passsword, passConf );
         } catch ( Exception e ) {
-            setErreur( PASS_FIELD, e.getMessage() );
-            setErreur( PASS_CONF_FIELD, null );
+            setError( PASS_FIELD, e.getMessage() );
+            setError( PASS_CONF_FIELD, null );
         }
         user.setPassword( passsword );
 
         try {
             firstnameValidation( firstname );
         } catch ( Exception e ) {
-            setErreur( FIRSTNAME_FIELD, e.getMessage() );
+            setError( FIRSTNAME_FIELD, e.getMessage() );
         }
         user.setFirstname( firstname );
 
         try {
             lastnameValidation( lastname );
         } catch ( Exception e ) {
-            setErreur( LASTNAME_FIELD, e.getMessage() );
+            setError( LASTNAME_FIELD, e.getMessage() );
         }
         user.setLastname( lastname );
 
@@ -138,7 +138,7 @@ public class RegistrationForm  {
         }
     }
 
-    private void setErreur( String field, String message ) {
-        erreurs.put( field, message );
+    private void setError( String field, String message ) {
+        errors.put( field, message );
     }
 }
