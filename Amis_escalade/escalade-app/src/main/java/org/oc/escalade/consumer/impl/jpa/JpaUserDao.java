@@ -36,7 +36,7 @@ public class JpaUserDao implements UserDao {
         User u = new User();
 
         try {
-            Query query = em.createQuery("SELECT u FROM User AS u.username= :username");
+            Query query = em.createQuery("SELECT u FROM User AS u WHERE u.username= :username");
             query.setParameter("name", username);
             u = (User) query.getSingleResult();
         }finally {
