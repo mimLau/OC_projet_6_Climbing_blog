@@ -42,7 +42,28 @@ public class RegistrationForm  {
         return field;
     }
 
+
+    private void usernameValidation(String username){
+
+    }
+
     private void emailValidation(String email){
 
+    }
+
+    private void passValidation(String password){
+
+    }
+
+    private void lastnameValidation(String lastname) throws Exception {
+        if (lastname != null && lastname.length() < 3) {
+            throw new Exception("Le prénom doit contenir au moins 3 caractère.");
+        }
+    }
+
+    private void firstnameValidation(String firstname) throws Exception{
+        if (firstname != null && firstname.length() < 3) {
+            throw new Exception("Le nom doit contenir au moins 3 caractère.");
+        }
     }
 }
