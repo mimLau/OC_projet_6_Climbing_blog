@@ -17,22 +17,29 @@
         <fieldset>
             <legend>S'inscrire</legend>
             <label for="username">Nom d'utilisateur</label>
-            <input type="text" id="username" name="username">
+            <input type="text" id="username" name="username" value="<c:out value="${user.username}"/>">
+            <span class="erreurs">${form.erreurs['username']}</span>
 
-            <label for="lastname">Nom</label>
-            <input type="text" id="lastname" name="lastname">
+            <label for="firstname">Nom</label>
+            <input type="text" id="firstname" name="firstname" value="<c:out value="${user.firstname}"/>">
+            <span class="erreurs">${form.erreurs['firstname']}</span>
 
-            <label for="firstname">Prénom</label>
-            <input type="text" id="firstname" name="firstname">
+            <label for="lastname">Prénom</label>
+            <input type="text" id="lastname" name="lastname" value="<c:out value="${user.lastname}"/>">
+            <span class="erreurs">${form.erreurs['lastname']}</span>
 
-            <label for="email">E-mail</label>
-            <input type="text" id="email" name="email">
+            <label for="email">Adresse e-mail</label>
+            <input type="email" id="email" name="email" value="<c:out value="${user.email}"/>">
+            <span class="erreur">${form.erreurs['email']}</span>
+            <br />
 
             <label for="password">Mot de passe</label>
-            <input type="text" id="password" name="password">
+            <input type="password" id="password" name="password">
+            <span class="erreur">${form.erreurs['password']}</span>
 
             <label for="passwordConfirm">Confirmation du mot de passe</label>
-            <input type="text" id="passwordConfirm" name="passwordConfirm">
+            <input type="password" id="passwordConfirm" name="passwordConfirm">
+            <span class="erreur">${form.erreurs['passConf']}</span>
         </fieldset>
     </form>
 

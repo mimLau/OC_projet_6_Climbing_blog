@@ -13,7 +13,7 @@ public class RegistrationForm  {
     private static final String USERNAME_FIELD = "username";
     private static final String EMAIL_FIELD = "email";
     private static final String PASS_FIELD = "password";
-    private static final String CONF_PASS_FIELD = "confPass";
+    private static final String PASS_CONF_FIELD = "passConf";
     private static final String FIRSTNAME_FIELD = "firstname";
     private static final String LASTNAME_FIELD = "lastname";
 
@@ -31,7 +31,7 @@ public class RegistrationForm  {
         String email = getFieldValue(req, EMAIL_FIELD );
         String username = getFieldValue(req, USERNAME_FIELD );
         String passsword = getFieldValue(req, PASS_FIELD );
-        String confPass = getFieldValue(req, CONF_PASS_FIELD );
+        String passConf = getFieldValue(req, PASS_CONF_FIELD );
         String firstname = getFieldValue(req, FIRSTNAME_FIELD );
         String lastname = getFieldValue(req, LASTNAME_FIELD );
 
@@ -53,10 +53,10 @@ public class RegistrationForm  {
         user.setUsername(username);
 
         try {
-            passValidation( passsword, confPass );
+            passValidation( passsword, passConf );
         } catch ( Exception e ) {
             setErreur( PASS_FIELD, e.getMessage() );
-            setErreur( CONF_PASS_FIELD, null );
+            setErreur( PASS_CONF_FIELD, null );
         }
         user.setPassword( passsword );
 
