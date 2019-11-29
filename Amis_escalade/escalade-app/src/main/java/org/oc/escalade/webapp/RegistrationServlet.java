@@ -1,5 +1,8 @@
 package org.oc.escalade.webapp;
 
+import org.oc.escalade.business.RegistrationForm;
+import org.oc.escalade.model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +14,17 @@ import java.io.IOException;
 @WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
 public class RegistrationServlet extends HttpServlet {
     public static final String REGISTRATION_VIEW = "/jsp/registration.jsp";
-    public static final String USERNAME_FIELD = "username";
-    public static final String EMAIL_FIELD = "email";
-    public static final String PASS_FIELD = "password";
-    public static final String CONF_PASS_FIELD = "confPass";
-    public static final String FIRSTNAME_FIELD = "firstname";
-    public static final String LASTNAME_FIELD = "lastname";
+    public static final String USER_ATT = "user_att";
+    public static final String FORM_ATT = "form_att";
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String username = req.getParameter(USERNAME_FIELD);
-        String email = req.getParameter(EMAIL_FIELD);
-        String pass = req.getParameter(PASS_FIELD);
-        String confPass = req.getParameter(CONF_PASS_FIELD);
-        String firstname = req.getParameter(FIRSTNAME_FIELD);
-        String lastname = req.getParameter(LASTNAME_FIELD);
+        RegistrationForm form = new RegistrationForm();
+        User user = form.registerUser(req);
+
+        req.setAttribute(FORM_ATT, form);
+        req.setAttribute(USER_ATT, user);
+
+        this.getServletContext().getRequestDispatcher(REGISTRATION_VIEW).forward(req, res);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
