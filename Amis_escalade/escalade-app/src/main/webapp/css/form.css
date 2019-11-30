@@ -25,6 +25,8 @@ form label {
 form input {
     margin: 3px 3px 0px 0px;
     border: 1px #999 solid;
+    size: 20px;
+    maxlength: 20px;
 }
 
 form input.sansLabel {

@@ -18,7 +18,7 @@ public final class RegistrationForm  {
     private static final String LASTNAME_FIELD = "lastname";
 
     private Map<String, String> errors = new HashMap<String, String>();
-    private UserDao userDao;
+    private UserDao userDao = DaoFactory.getUserDao();
 
     public Map<String, String> getErrors(){
         return errors;
@@ -38,11 +38,17 @@ public final class RegistrationForm  {
         usernameValidation( username );
         user.setUsername(username);
         passValidation( passsword, passConf );
-        user.setPassword( passsword );
+        user.setPassword( FormUtils.cryptoMD5( passsword ) );
         firstnameValidation( firstname );
         user.setFirstname( firstname );
         lastnameValidation( lastname );
         user.setLastname( lastname );
+
+        System.out.println("Errors is empty?: " + errors.isEmpty());
+
+        if(errors.isEmpty()) {
+            userDao.addUser(user);
+        }
 
         return user;
     }
@@ -52,18 +58,14 @@ public final class RegistrationForm  {
         return fieldValue;
     }
 
-
     private void usernameValidation(String username) {
-        userDao = DaoFactory.getUserDao();
         boolean usernameExists = userDao.usernameExists(username);
 
         if ( !username.isEmpty()) {
             if ( usernameExists == true ) {
                 setError(USERNAME_FIELD, "Nom d'utilisateur est déjà pris.");
-                //throw new Exception( "Nom d'utilisateur est déjà pris." );
             }
         } else {
-            //throw new Exception("Saisissez votre nom d'utilisateur.");
             setError(USERNAME_FIELD, "Saisissez votre nom d'utilisateur.");
         }
     }
@@ -71,41 +73,36 @@ public final class RegistrationForm  {
     private void emailValidation( String email ) {
         if( !email.isEmpty()) {
             if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
-                //throw new Exception( "Adresse e-mail non valide." );
                 setError(EMAIL_FIELD, "Adresse e-mail non valide.");
             }
         }else {
-            //throw new Exception( "Saisissez votre adresse e-mail." );
             setError(EMAIL_FIELD, "Saisissez votre adresse e-mail.");
         }
     }
 
     private void passValidation( String password, String confPass ) {
+        System.out.println("password: " + password + "!password.isEmpty(): " + !password.isEmpty());
         if ( !password.isEmpty()) {
             if( !confPass.isEmpty() ) {
                 if ( !password.equals( confPass ) ) {
-                    //throw new Exception( "Les mots de passe ne correspondent pas." );
                     setError(PASS_FIELD, "Les mots de passe ne correspondent pas.");
                 } else if ( password.length() < 3 ) {
-                    //throw new Exception( "Les mots de passe doivent contenir au moins 6 caractères." );
                     setError(PASS_FIELD, "Les mots de passe doivent contenir au moins 6 caractères.");
                 }
             } else {
-                 //throw new Exception( "Saisissez à nouveau votre mot de passe." );
                 setError(PASS_CONF_FIELD, "Saisissez à nouveau votre mot de passe.");
             }
-        } //throw new Exception( "Entrez votre mot de passe." );
+        } else {
             setError(PASS_FIELD, "Entrez votre mot de passe.");
+        }
     }
 
     private void lastnameValidation( String lastname ) {
         if ( !lastname.isEmpty()) {
             if ( lastname.length() < 3 ) {
-            //throw new Exception( "Le prénom doit contenir au moins 3 caractères." );
                 setError(LASTNAME_FIELD, "Le prénom doit contenir au moins 3 caractères.");
              }
         } else {
-                //throw new Exception( "Saisissez votre prénom." );
             setError(LASTNAME_FIELD, "Saisissez votre prénom.");
         }
     }
@@ -113,11 +110,9 @@ public final class RegistrationForm  {
     private void firstnameValidation(String firstname) {
         if ( !firstname.isEmpty()) {
             if(firstname.length() < 3 ) {
-            //throw new Exception( "Le nom doit contenir au moins 3 caractères." );
                 setError(FIRSTNAME_FIELD, "Le nom doit contenir au moins 3 caractères.");
             }
         } else {
-            //throw new Exception("Saisissez votre nom.");
             setError(FIRSTNAME_FIELD, "Saisissez votre nom.");
         }
     }
