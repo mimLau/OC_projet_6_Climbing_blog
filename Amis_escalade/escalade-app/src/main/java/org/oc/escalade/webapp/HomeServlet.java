@@ -9,6 +9,7 @@ import java.io.IOException;
 
 @WebServlet(name = "HomeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
+    public static final String HOME_VIEW = "/jsp/home.jsp";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
