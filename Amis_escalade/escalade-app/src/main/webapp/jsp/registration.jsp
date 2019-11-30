@@ -40,8 +40,8 @@
             <span class="errors">${form.errors['password']}</span>
             <br />
 
-            <label for="passwordConfirm">Confirmation du mot de passe</label>
-            <input type="password" id="passwordConfirm" name="passwordConfirm">
+            <label for="passConf">Confirmation du mot de passe</label>
+            <input type="password" id="passConf" name="passConf">
             <span class="errors">${form.errors['passConf']}</span>
             <br />
 

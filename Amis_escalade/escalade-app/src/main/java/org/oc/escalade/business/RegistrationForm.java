@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegistrationForm  {
+public final class RegistrationForm  {
 
     private static final String USERNAME_FIELD = "username";
     private static final String EMAIL_FIELD = "email";
@@ -20,12 +20,9 @@ public class RegistrationForm  {
     private Map<String, String> errors = new HashMap<String, String>();
     private UserDao userDao;
 
-
-
     public Map<String, String> getErrors(){
         return errors;
     }
-
 
     public User registerUser(HttpServletRequest req){
         String email = getFieldValue(req, EMAIL_FIELD );
@@ -35,43 +32,16 @@ public class RegistrationForm  {
         String firstname = getFieldValue(req, FIRSTNAME_FIELD );
         String lastname = getFieldValue(req, LASTNAME_FIELD );
 
-
         User user = new User();
-
-        try {
-            emailValidation( email );
-        } catch ( Exception e ) {
-            setError( EMAIL_FIELD, e.getMessage() );
-        }
+        emailValidation( email );
         user.setEmail( email );
-
-        try {
-            usernameValidation( username );
-        } catch ( Exception e ) {
-            setError( USERNAME_FIELD, e.getMessage() );
-        }
+        usernameValidation( username );
         user.setUsername(username);
-
-        try {
-            passValidation( passsword, passConf );
-        } catch ( Exception e ) {
-            setError( PASS_FIELD, e.getMessage() );
-            setError( PASS_CONF_FIELD, null );
-        }
+        passValidation( passsword, passConf );
         user.setPassword( passsword );
-
-        try {
-            firstnameValidation( firstname );
-        } catch ( Exception e ) {
-            setError( FIRSTNAME_FIELD, e.getMessage() );
-        }
+        firstnameValidation( firstname );
         user.setFirstname( firstname );
-
-        try {
-            lastnameValidation( lastname );
-        } catch ( Exception e ) {
-            setError( LASTNAME_FIELD, e.getMessage() );
-        }
+        lastnameValidation( lastname );
         user.setLastname( lastname );
 
         return user;
@@ -79,62 +49,76 @@ public class RegistrationForm  {
 
     private static String getFieldValue(HttpServletRequest req, String field ){
         String fieldValue = req.getParameter(field);
-        return field;
+        return fieldValue;
     }
 
 
-    private void usernameValidation(String username) throws Exception {
+    private void usernameValidation(String username) {
         userDao = DaoFactory.getUserDao();
-        User user = userDao.findUserByUsername(username);
+        boolean usernameExists = userDao.usernameExists(username);
 
-        if ( username != null) {
-            if ( username != user.getUsername() ) {
-                throw new Exception( "Nom d'utilisateur est déjà pris." );
-            } else {
-                throw new Exception( "Saisissez votre prénom." );
+        if ( !username.isEmpty()) {
+            if ( usernameExists == true ) {
+                setError(USERNAME_FIELD, "Nom d'utilisateur est déjà pris.");
+                //throw new Exception( "Nom d'utilisateur est déjà pris." );
             }
+        } else {
+            //throw new Exception("Saisissez votre nom d'utilisateur.");
+            setError(USERNAME_FIELD, "Saisissez votre nom d'utilisateur.");
         }
     }
 
-    private void emailValidation( String email ) throws Exception {
-        if( email != null ) {
+    private void emailValidation( String email ) {
+        if( !email.isEmpty()) {
             if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
-                throw new Exception( "Adresse e-mail non valide." );
+                //throw new Exception( "Adresse e-mail non valide." );
+                setError(EMAIL_FIELD, "Adresse e-mail non valide.");
             }
         }else {
-            throw new Exception( "Saisissez votre adresse e-mail." );
+            //throw new Exception( "Saisissez votre adresse e-mail." );
+            setError(EMAIL_FIELD, "Saisissez votre adresse e-mail.");
         }
     }
 
-    private void passValidation( String password, String confPass ) throws Exception {
-        if ( password != null) {
-            if( confPass != null ) {
+    private void passValidation( String password, String confPass ) {
+        if ( !password.isEmpty()) {
+            if( !confPass.isEmpty() ) {
                 if ( !password.equals( confPass ) ) {
-                    throw new Exception( "Les mots de passe ne correspondent pas." );
+                    //throw new Exception( "Les mots de passe ne correspondent pas." );
+                    setError(PASS_FIELD, "Les mots de passe ne correspondent pas.");
                 } else if ( password.length() < 3 ) {
-                    throw new Exception( "Les mots de passe doivent contenir au moins 6 caractères." );
+                    //throw new Exception( "Les mots de passe doivent contenir au moins 6 caractères." );
+                    setError(PASS_FIELD, "Les mots de passe doivent contenir au moins 6 caractères.");
                 }
             } else {
-                 throw new Exception( "Saisissez à nouveau votre mot de passe." );
+                 //throw new Exception( "Saisissez à nouveau votre mot de passe." );
+                setError(PASS_CONF_FIELD, "Saisissez à nouveau votre mot de passe.");
             }
-        } throw new Exception( "Entrez votre mot de passe." );
+        } //throw new Exception( "Entrez votre mot de passe." );
+            setError(PASS_FIELD, "Entrez votre mot de passe.");
     }
 
-    private void lastnameValidation( String lastname ) throws Exception {
-        if ( lastname != null) {
+    private void lastnameValidation( String lastname ) {
+        if ( !lastname.isEmpty()) {
             if ( lastname.length() < 3 ) {
-            throw new Exception( "Le prénom doit contenir au moins 3 caractères." );
+            //throw new Exception( "Le prénom doit contenir au moins 3 caractères." );
+                setError(LASTNAME_FIELD, "Le prénom doit contenir au moins 3 caractères.");
+             }
         } else {
-                throw new Exception( "Saisissez votre prénom." );
-            }
+                //throw new Exception( "Saisissez votre prénom." );
+            setError(LASTNAME_FIELD, "Saisissez votre prénom.");
         }
     }
 
-    private void firstnameValidation(String firstname) throws Exception{
-        if ( firstname != null && firstname.length() < 3 ) {
-            throw new Exception( "Le nom doit contenir au moins 3 caractères." );
+    private void firstnameValidation(String firstname) {
+        if ( !firstname.isEmpty()) {
+            if(firstname.length() < 3 ) {
+            //throw new Exception( "Le nom doit contenir au moins 3 caractères." );
+                setError(FIRSTNAME_FIELD, "Le nom doit contenir au moins 3 caractères.");
+            }
         } else {
-               throw new Exception( "Saisissez votre nom de famille." );
+            //throw new Exception("Saisissez votre nom.");
+            setError(FIRSTNAME_FIELD, "Saisissez votre nom.");
         }
     }
 

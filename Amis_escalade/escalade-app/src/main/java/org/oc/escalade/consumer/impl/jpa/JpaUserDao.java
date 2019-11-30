@@ -3,10 +3,7 @@ package org.oc.escalade.consumer.impl.jpa;
 import org.oc.escalade.consumer.UserDao;
 import org.oc.escalade.model.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.*;
 
 public class JpaUserDao implements UserDao {
     private EntityManagerFactory emf;
@@ -37,11 +34,34 @@ public class JpaUserDao implements UserDao {
 
         try {
             Query query = em.createQuery("SELECT u FROM User AS u WHERE u.username= :username");
-            query.setParameter("name", username);
+            query.setParameter("username", username);
             u = (User) query.getSingleResult();
         }finally {
             em.close();
         }
         return u;
+    }
+
+    @Override
+    public boolean usernameExists(String username) {
+        final EntityManager em = emf.createEntityManager();
+        boolean usernameExists = true;
+        User u = new User();
+
+        try {
+            Query query = em.createQuery("SELECT u FROM User AS u WHERE u.username= :username");
+            query.setParameter("username", username);
+            try {
+                u = (User) query.getSingleResult();
+            } catch (NoResultException e) {
+                usernameExists = false;
+            }
+
+
+
+        }finally {
+            em.close();
+        }
+        return usernameExists;
     }
 }

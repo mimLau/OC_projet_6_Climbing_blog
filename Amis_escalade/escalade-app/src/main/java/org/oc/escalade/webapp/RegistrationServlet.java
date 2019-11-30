@@ -3,6 +3,7 @@ package org.oc.escalade.webapp;
 import org.oc.escalade.business.RegistrationForm;
 import org.oc.escalade.model.User;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,8 @@ public class RegistrationServlet extends HttpServlet {
     public static final String REGISTRATION_VIEW = "/jsp/registration.jsp";
     public static final String USER_ATT = "user";
     public static final String FORM_ATT = "form";
+    String username2;
+
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         RegistrationForm form = new RegistrationForm();
