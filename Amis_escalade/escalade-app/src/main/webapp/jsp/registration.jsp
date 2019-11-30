@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <title>S'enregistrer</title>
-    <link type="text/css" rel="stylesheet" href="">
+    <link type="text/css" rel="stylesheet" href="./css/form.css">
 </head>
 <body>
     <form method="post" action="register">
@@ -29,6 +29,7 @@
             <label for="lastname">Prénom</label>
             <input type="text" id="lastname" name="lastname" value="<c:out value="${user.lastname}"/>">
             <span class="errors">${form.errors['lastname']}</span>
+            <br/>
 
             <label for="email">Adresse e-mail</label>
             <input type="email" id="email" name="email" value="<c:out value="${user.email}"/>">
