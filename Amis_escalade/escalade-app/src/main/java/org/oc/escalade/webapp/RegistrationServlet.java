@@ -15,6 +15,7 @@ import java.io.IOException;
 @WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
 public class RegistrationServlet extends HttpServlet {
     public static final String REGISTRATION_VIEW = "/jsp/registration.jsp";
+    public static final String HOME_VIEW = "/jsp/home.jsp";
     public static final String USER_ATT = "user";
     public static final String FORM_ATT = "form";
     String username2;
@@ -27,7 +28,7 @@ public class RegistrationServlet extends HttpServlet {
         req.setAttribute(FORM_ATT, form);
         req.setAttribute(USER_ATT, user);
 
-        this.getServletContext().getRequestDispatcher(REGISTRATION_VIEW).forward(req, res);
+        this.getServletContext().getRequestDispatcher(HOME_VIEW).forward(req, res);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

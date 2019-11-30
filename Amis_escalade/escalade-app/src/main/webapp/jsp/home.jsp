@@ -7,7 +7,7 @@
 --%>
 <!DOCTYPE html>
 <head>
-    <title>Title</title>
+    <title>Acceuil</title>
 </head>
 <body>
 
