@@ -18,7 +18,7 @@ public class User {
     private int nbOfConnections;
 
     @OneToMany(mappedBy = "siteOwner")
-    private List<Site> site;
+    private List<Site> sites;
 
 
     public Long getUserId() {

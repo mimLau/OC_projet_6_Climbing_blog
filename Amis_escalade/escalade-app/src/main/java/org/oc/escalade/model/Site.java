@@ -17,6 +17,10 @@ public class Site {
     @JoinColumn(name="user_fk")
     private User siteOwner;
 
+    @ManyToOne
+    @JoinColumn(name = "place_fk")
+    private Place place;
+
 
     public long getSiteId() {
         return siteId;
