@@ -28,6 +28,9 @@
             <input type="password" id="password" name="password" value="">
             <span class="errors">${form.errors['password']}</span>
             <br/>
+
+            <input type="submit" value="Se connecter" class="sansLabel" />
+            <br />
         </fieldset>
     </form>
 
