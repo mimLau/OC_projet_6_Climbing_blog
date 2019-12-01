@@ -1,21 +1,10 @@
-package org.oc.escalade.business;
+package org.oc.escalade.utils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
-public class FormUtils {
-    private static Map<String, String> errors = new HashMap<String, String>();
-
-    public Map<String, String> getErrors() {
-        return errors;
-    }
-
-
-
-    protected final static String cryptoMD5( String cryptoText ) {
+public class HashGenerator {
+    public final static String cryptoMD5(String cryptoText) {
         byte[] defaultBytes = null;
         defaultBytes = cryptoText.getBytes();
 

@@ -3,6 +3,7 @@ package org.oc.escalade.business;
 import org.oc.escalade.consumer.DaoFactory;
 import org.oc.escalade.consumer.UserDao;
 import org.oc.escalade.model.User;
+import org.oc.escalade.utils.HashGenerator;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +64,7 @@ public final class LoginForm {
     private boolean authentication( User user, String password ) {
         boolean authenticationOk = false;
         String retrievedPass = user.getPassword();
-        if( FormUtils.cryptoMD5( password ).equals( retrievedPass ) ) {
+        if( HashGenerator.cryptoMD5( password ).equals( retrievedPass ) ) {
             authenticationOk = true;
         }
         return authenticationOk;

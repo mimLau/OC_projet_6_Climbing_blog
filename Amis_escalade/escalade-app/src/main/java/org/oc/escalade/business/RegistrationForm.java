@@ -3,6 +3,7 @@ package org.oc.escalade.business;
 import org.oc.escalade.consumer.DaoFactory;
 import org.oc.escalade.consumer.UserDao;
 import org.oc.escalade.model.User;
+import org.oc.escalade.utils.HashGenerator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public final class RegistrationForm  {
         usernameValidation( username );
         user.setUsername(username);
         passValidation( passsword, passConf );
-        user.setPassword( FormUtils.cryptoMD5( passsword ) );
+        user.setPassword( HashGenerator.cryptoMD5( passsword ) );
         firstnameValidation( firstname );
         user.setFirstname( firstname );
         lastnameValidation( lastname );
