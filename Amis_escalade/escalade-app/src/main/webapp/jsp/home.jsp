@@ -10,6 +10,6 @@
     <title>Acceuil</title>
 </head>
 <body>
-    <p>Helllllo</p>
+    <p>Helllllo ${sessionScope.user.username}</p>
 </body>
 </DOCTYPE>

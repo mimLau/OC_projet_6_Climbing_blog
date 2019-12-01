@@ -13,14 +13,7 @@ public class FormUtils {
         return errors;
     }
 
-    protected final static String getFieldValue( HttpServletRequest req, String field ){
-        String fieldValue = req.getParameter( field );
-        return fieldValue;
-    }
 
-    public final static void setError( String field, String message ) {
-        errors.put( field, message );
-    }
 
     protected final static String cryptoMD5( String cryptoText ) {
         byte[] defaultBytes = null;

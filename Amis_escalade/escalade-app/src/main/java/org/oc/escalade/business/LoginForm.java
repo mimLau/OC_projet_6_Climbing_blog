@@ -24,15 +24,17 @@ public final class LoginForm {
     }
 
     public User logUser(HttpServletRequest req) {
-        String identifier = FormUtils.getFieldValue(req, IDENTIFIER_FIELD );
-        String passsword = FormUtils.getFieldValue(req, PASS_FIELD );
+        String identifier = getFieldValue(req, IDENTIFIER_FIELD );
+        String passsword = getFieldValue(req, PASS_FIELD );
         User user = new User();
         boolean authenticationOk = false;
         user = retrieveUserByIdentifier(identifier);
         authenticationOk = authentication(user, passsword);
 
+
+
         if( authenticationOk == false ) {
-            FormUtils.setError(AUTH_MESS, "Combinaison identifiant/mot de passe invalide.");
+            setError(AUTH_MESS, "Combinaison identifiant/mot de passe invalide.");
         }
 
         return user;
@@ -44,13 +46,15 @@ public final class LoginForm {
             try {
                 user = userDao.findUserByEmail(identifier);
             } catch (NoResultException e) {
-                FormUtils.setError(IDENTIFIER_FIELD, "Adresse e-mail non existante.");
+                setError(IDENTIFIER_FIELD, "Adresse e-mail non existante.");
+                System.out.println("NoResultException email");
             }
         } else {
             try {
-                user = userDao.findUserByEmail(identifier);
+                user = userDao.findUserByUsername(identifier);
+                System.out.println("finUserByEmail");
             } catch (NoResultException e) {
-                FormUtils.setError(IDENTIFIER_FIELD, "Nom d'utilisateur non reconnu.");
+                setError(IDENTIFIER_FIELD, "Nom d'utilisateur non reconnu.");
             }
         }
         return user;
@@ -63,5 +67,14 @@ public final class LoginForm {
             authenticationOk = true;
         }
         return authenticationOk;
+    }
+
+    protected final static String getFieldValue( HttpServletRequest req, String field ){
+        String fieldValue = req.getParameter( field );
+        return fieldValue;
+    }
+
+    private void setError( String field, String message ) {
+        errors.put( field, message );
     }
 }

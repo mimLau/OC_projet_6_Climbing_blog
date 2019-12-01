@@ -44,8 +44,6 @@ public final class RegistrationForm  {
         lastnameValidation( lastname );
         user.setLastname( lastname );
 
-        System.out.println("Errors is empty?: " + errors.isEmpty());
-
         if(errors.isEmpty()) {
             userDao.addUser(user);
         }
@@ -81,7 +79,6 @@ public final class RegistrationForm  {
     }
 
     private void passValidation( String password, String confPass ) {
-        System.out.println("password: " + password + "!password.isEmpty(): " + !password.isEmpty());
         if ( !password.isEmpty()) {
             if( !confPass.isEmpty() ) {
                 if ( !password.equals( confPass ) ) {

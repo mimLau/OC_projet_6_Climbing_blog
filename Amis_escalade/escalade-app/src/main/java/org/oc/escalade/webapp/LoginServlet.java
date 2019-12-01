@@ -3,7 +3,6 @@ package org.oc.escalade.webapp;
 import org.oc.escalade.business.LoginForm;
 import org.oc.escalade.business.RegistrationForm;
 import org.oc.escalade.model.User;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
