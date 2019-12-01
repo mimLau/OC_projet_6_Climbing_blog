@@ -20,11 +20,9 @@ public class JpaUserDao implements UserDao {
             t.begin();
             em.persist(user);
             t.commit();
-            System.out.println("commit: add user: ");
         }finally {
             if(t.isActive()) t.rollback();
         }
-
         return user;
     }
 
@@ -37,7 +35,6 @@ public class JpaUserDao implements UserDao {
             Query query = em.createQuery("SELECT u FROM User AS u WHERE u.username= :username");
             query.setParameter("username", username);
             u = (User) query.getSingleResult();
-            System.out.println("finduserbyUsername");
         }finally {
             em.close();
         }
@@ -55,7 +52,6 @@ public class JpaUserDao implements UserDao {
             query.setParameter("username", username);
             try {
                 u = (User) query.getSingleResult();
-                System.out.println("usernameExists");
             } catch (NoResultException e) {
                 usernameExists = false;
             }

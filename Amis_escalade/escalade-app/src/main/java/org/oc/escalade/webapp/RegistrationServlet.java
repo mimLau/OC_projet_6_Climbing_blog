@@ -15,22 +15,28 @@ import java.io.IOException;
 @WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
 public class RegistrationServlet extends HttpServlet {
     public static final String REGISTRATION_VIEW = "/jsp/registration.jsp";
-    public static final String HOME_VIEW = "/jsp/home.jsp";
+    public static final String HOME_PAGE = "/home";
     public static final String USER_ATT = "user";
     public static final String FORM_ATT = "form";
 
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
         RegistrationForm form = new RegistrationForm();
         User user = form.registerUser(req);
 
         req.setAttribute(FORM_ATT, form);
         req.setAttribute(USER_ATT, user);
 
-        this.getServletContext().getRequestDispatcher(REGISTRATION_VIEW).forward(req, res);
+        if( form.getErrors().isEmpty() ) {
+
+            //this.getServletContext().getRequestDispatcher( HOME_VIEW ).forward( req, res );
+            res.sendRedirect(req.getContextPath() + HOME_PAGE );
+        } else {
+            this.getServletContext().getRequestDispatcher( REGISTRATION_VIEW ).forward( req, res );
+        }
     }
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    this.getServletContext().getRequestDispatcher(REGISTRATION_VIEW).forward(req, res);
+    protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
+    this.getServletContext().getRequestDispatcher( REGISTRATION_VIEW ).forward( req, res );
     }
 }
