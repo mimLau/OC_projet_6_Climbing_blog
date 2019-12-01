@@ -1,7 +1,9 @@
 package org.oc.escalade.webapp;
 
+import org.oc.escalade.business.LoginForm;
 import org.oc.escalade.business.RegistrationForm;
 import org.oc.escalade.model.User;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +20,8 @@ public class LoginServlet extends HttpServlet {
     public static final String FORM_ATT = "form";
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        RegistrationForm form = new RegistrationForm();
-        User user = form.registerUser(req);
+        LoginForm form = new LoginForm();
+        User user = form.logUser(req);
 
         if( form.getErrors().isEmpty() ) {
             req.getSession().setAttribute("user", user);
