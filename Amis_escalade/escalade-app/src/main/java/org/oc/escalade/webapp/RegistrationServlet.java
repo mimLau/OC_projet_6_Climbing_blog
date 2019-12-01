@@ -27,7 +27,7 @@ public class RegistrationServlet extends HttpServlet {
         req.setAttribute(FORM_ATT, form);
         req.setAttribute(USER_ATT, user);
 
-        this.getServletContext().getRequestDispatcher(HOME_VIEW).forward(req, res);
+        this.getServletContext().getRequestDispatcher(REGISTRATION_VIEW).forward(req, res);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

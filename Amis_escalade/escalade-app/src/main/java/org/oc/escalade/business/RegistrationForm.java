@@ -20,7 +20,7 @@ public final class RegistrationForm  {
     private Map<String, String> errors = new HashMap<String, String>();
     private UserDao userDao = DaoFactory.getUserDao();
 
-    public Map<String, String> getErrors(){
+    public Map<String, String> getErrors() {
         return errors;
     }
 

@@ -17,16 +17,20 @@ public class LoginServlet extends HttpServlet {
     public static final String USER_ATT = "user";
     public static final String FORM_ATT = "form";
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
         RegistrationForm form = new RegistrationForm();
         User user = form.registerUser(req);
 
-        req.setAttribute(FORM_ATT, form);
-        req.setAttribute(USER_ATT, user);
-    this.getServletContext().getRequestDispatcher(HOME_VIEW).forward(req, res);
+        if( form.getErrors().isEmpty() ) {
+            req.getSession().setAttribute("user", user);
+            this.getServletContext().getRequestDispatcher( HOME_VIEW ).forward( req, res );
+        } else {
+            req.setAttribute( FORM_ATT, form );
+            this.getServletContext().getRequestDispatcher( LOGIN_VIEW ).forward( req, res );
+        }
     }
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher(LOGIN_VIEW).forward(req,res);
+    protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
+        this.getServletContext().getRequestDispatcher( LOGIN_VIEW ).forward( req,res );
     }
 }

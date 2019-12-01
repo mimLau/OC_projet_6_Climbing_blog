@@ -13,7 +13,7 @@
     <link type="text/css" rel="stylesheet" href="./css/form.css">
 </head>
 <body>
-    <form method="post" action="home">
+    <form method="post" action="register">
         <fieldset>
             <legend>S'inscrire</legend>
             <label for="username">Nom d'utilisateur</label>

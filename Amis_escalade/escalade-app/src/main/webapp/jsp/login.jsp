@@ -19,14 +19,18 @@
         <fieldset>
             <legend>Se connecter</legend>
 
-            <label for="email">Adresse e-mail</label>
-            <input type="text" id="email" name="email" value="">
+            <label for="identifier">Adresse e-mail ou nom d'utilisateur</label>
+            <input type="text" id="identifier" name="identifier" value="">
+            <span class="errors">${form.errors['identifier']}</span>
+            <br/>
 
             <label for="password">Mot de passe</label>
             <input type="password" id="password" name="password" value="">
-            <span class="errors"></span>
+            <span class="errors">${form.errors['password']}</span>
+            <br/>
         </fieldset>
     </form>
+
     <a href="register">S'enregistrer</a>
 </body>
 </html>
