@@ -9,10 +9,11 @@
 <head>
     <title>Acceuil</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="./css/bootstrap.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
+    <jsp:include page="/templates/header.jsp"/>
     <!--<p>Helllllo ${sessionScope.user.username}</p>-->
 </body>
 </DOCTYPE>
