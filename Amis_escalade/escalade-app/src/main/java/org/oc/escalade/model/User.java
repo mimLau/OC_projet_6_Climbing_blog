@@ -1,6 +1,7 @@
 package org.oc.escalade.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -15,6 +16,9 @@ public class User {
     private String email;
     private String password;
     private int nbOfConnections;
+
+    @OneToMany(mappedBy = "siteOwner")
+    private List<Site> site;
 
 
     public Long getUserId() {
@@ -60,7 +64,6 @@ public class User {
     public String getPassword() {
         return password;
     }
-
 
     public void setPassword(String password) {
         this.password = password;
