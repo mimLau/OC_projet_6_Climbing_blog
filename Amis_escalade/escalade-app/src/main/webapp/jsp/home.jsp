@@ -14,6 +14,5 @@
 </head>
 <body>
     <jsp:include page="/templates/header.jsp"/>
-    <!--<p>Helllllo ${sessionScope.user.username}</p>-->
 </body>
 </DOCTYPE>

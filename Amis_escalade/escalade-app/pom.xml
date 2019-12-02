@@ -106,5 +106,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
+
   </build>
 </project>
