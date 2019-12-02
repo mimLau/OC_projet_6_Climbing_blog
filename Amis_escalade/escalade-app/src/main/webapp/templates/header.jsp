@@ -33,7 +33,7 @@
             </div>
             <div class="navbar-text" style="float: right">
                 <c:if test="${sessionScope.user.username != null}">
-                    <a href="#" tabindex="-1" aria-disabled="true">Se déconnecter</a>
+                    <a href="logout" tabindex="-1" aria-disabled="true">Se déconnecter</a>
                 </c:if>
             </div>
         </div>
