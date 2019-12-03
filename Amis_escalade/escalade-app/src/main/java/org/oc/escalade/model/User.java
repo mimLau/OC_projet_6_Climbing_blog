@@ -1,5 +1,7 @@
 package org.oc.escalade.model;
 
+import org.oc.escalade.utils.Role;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,6 +18,9 @@ public class User {
     private String email;
     private String password;
     private int nbOfConnections;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "siteOwner")
     private List<Site> sites;
@@ -75,5 +80,21 @@ public class User {
 
     public void setNbOfConnections(int nbOfConnections) {
         this.nbOfConnections = nbOfConnections;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<Site> getSites() {
+        return sites;
+    }
+
+    public void setSites(List<Site> sites) {
+        this.sites = sites;
     }
 }
