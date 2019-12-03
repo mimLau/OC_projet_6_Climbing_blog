@@ -25,9 +25,11 @@
         <div class="form-group">
             <label for="password">Mot de passe</label>
             <input type="password" class="form-control" id="password" name="password" value="">
-            <span class="errors">${form.errors['password']}</span>
         </div>
-            <button type="submit" class="btn btn-primary">Se connecter</button>
+        <div>
+        <span class="errors">${form.errors['authMess']}</span>
+        </div>
+        <button type="submit" class="btn btn-primary">Se connecter</button>
     </form>
 
     <a href="register">S'enregistrer</a>

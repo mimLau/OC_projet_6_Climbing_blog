@@ -7,7 +7,6 @@ import org.oc.escalade.utils.HashGenerator;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
-import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,8 +30,6 @@ public final class LoginForm {
         boolean authenticationOk = false;
         user = retrieveUserByIdentifier(identifier);
         authenticationOk = authentication(user, passsword);
-
-
 
         if( authenticationOk == false ) {
             setError(AUTH_MESS, "Combinaison identifiant/mot de passe invalide.");
