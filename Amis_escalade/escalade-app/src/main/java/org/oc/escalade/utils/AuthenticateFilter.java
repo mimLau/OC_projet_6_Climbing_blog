@@ -21,15 +21,14 @@ public class AuthenticateFilter implements Filter {
         User user = (User) HttpReq.getSession().getAttribute("user");
         String username = user.getUsername();
 
-
         if (username != null && username != "") {
 
-            System.out.println("Bienvenue " + user + "!");
+            System.out.println("Bienvenue " + username + "!");
             chain.doFilter(req, resp);
         } else {
 
             System.out.println("Vous n'êtes pas authentifié!");
-            RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
+            RequestDispatcher rd = req.getRequestDispatcher("/home.jsp");
             rd.forward(req, resp);
         }
     }

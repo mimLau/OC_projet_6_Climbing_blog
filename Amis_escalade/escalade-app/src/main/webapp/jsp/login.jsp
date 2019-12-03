@@ -12,6 +12,7 @@
 <head>
     <meta charset="utf-8">
     <title>Se connecter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link type="text/css" rel="stylesheet" href="./css/form.css">
 </head>
 <body>
