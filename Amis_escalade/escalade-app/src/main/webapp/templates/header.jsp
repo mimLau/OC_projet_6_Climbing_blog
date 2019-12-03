@@ -39,7 +39,7 @@
         </div>
         <div class="navbar-text" style="float: right">
             <c:if test="${sessionScope.user.username == null}">
-                <a href="login" tabindex="-1" aria-disabled="true">Se connecter</a>
+                <a href="${pageContext.request.contextPath}/login" tabindex="-1" aria-disabled="true">Se connecter</a>
             </c:if>
         </div>
 
