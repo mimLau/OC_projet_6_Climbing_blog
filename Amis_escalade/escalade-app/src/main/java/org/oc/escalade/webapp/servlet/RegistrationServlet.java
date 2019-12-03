@@ -1,37 +1,42 @@
-package org.oc.escalade.webapp;
+package org.oc.escalade.webapp.servlet;
 
-import org.oc.escalade.business.LoginForm;
 import org.oc.escalade.business.RegistrationForm;
 import org.oc.escalade.model.User;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.PanelUI;
 import java.io.IOException;
 
-@WebServlet(name = "LoginServlet", urlPatterns = "/login")
-public class LoginServlet extends HttpServlet {
-    public static final String LOGIN_VIEW = "/jsp/login.jsp";
+@WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
+public class RegistrationServlet extends HttpServlet {
+    public static final String REGISTRATION_VIEW = "/jsp/registration.jsp";
     public static final String HOME_PAGE = "/home";
     public static final String USER_ATT = "user";
     public static final String FORM_ATT = "form";
 
+
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        LoginForm form = new LoginForm();
-        User user = form.logUser(req);
+        RegistrationForm form = new RegistrationForm();
+        User user = form.registerUser(req);
+
+        req.setAttribute(FORM_ATT, form);
+        req.setAttribute(USER_ATT, user);
 
         if( form.getErrors().isEmpty() ) {
             req.getSession().setAttribute("user", user);
+            //this.getServletContext().getRequestDispatcher( HOME_VIEW ).forward( req, res );
             res.sendRedirect(req.getContextPath() + HOME_PAGE );
         } else {
-            req.setAttribute( FORM_ATT, form );
-            this.getServletContext().getRequestDispatcher( LOGIN_VIEW ).forward( req, res );
+            this.getServletContext().getRequestDispatcher( REGISTRATION_VIEW ).forward( req, res );
         }
     }
 
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher( LOGIN_VIEW ).forward( req,res );
+    this.getServletContext().getRequestDispatcher( REGISTRATION_VIEW ).forward( req, res );
     }
 }

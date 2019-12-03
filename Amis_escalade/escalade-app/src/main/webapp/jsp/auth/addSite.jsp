@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/bootstrap.css">
 </head>
 <body>
+      <jsp:include page="/templates/header.jsp"/>
       <form method="post" action="auth/addSite">
           <div class="form-group">
               <label for="siteName">Nom du site</label>
