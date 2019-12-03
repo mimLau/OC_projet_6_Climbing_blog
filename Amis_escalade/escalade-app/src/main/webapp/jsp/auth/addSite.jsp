@@ -15,21 +15,27 @@
 </head>
 <body>
       <form method="post" action="auth/addSite">
+          <div class="form-group">
+              <label for="siteName">Nom du site</label>
+              <input type="text" class="form-control" id="siteName">
+          </div>
             <div class="form-group">
-                <input class="form-control form-control-lg" type="text" placeholder="Nom du site">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Place</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <label for="selectPlace">Lieu</label>
+                <select class="form-control" id="selectPlace">
+                    <optgroup label="France">
+                        <option value="Alsace-Moselle">Alsace-Moselle</option>
+                        <option value="Vosges">Vosges</option>
+                    </optgroup>
+                    <optgroup label="Suisse">
+                        <option value="Jura">Jura</option>
+                    </optgroup>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
+
+
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
