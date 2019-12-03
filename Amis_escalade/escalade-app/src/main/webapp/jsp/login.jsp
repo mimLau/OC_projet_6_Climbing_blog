@@ -7,8 +7,6 @@
 --%>
 <!DOCTYPE html>
 <html>
-<!DOCTYPE html>
-<html>
 <head>
     <meta charset="utf-8">
     <title>Se connecter</title>
@@ -16,6 +14,7 @@
     <link rel="stylesheet" href="./css/bootstrap.css">
 </head>
 <body>
+    <jsp:include page="/templates/header.jsp"/>
     <form method="post" action="login">
         <div class="form-group">
             <label for="identifier">Adresse e-mail ou nom d'utilisateur</label>
