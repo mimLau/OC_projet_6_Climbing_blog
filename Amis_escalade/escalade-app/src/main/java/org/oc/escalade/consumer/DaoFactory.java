@@ -1,7 +1,7 @@
 package org.oc.escalade.consumer;
 
+import org.oc.escalade.consumer.impl.jpa.JpaPlaceDao;
 import org.oc.escalade.consumer.impl.jpa.JpaUserDao;
-import org.oc.escalade.model.User;
 import org.oc.escalade.utils.PersistenceManager;
 
 public class DaoFactory {
@@ -12,4 +12,9 @@ public class DaoFactory {
         return new JpaUserDao(
             PersistenceManager.getEntityManagerFactory());
         }
+    public static PlaceDao getPlaceDao() {
+
+        return new JpaPlaceDao(
+                PersistenceManager.getEntityManagerFactory());
+    }
 }
