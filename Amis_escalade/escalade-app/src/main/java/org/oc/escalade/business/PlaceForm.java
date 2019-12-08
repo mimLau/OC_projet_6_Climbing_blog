@@ -15,6 +15,9 @@ public final class PlaceForm {
     private Map<String, String> errors = new HashMap<String, String>();
 
     private PlaceDao placeDao = DaoFactory.getPlaceDao();
+    public Map<String, String> getErrors() {
+        return errors;
+    }
 
     public Place addPlace(HttpServletRequest req) {
         String country = getFieldValue(req, COUNTRY_FIELD );
@@ -22,17 +25,18 @@ public final class PlaceForm {
 
         Place place = new Place();
         countryValidation(country);
-        place.setCountry(country);
         regionValidation(region);
-        place.setRegion(region);
-
-        System.out.println("Country: " + place.getCountry());
 
         if(errors.isEmpty()) {
-            placeDao.addPlace(place);
+            if( regionCountryValidation( country, region) == false ){
+                place.setCountry(country);
+                place.setRegion(region);
+                placeDao.addPlace(place);
+                System.out.println("Le lieu a bien été rajouté.");
+            } else {
+                System.out.println("Le lieu existe déjà.");
+            }
         }
-
-
         return place;
     }
 
@@ -49,6 +53,13 @@ public final class PlaceForm {
     private void regionValidation(String region) {
         if ( region.isEmpty())
             setError(region, "Saisissez une région.");
+    }
+
+    private boolean regionCountryValidation( String country, String region ) {
+        boolean placeExits = false;
+        Place place = placeDao.findPlaceByCountryAndRegion( country, region );
+        if( place != null ) placeExits = true;
+        return placeExits;
     }
 
     private void setError( String field, String message ) {
