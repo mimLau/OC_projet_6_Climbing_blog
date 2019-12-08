@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
-    public static final String LOGIN_VIEW = "/jsp/login.jsp";
+    public static final String LOGIN_VIEW = "/WEB-INF/jsp/login.jsp";
     public static final String HOME_PAGE = "/home";
     public static final String USER_ATT = "user";
     public static final String FORM_ATT = "form";
