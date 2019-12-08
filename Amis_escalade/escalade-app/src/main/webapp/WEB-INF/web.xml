@@ -5,13 +5,17 @@
          id="WebApp_ID" version="2.5">
 
   <welcome-file-list>
-    <welcome-file>/jsp/home.jsp</welcome-file>
+    <welcome-file>/WEB-INF/jsp/home.jsp</welcome-file>
   </welcome-file-list>
 
   <jsp-config>
     <jsp-property-group>
       <url-pattern>*.jsp</url-pattern>
       <include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
+    </jsp-property-group>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <page-encoding>UTF-8</page-encoding>
     </jsp-property-group>
   </jsp-config>
 </web-app>
