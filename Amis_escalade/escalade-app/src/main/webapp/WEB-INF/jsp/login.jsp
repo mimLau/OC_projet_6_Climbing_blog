@@ -11,12 +11,12 @@
     <meta charset="utf-8">
     <title>Se connecter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="./css/bootstrap.css">
-    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
 </head>
 <body>
-    <jsp:include page="/templates/header.jsp"/>
-    <form method="post" action="login">
+    <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
+    <form method="post" action="${pageContext.request.contextPath}/login">
         <div class="form-group">
             <label for="identifier">Adresse e-mail ou nom d'utilisateur</label>
             <input type="text" class="form-control" id="identifier" name="identifier" value="">
@@ -32,7 +32,7 @@
         <button type="submit" class="btn btn-primary">Se connecter</button>
     </form>
 
-    <a href="register">S'enregistrer</a>
+    <a href="${pageContext.request.contextPath}/register">S'enregistrer</a>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
