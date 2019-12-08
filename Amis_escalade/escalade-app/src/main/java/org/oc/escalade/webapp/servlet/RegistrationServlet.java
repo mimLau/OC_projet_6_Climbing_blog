@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
 public class RegistrationServlet extends HttpServlet {
-    public static final String REGISTRATION_VIEW = "/jsp/registration.jsp";
+    public static final String REGISTRATION_VIEW = "/WEB-INF/jsp/registration.jsp";
     public static final String HOME_PAGE = "/home";
     public static final String USER_ATT = "user";
     public static final String FORM_ATT = "form";
