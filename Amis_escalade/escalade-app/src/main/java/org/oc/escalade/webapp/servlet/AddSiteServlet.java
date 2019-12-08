@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @WebServlet(name = "AddSiteServlet", urlPatterns = "/auth/addSite")
 public class AddSiteServlet extends HttpServlet {
-    public static final String  ADD_SITE_VIEW = "/jsp/auth/addSite.jsp";
+    public static final String  ADD_SITE_VIEW = "/WEB-INF/jsp/auth/addSite.jsp";
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
 
