@@ -1,4 +1,4 @@
-package org.oc.escalade.utils;
+package org.oc.escalade.model;
 
 public enum Role {
 
