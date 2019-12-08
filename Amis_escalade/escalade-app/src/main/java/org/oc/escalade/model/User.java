@@ -1,7 +1,5 @@
 package org.oc.escalade.model;
 
-import org.oc.escalade.utils.Role;
-
 import javax.persistence.*;
 import java.util.List;
 
