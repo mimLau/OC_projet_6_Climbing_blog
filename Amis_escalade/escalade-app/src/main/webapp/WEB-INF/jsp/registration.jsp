@@ -11,12 +11,12 @@
     <meta charset="utf-8">
     <title>S'enregistrer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="./css/bootstrap.css">
-    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
 </head>
 <body>
-    <jsp:include page="/templates/header.jsp"/>
-    <form method="post" action="register">
+    <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
+    <form method="post" action="${pageContext.request.contextPath}/register">
         <div class="form-group">
             <label for="username">Nom d'utilisateur</label>
             <input type="text" class="form-control" id="username" name="username" value="<c:out value="${user.username}"/>">
