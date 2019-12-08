@@ -1,5 +1,6 @@
 package org.oc.escalade.webapp.filter;
 
+import org.oc.escalade.model.Role;
 import org.oc.escalade.model.User;
 
 import javax.servlet.*;
@@ -10,12 +11,13 @@ import java.io.IOException;
 
 @WebFilter("/admin/*")
 public class AdminAuthenticateFilter implements Filter {
-    public void init(FilterConfig config) throws ServletException {
+    @Override
+    public void init(FilterConfig fConfig) throws ServletException {
 
     }
 
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {
-        chain.doFilter(req, res);
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+            throws ServletException, IOException {
 
         HttpServletRequest HttpReq = (HttpServletRequest) req;
         HttpServletResponse HttpRes = (HttpServletResponse) res;
@@ -23,21 +25,21 @@ public class AdminAuthenticateFilter implements Filter {
         User user = (User) HttpReq.getSession().getAttribute("user");
         final String HOME_PAGE = "/home";
 
-        if (user != null) {
+
+        if (user != null ) {
             String username = user.getUsername();
-            if (user != null && username != "") {
-                if (user.getRole().equals("admin")) {
+            if ( username != "" ) {
+                if (user.getRole().equals(Role.ADMIN)) {
                     System.out.println("Bienvenue " + username + "!");
                     chain.doFilter(req, res);
                 } else {
                     System.out.println("Vous n'avez pas les droits d'accès pour cette page!");
                     HttpRes.sendRedirect(HttpReq.getContextPath() + HOME_PAGE);
                 }
-            } else {
+            }
+        } else {
                 System.out.println("Vous n'êtes pas authentifié!");
                 HttpRes.sendRedirect(HttpReq.getContextPath() + HOME_PAGE);
-            }
         }
-
     }
 }
