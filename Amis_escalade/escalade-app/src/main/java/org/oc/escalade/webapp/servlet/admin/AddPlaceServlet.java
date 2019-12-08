@@ -20,10 +20,9 @@ public class AddPlaceServlet extends HttpServlet {
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
         PlaceForm form = new PlaceForm();
         Place place = form.addPlace( req );
-
-
+        System.out.println("CountryPlace dans servlet: " + place.getCountry());
         req.setAttribute( PLACE_ATT, place );
-        req.setAttribute( FORM_ATT, form );
+        req.setAttribute( PLACE_ATT, form );
         this.getServletContext().getRequestDispatcher( ADD_PLACE_VIEW ).forward( req, res );
     }
 
