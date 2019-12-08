@@ -13,8 +13,11 @@ public final class PlaceForm {
     private static final String COUNTRY_FIELD = "country";
     private static final String REGION_FIELD = "region";
     private Map<String, String> errors = new HashMap<String, String>();
-
     private PlaceDao placeDao = DaoFactory.getPlaceDao();
+
+    public Map<String, String> getErrors() {
+        return errors;
+    }
 
     public Place addPlace(HttpServletRequest req) {
         String country = getFieldValue(req, COUNTRY_FIELD );
@@ -27,6 +30,9 @@ public final class PlaceForm {
         place.setRegion(region);
 
         System.out.println("Country: " + place.getCountry());
+        System.out.println("errors: " + errors);
+        System.out.println("errors.isEmpty(): " + errors.isEmpty());
+        System.out.println("errors.isEmpty(): " + errors.isEmpty());
 
         if(errors.isEmpty()) {
             placeDao.addPlace(place);
