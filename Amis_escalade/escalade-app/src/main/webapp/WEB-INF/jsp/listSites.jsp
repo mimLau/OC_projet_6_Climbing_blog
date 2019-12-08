@@ -18,5 +18,10 @@
         <a href="${pageContext.request.contextPath}/auth/addSite" tabindex="-1" aria-disabled="true">Ajouter un nouveau site d'escalade.</a>
     </c:if>
 
+    <p>
+        <c:forEach items="${sites}" var="site">
+            ${site.name}<br/>
+        </c:forEach>
+    </p>
 </body>
 </html>
