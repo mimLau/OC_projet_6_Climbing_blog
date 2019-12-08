@@ -11,11 +11,11 @@
     <title>Ajouter un site d'escalade</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 </head>
 <body>
-      <jsp:include page="/templates/header.jsp"/>
-      <form method="post" action="auth/addSite">
+      <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
+      <form method="post" action="${pageContext.request.contextPath}/auth/addSite">
           <div class="form-group">
               <label for="siteName">Nom du site</label>
               <input type="text" class="form-control" id="siteName">
