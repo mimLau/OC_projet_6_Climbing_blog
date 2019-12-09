@@ -1,6 +1,6 @@
 package org.oc.escalade.model;
 
-public enum Cotation {
+public enum Quotation {
 
     UN("1"),
     DEUX("2"),
@@ -27,7 +27,7 @@ public enum Cotation {
 
     private String value;
 
-    Cotation(String value) {
+    Quotation(String value) {
         this.value = value;
     }
 
