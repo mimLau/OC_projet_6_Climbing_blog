@@ -1,6 +1,7 @@
 package org.oc.escalade.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="sites")
@@ -11,6 +12,7 @@ public class Site {
     private long siteId;
     private String name;
     private String description;
+    private int nbOfSectors;
     private boolean isTagged;
 
     @ManyToOne
@@ -21,6 +23,8 @@ public class Site {
     @JoinColumn(name = "place_fk")
     private Place place;
 
+    @OneToMany(mappedBy = "site")
+    private List<Sector> sectors;
 
     public long getSiteId() {
         return siteId;
@@ -46,11 +50,51 @@ public class Site {
         this.description = description;
     }
 
+    public int getnbOfSectors() {
+        return nbOfSectors;
+    }
+
+    public void setnbOfSectors(int nbOfSectors) {
+        this.nbOfSectors = nbOfSectors;
+    }
+
     public boolean isTagged() {
         return isTagged;
     }
 
     public void setTagged(boolean tagged) {
         isTagged = tagged;
+    }
+
+    public User getSiteOwner() {
+        return siteOwner;
+    }
+
+    public void setSiteOwner(User siteOwner) {
+        this.siteOwner = siteOwner;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
+    public int getNbOfSectors() {
+        return nbOfSectors;
+    }
+
+    public void setNbOfSectors(int nbOfSectors) {
+        this.nbOfSectors = nbOfSectors;
+    }
+
+    public List<Sector> getSectors() {
+        return sectors;
+    }
+
+    public void setSectors(List<Sector> sectors) {
+        this.sectors = sectors;
     }
 }
