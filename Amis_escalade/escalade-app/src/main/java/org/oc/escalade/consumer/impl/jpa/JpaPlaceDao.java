@@ -4,6 +4,8 @@ import org.oc.escalade.consumer.PlaceDao;
 import org.oc.escalade.model.Place;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JpaPlaceDao implements PlaceDao {
     private EntityManagerFactory emf;
@@ -44,5 +46,36 @@ public class JpaPlaceDao implements PlaceDao {
         }
 
         return placeByCountryAndRegion;
+    }
+
+    @Override
+    public List<String> getAllDistinctCountries() {
+        final EntityManager em = emf.createEntityManager();
+        List <String> countries = new ArrayList<>();
+
+        try {
+            Query query = em.createQuery("SELECT DISTINCT (p.country)  FROM Place AS p");
+            countries = (List<String>) query.getResultList();
+
+        } finally {
+            em.close();
+        }
+
+        return countries;
+    }
+
+    @Override
+    public List<Place> getPlaceByCountryName(String country) {
+        final EntityManager em = emf.createEntityManager();
+        List<Place> places = new ArrayList<>();
+
+        try {
+            Query query = em.createQuery("SELECT p FROM Place AS p WHERE p.country= :country");
+            query.setParameter("country", country);
+            places = (List<Place>) query.getResultList();
+        } finally {
+            em.close();
+        }
+        return places;
     }
 }
