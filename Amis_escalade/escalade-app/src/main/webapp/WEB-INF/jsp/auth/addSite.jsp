@@ -18,21 +18,24 @@
       <form method="post" action="${pageContext.request.contextPath}/auth/addSite">
           <div class="form-group">
               <label for="siteName">Nom du site</label>
-              <input type="text" class="form-control" id="siteName">
+              <input type="text" class="form-control" id="siteName" name="name">
           </div>
             <div class="form-group">
                 <label for="selectPlace">Lieu</label>
-                <select class="form-control" id="selectPlace">
+                <select class="form-control" id="selectPlace" name="region">
                     <c:forEach items="${sites}" var="site">
                         <optgroup label="${site.key}">
                             <c:forEach items="${site.value}" var="item" varStatus="loop">
-                                <option value="${item}">${item}</option>
+                                <option  value="${item}">${item}</option>
                             </c:forEach><br>
                         </optgroup>
                     </c:forEach>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Ajouter</button>
+          <div>
+              <textarea name="description" cols="50"></textarea>
+          </div>
+          <button type="submit" name="AddSector" class="btn btn-primary">Ajouter un secteur</button>
         </form>
 
 
