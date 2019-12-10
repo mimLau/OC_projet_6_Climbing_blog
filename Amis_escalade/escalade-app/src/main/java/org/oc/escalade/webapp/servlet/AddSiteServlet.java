@@ -1,6 +1,7 @@
 package org.oc.escalade.webapp.servlet;
 
 import org.oc.escalade.business.SitesBusiness;
+import org.oc.escalade.model.Site;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,13 +19,14 @@ public class AddSiteServlet extends HttpServlet {
     public static final String SITE_ATT = "sites";
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-
+        SitesBusiness siteBu = new SitesBusiness();
+        Site site = siteBu.addSite(req);
+        this.getServletContext().getRequestDispatcher(ADD_SITE_VIEW).forward(req, res);
     }
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        SitesBusiness site = new SitesBusiness();
-        Map<String, List<String>> countriesWithRegions = site.listOfCountriesRegions();
+        SitesBusiness siteBu = new SitesBusiness();
+        Map<String, List<String>> countriesWithRegions = siteBu.listOfCountriesRegions();
         req.setAttribute(SITE_ATT, countriesWithRegions);
-        System.out.println("Taille de countriesWithRegions: " + countriesWithRegions.size());
 
         this.getServletContext().getRequestDispatcher(ADD_SITE_VIEW).forward(req, res);
     }
