@@ -78,4 +78,20 @@ public class JpaPlaceDao implements PlaceDao {
         }
         return places;
     }
+
+    @Override
+    public Place getPlaceByRegionName(String region) {
+        final EntityManager em = emf.createEntityManager();
+        Place place = new Place();
+
+        try {
+            Query query = em.createQuery("SELECT p FROM Place AS p WHERE p.region= :region");
+            query.setParameter("region", region);
+            place = (Place) query.getSingleResult();
+
+        } finally {
+            em.close();
+        }
+        return place;
+    }
 }
