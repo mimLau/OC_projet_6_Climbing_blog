@@ -8,4 +8,5 @@ import java.util.List;
 public interface SiteDao {
 
      List<Site> getAllSites();
+     Site addSite(Site site);
 }
