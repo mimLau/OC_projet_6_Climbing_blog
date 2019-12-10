@@ -17,6 +17,7 @@ public final class SitesBusiness {
     private static final String NAME_FIELD = "name";
     private static final String REGION_FIELD = "region";
     private static final String DESCRIPTION_FIELD = "description";
+    private static final String ID_PARAMETER_NAME = "id";
 
     public List<Site> getAllSites() {
          return siteDao.getAllSites();
@@ -33,42 +34,56 @@ public final class SitesBusiness {
         List<String> regions = new ArrayList<>();
         List<Place> places;
 
-        for(String country:countries) {
-            places = placeDao.getPlaceByCountryName(country);
+        for( String country:countries ) {
+            places = placeDao.getPlaceByCountryName( country );
 
-            for (Place place : places) {
-                regions.add(place.getRegion());
+            for ( Place place : places ) {
+                regions.add( place.getRegion() );
             }
 
-            List<String> regionsBis = new ArrayList<>(regions);
+            List<String> regionsBis = new ArrayList<>( regions );
             regions.clear();
-            countrysRegions.put(country, regionsBis);
+            countrysRegions.put( country, regionsBis );
         }
         return countrysRegions;
     }
 
     public Site addSite(HttpServletRequest req) {
-        String name = getFieldValue(req, NAME_FIELD );
-        String region = getFieldValue(req, REGION_FIELD );
-        String description = getFieldValue(req, DESCRIPTION_FIELD );
+        String name = getParameterValue( req, NAME_FIELD );
+        String region = getParameterValue( req, REGION_FIELD );
+        String description = getParameterValue( req, DESCRIPTION_FIELD );
 
         User user = (User) req.getSession().getAttribute("user");
-        Place place = placeDao.getPlaceByRegionName(region);
+        Place place = placeDao.getPlaceByRegionName( region );
 
         Site site = new Site();
         site.setDescription(description);
-        site.setName(name);
-        site.setPlace(place);
-        site.setSiteOwner(user);
+        site.setName( name );
+        site.setPlace( place );
+        site.setSiteOwner( user );
 
-        site = siteDao.addSite(site);
-
+        site = siteDao.addSite( site );
         return site;
     }
 
-    private static String getFieldValue(HttpServletRequest req, String field ){
-        String fieldValue = req.getParameter(field);
-        return fieldValue;
+    public Site getSiteById( HttpServletRequest req ) {
+        String idParameter = getParameterValue(req, ID_PARAMETER_NAME );
+        Site requestedSite = new Site();
+
+        if(idParameter != null) {
+            try {
+                final Long idLong = Long.parseLong( idParameter );
+                requestedSite = siteDao.findSiteById( idLong );
+            } catch( NumberFormatException nfe ) {
+                System.out.println("ERROR: l'id entré n'est pas un nombre.");
+            }
+        }
+        return requestedSite;
+    }
+
+    private static String getParameterValue( HttpServletRequest req, String param ){
+        String paramValue = req.getParameter( param );
+        return paramValue;
     }
 
 }
