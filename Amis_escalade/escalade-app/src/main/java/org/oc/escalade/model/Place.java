@@ -9,19 +9,19 @@ public class Place {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long placeId;
+    private long id;
     private String country;
     private String region;
 
     @OneToMany(mappedBy = "place")
     private List<Site> sites;
 
-    public long getPlaceId() {
-        return placeId;
+    public long getPId() {
+        return id;
     }
 
-    public void setPlaceId(long placeId) {
-        this.placeId = placeId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getCountry() {
