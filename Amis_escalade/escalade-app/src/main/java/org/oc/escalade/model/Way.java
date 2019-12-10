@@ -15,16 +15,11 @@ public class Way {
     private String name;
     private int length;
     private int nbOfLengths;
+    private String quotation;
 
     @ManyToOne
     @JoinColumn(name = "sector_fk")
     private Sector sector;
-
-    /*@Enumerated(EnumType.STRING)
-    private Quotation quotation;*/
-
-    @ElementCollection @Enumerated(EnumType.STRING)
-    private List<Quotation> quotations;
 
     public int getWayId() {
         return wayId;
@@ -58,6 +53,14 @@ public class Way {
         this.nbOfLengths = nbOfLengths;
     }
 
+    public String getQuotation() {
+        return quotation;
+    }
+
+    public void setQuotation(String quotation) {
+        this.quotation = quotation;
+    }
+
     public Sector getSector() {
         return sector;
     }
@@ -66,11 +69,4 @@ public class Way {
         this.sector = sector;
     }
 
-    public List<Quotation> getQuotations() {
-        return quotations;
-    }
-
-    public void setQuotations(List<Quotation> quotations) {
-        this.quotations = quotations;
-    }
 }
