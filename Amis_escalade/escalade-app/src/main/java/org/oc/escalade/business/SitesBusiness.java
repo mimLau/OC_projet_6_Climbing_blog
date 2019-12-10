@@ -17,15 +17,8 @@ public final class SitesBusiness {
     private static final String NAME_FIELD = "name";
     private static final String REGION_FIELD = "region";
     private static final String DESCRIPTION_FIELD = "description";
-   // private Map<String, List<String>> countrysRegions = new HashMap<String, List<String>>();
-
-    /*public Map<String, List<String>> getCountrysRegions() {
-        return countrysRegions;
-    }*/
-
 
     public List<Site> getAllSites() {
-         //List<Site> allSites = new ArrayList<>();
          return siteDao.getAllSites();
     }
 
