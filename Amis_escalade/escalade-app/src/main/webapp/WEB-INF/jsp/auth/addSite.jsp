@@ -23,9 +23,9 @@
             <div class="form-group">
                 <label for="selectPlace">Lieu</label>
                 <select class="form-control" id="selectPlace" name="region">
-                    <c:forEach items="${sites}" var="site">
-                        <optgroup label="${site.key}">
-                            <c:forEach items="${site.value}" var="item" varStatus="loop">
+                    <c:forEach items="${countryRegions}" var="countryRegion">
+                        <optgroup label="${countryRegion.key}">
+                            <c:forEach items="${countryRegion.value}" var="item" varStatus="loop">
                                 <option  value="${item}">${item}</option>
                             </c:forEach><br>
                         </optgroup>
