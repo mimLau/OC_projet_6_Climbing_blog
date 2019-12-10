@@ -9,7 +9,7 @@ public class Sector {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int sectorId;
+    private int id;
     private String name;
     private int nbOfWays;
 
@@ -21,12 +21,12 @@ public class Sector {
     private List<Way> ways;
 
 
-    public int getSectorId() {
-        return sectorId;
+    public int getId() {
+        return id;
     }
 
-    public void setSectorId(int sectorId) {
-        this.sectorId = sectorId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
