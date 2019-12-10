@@ -46,4 +46,19 @@ public class JpaSiteDao implements SiteDao {
         }
         return site;
     }
+
+    @Override
+    public Site findSiteById(long id) {
+        final EntityManager em = emf.createEntityManager();
+        Site site = new Site();
+
+        try {
+            Query query = em.createQuery("SELECT s FROM Site AS s WHERE s.id= :id");
+            query.setParameter("id", id);
+            site = (Site) query.getSingleResult();
+        } finally {
+            em.close();
+        }
+        return site;
+    }
 }
