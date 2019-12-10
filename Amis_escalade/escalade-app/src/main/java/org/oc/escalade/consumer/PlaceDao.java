@@ -10,4 +10,5 @@ public interface PlaceDao {
     Place findPlaceByCountryAndRegion(String country, String region);
     List<String> getAllDistinctCountries();
     List<Place> getPlaceByCountryName(String country);
+    Place  getPlaceByRegionName(String region);
 }
