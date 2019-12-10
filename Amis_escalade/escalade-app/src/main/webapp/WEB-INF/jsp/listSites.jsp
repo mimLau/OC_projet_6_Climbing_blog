@@ -20,7 +20,7 @@
 
     <p>
         <c:forEach items="${sites}" var="site">
-            ${site.name}<br/>
+            <a href="${pageContext.request.contextPath}/showSite?id=${site.id}" > <c:out value="${site.name}"/></a><br>
         </c:forEach>
     </p>
 </body>
