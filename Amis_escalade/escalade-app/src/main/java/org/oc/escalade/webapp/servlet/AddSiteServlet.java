@@ -17,6 +17,7 @@ import java.util.Map;
 public class AddSiteServlet extends HttpServlet {
     public static final String  ADD_SITE_VIEW = "/WEB-INF/jsp/auth/addSite.jsp";
     public static final String  ADD_SECTOR_PAGE = "/auth/addSector";
+    public static final String  LIST_SITES_VIEW = "/listSites";
     public static final String COUNTRYREGION_ATT = "countryRegions";
     public static final String SITE_ATT = "site";
 
@@ -24,7 +25,7 @@ public class AddSiteServlet extends HttpServlet {
         SitesBusiness siteBu = new SitesBusiness();
         Site site = siteBu.addSite(req);
         req.getServletContext().setAttribute(SITE_ATT, site);
-        res.sendRedirect(req.getContextPath() + ADD_SECTOR_PAGE );
+        res.sendRedirect(req.getContextPath() + LIST_SITES_VIEW );
     }
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
         SitesBusiness siteBu = new SitesBusiness();
