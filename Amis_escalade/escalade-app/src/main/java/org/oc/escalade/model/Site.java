@@ -9,7 +9,7 @@ public class Site {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long siteId;
+    private long id;
     private String name;
     private String description;
     private int nbOfSectors;
@@ -26,12 +26,12 @@ public class Site {
     @OneToMany(mappedBy = "site")
     private List<Sector> sectors;
 
-    public long getSiteId() {
-        return siteId;
+    public long getId() {
+        return id;
     }
 
-    public void setSiteId(long siteId) {
-        this.siteId = siteId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
