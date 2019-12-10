@@ -5,6 +5,7 @@ import org.oc.escalade.model.Site;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +31,19 @@ public class JpaSiteDao implements SiteDao {
         }
 
         return allSites;
+    }
+
+    @Override
+    public Site addSite(Site site) {
+        final EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+        try {
+            t.begin();
+            em.persist(site);
+            t.commit();
+        }finally {
+            if(t.isActive()) t.rollback();
+        }
+        return site;
     }
 }
