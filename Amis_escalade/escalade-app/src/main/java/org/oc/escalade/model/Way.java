@@ -11,7 +11,7 @@ public class Way {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int wayId;
+    private int id;
     private String name;
     private int length;
     private int nbOfLengths;
@@ -21,12 +21,12 @@ public class Way {
     @JoinColumn(name = "sector_fk")
     private Sector sector;
 
-    public int getWayId() {
-        return wayId;
+    public int getId() {
+        return id;
     }
 
-    public void setWayId(int wayId) {
-        this.wayId = wayId;
+    public void setId(int wayId) {
+        this.id = id;
     }
 
     public String getName() {
