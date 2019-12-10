@@ -23,13 +23,13 @@
             <div class="form-group">
                 <label for="selectPlace">Lieu</label>
                 <select class="form-control" id="selectPlace">
-                    <optgroup label="France">
-                        <option value="Alsace-Moselle">Alsace-Moselle</option>
-                        <option value="Vosges">Vosges</option>
-                    </optgroup>
-                    <optgroup label="Suisse">
-                        <option value="Jura">Jura</option>
-                    </optgroup>
+                    <c:forEach items="${sites}" var="site">
+                        <optgroup label="${site.key}">
+                            <c:forEach items="${site.value}" var="item" varStatus="loop">
+                                <option value="${item}">${item}</option>
+                            </c:forEach><br>
+                        </optgroup>
+                    </c:forEach>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Ajouter</button>
