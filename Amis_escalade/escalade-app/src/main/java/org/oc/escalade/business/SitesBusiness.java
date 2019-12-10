@@ -68,7 +68,7 @@ public final class SitesBusiness {
         site.setPlace(place);
         site.setSiteOwner(user);
 
-        siteDao.addSite(site);
+        site = siteDao.addSite(site);
 
         return site;
     }
