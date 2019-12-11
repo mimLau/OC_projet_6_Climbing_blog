@@ -23,7 +23,8 @@ public class AddSectorServlet extends HttpServlet {
         Sector sector = sectorsForm.addSector(req);
 
         req.getServletContext().setAttribute(SECTOR_ATT, sector);
-        res.sendRedirect(req.getContextPath() + ADD_WAY_PAGE );
+        //res.sendRedirect(req.getContextPath() + ADD_WAY_PAGE );
+        this.getServletContext().getRequestDispatcher(ADD_SECTOR_VIEW).forward(req, res);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
