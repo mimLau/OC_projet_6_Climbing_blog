@@ -14,9 +14,6 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-    <c:if test="${sessionScope.user.username != null}">
-        <a href="${pageContext.request.contextPath}/auth/addSite" tabindex="-1" aria-disabled="true">Ajouter un nouveau site d'escalade.</a>
-    </c:if>
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
         <a href="${pageContext.request.contextPath}/admin/addPlace">Page admin</a>
     </c:if>
