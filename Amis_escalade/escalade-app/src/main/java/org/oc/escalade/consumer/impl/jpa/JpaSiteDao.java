@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +49,13 @@ public class JpaSiteDao implements SiteDao {
     }
 
     @Override
+    @Transactional
     public Site findSiteById(long id) {
         final EntityManager em = emf.createEntityManager();
         Site site = new Site();
 
         try {
-            Query query = em.createQuery("SELECT s FROM Site AS s WHERE s.id= :id");
+            Query query = em.createQuery("SELECT s FROM Site AS s LEFT JOIN FETCH s.sectors WHERE s.id= :id");
             query.setParameter("id", id);
             site = (Site) query.getSingleResult();
         } finally {
