@@ -21,12 +21,8 @@
             <label for="sectorName">Nom du secteur</label>
             <input type="text" name="sectorName" class="form-control" id="sectorName">
         </div>
-        <div class="form-group">
-            <label for="numberWay">Nombre de voies</label>
-            <input type="number" id="numberWay" name="numberWay" class="form-control">
-        </div>
 
-        <button type="submit" name="AddWay" class="btn btn-primary">Ajouter une voie</button>
+        <button type="submit" name="AddWay" class="btn btn-primary">Ajouter le secteur</button>
     </form>
 <body>
 </html>
