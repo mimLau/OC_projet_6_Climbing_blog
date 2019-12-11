@@ -22,7 +22,7 @@ public class ShowSiteServlet extends HttpServlet {
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
         SitesBusiness sitesBusiness = new SitesBusiness();
         Site site = sitesBusiness.getSiteById( req );
-        req.setAttribute( SITE_ATT, site );
+        req.getServletContext().setAttribute( SITE_ATT, site );
 
         req.getRequestDispatcher( SHOW_SITE_VIEW ).forward( req, res );
     }
