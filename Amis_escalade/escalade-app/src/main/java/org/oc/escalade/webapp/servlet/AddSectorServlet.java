@@ -14,17 +14,18 @@ import java.io.IOException;
 @WebServlet(name = "AddSectorServlet", urlPatterns = "/auth/addSector")
 public class AddSectorServlet extends HttpServlet {
     public static final String  ADD_SECTOR_VIEW = "/WEB-INF/jsp/auth/addSector.jsp";
-    public static final String  ADD_WAY_VIEW = "/WEB-INF/jsp/auth/addWay.jsp";
-    public static final String  ADD_WAY_PAGE = "/auth/addWay";
+    public static final String  SHOW_SITE_PAGE = "/showSite?id=";
     public static final String SECTOR_ATT = "sector";
+    public static final String SITE_ATT = "site";
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         SectorsForm sectorsForm = new SectorsForm();
         Sector sector = sectorsForm.addSector(req);
 
         req.getServletContext().setAttribute(SECTOR_ATT, sector);
-        //res.sendRedirect(req.getContextPath() + ADD_WAY_PAGE );
-        this.getServletContext().getRequestDispatcher(ADD_SECTOR_VIEW).forward(req, res);
+        Site site = (Site) req.getServletContext().getAttribute(SITE_ATT);
+        res.sendRedirect(req.getContextPath() + SHOW_SITE_PAGE + site.getId());
+        //this.getServletContext().getRequestDispatcher(ADD_SECTOR_VIEW).forward(req, res);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
