@@ -13,18 +13,14 @@ public final class SectorsForm {
     private static final String  NB_WAYS_FIELD = "numberWay";
     private SectorDao sectorDao = DaoFactory.getSectorDao();
 
-    public Sector addSector(HttpServletRequest req) {
+    public Sector addSector( HttpServletRequest req ) {
         String name = getFieldValue(req, NAME_FIELD );
         String nbOfWays = getFieldValue(req, NB_WAYS_FIELD );
-
-        Site site = (Site) req.getServletContext().getAttribute("site");
-
+        Site site = ( Site ) req.getServletContext().getAttribute("site" );
         Sector sector = new Sector();
-        sector.setName(name);
-        sector.setSite(site);
-        sector.setNbOfWays(Integer.parseInt(nbOfWays));
-
-        sector = sectorDao.addSector(sector);
+        sector.setName( name );
+        sector.setSite( site );
+        sector = sectorDao.addSector( sector );
 
         return sector;
     }
