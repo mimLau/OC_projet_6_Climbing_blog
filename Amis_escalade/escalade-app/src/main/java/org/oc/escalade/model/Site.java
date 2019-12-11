@@ -23,7 +23,7 @@ public class Site {
     @JoinColumn(name = "place_fk")
     private Place place;
 
-    @OneToMany(mappedBy = "site")
+    @OneToMany(mappedBy = "site", fetch = FetchType.LAZY)
     private List<Sector> sectors;
 
     public long getId() {
