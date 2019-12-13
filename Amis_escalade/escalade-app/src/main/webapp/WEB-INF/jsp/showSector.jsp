@@ -15,5 +15,11 @@
 <body>
     <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
 
+    <div>
+        <c:if test="${sessionScope.user.username != null}">
+            <a href="${pageContext.request.contextPath}/auth/addWay">Ajouter une voie</a>
+        </c:if>
+    </div>
+
 </body>
 </html>
