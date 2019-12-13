@@ -40,7 +40,7 @@ public class JpaWayDao implements WayDao {
 
         try {
             Query query = em.createQuery("SELECT w FROM Way as w");
-            allSites = (List<Way>) query.getResultList();
+            allWays = (List<Way>) query.getResultList();
 
         } finally {
             em.close();
