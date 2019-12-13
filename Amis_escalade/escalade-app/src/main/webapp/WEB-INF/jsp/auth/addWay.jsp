@@ -15,12 +15,29 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-    <form method="post" action="${pageContext.request.contextPath}/auth/addWay">
-        <h1><c:out value="${site.name}"/></h1><br/>
-        <h2><c:out value="${sector.name}"/></h2><br/>
 
-    </form>
-    <button type="submit" name="AddSector" class="btn btn-primary">Ajouter la voie</button>
-    <button type="submit" name="AddSector" class="btn btn-primary">Ajouter un autre secteur</button>
+        <form method="post" action="${pageContext.request.contextPath}/auth/addSector">
+            <h1><c:out value="${site.name}"/></h1><br/>
+            <h2><c:out value="${sector.name}"/></h2><br/>
+
+            <div class="form-group">
+                <label for="wayName">Nom de la voie</label>
+                <input type="text" name="wayName" class="form-control" id="wayName">
+            </div>
+
+            <div class="form-group">
+                <label for="length">Longeur</label>
+                <input type="number" name="length" class="form-control" id="length">
+            </div>
+
+            <div class="form-group">
+                <label for="rating">Cotation</label>
+                <select name="rating" class="form-control" id="rating">
+                    <option value=""> -- Choisissez une cotation --  </option>
+                </select>
+            </div>
+
+            <button type="submit" name="AddWay" class="btn btn-primary">Ajouter la voie</button>
+        </form>
 </body>
 </html>
