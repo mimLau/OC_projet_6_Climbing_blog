@@ -1,9 +1,6 @@
 package org.oc.escalade.model;
 
-import org.hibernate.annotations.CollectionType;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "ways")
@@ -15,7 +12,7 @@ public class Way {
     private String name;
     private int length;
     private int nbOfLengths;
-    private String quotation;
+    private String rating;
 
     @ManyToOne
     @JoinColumn(name = "sector_fk")
@@ -53,12 +50,12 @@ public class Way {
         this.nbOfLengths = nbOfLengths;
     }
 
-    public String getQuotation() {
-        return quotation;
+    public String getRating() {
+        return rating;
     }
 
-    public void setQuotation(String quotation) {
-        this.quotation = quotation;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     public Sector getSector() {
