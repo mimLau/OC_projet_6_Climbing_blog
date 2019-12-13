@@ -32,8 +32,11 @@
 
             <div class="form-group">
                 <label for="rating">Cotation</label>
-                <select name="rating" class="form-control" id="rating">
+                <select class="form-control" id="rating" name="rating" >
                     <option value=""> -- Choisissez une cotation --  </option>
+                    <c:forEach items="${ratings}" var="rating">
+                        <option value="${rating}"> ${rating}  </option>
+                    </c:forEach>
                 </select>
             </div>
 
