@@ -1,5 +1,8 @@
 package org.oc.escalade.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Rating {
 
     UN("1"),
@@ -34,4 +37,12 @@ public enum Rating {
     public String getValue() {
         return value;
     }
-}
+
+    public static List<String> getAllRtingsValues() {
+        List<String> ratingValues = new ArrayList<>();
+        for(Rating rating : Rating.values()) {
+            ratingValues.add(rating.getValue());
+        }
+        return ratingValues;
+    }
+ }
