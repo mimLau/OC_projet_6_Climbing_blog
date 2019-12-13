@@ -22,7 +22,7 @@
             <input type="text" name="sectorName" class="form-control" id="sectorName">
         </div>
 
-        <button type="submit" name="AddWay" class="btn btn-primary">Ajouter le secteur</button>
+        <button type="submit" name="AddSector" class="btn btn-primary">Ajouter le secteur</button>
     </form>
 <body>
 </html>
