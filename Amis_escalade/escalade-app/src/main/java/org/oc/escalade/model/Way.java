@@ -8,9 +8,9 @@ public class Way {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private String name;
-    private int length;
+    private long length;
     private int nbOfLengths;
     private String rating;
 
@@ -18,7 +18,7 @@ public class Way {
     @JoinColumn(name = "sector_fk")
     private Sector sector;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -34,11 +34,11 @@ public class Way {
         this.name = name;
     }
 
-    public int getLength() {
+    public long getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(long length) {
         this.length = length;
     }
 
