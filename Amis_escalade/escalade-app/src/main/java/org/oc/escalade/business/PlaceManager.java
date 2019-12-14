@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class PlaceForm {
+public final class PlaceManager {
 
     private static final String COUNTRY_FIELD = "country";
     private static final String REGION_FIELD = "region";
