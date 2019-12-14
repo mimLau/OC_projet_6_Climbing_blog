@@ -1,6 +1,6 @@
 package org.oc.escalade.webapp.servlet;
 
-import org.oc.escalade.business.SitesBusiness;
+import org.oc.escalade.business.SitesManager;
 import org.oc.escalade.model.Site;
 
 import javax.servlet.ServletException;
@@ -20,8 +20,8 @@ public class ShowSiteServlet extends HttpServlet {
     }
 
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        SitesBusiness sitesBusiness = new SitesBusiness();
-        Site site = sitesBusiness.getSiteById( req );
+        SitesManager sitesManager = new SitesManager();
+        Site site = sitesManager.getSiteById( req );
         req.getServletContext().setAttribute( SITE_ATT, site );
 
         req.getRequestDispatcher( SHOW_SITE_VIEW ).forward( req, res );
