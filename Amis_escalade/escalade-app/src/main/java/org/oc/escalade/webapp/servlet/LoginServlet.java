@@ -1,7 +1,6 @@
 package org.oc.escalade.webapp.servlet;
 
-import org.oc.escalade.business.LoginForm;
-import org.oc.escalade.business.RegistrationForm;
+import org.oc.escalade.business.LoginManager;
 import org.oc.escalade.model.User;
 
 import javax.servlet.ServletException;
@@ -19,7 +18,7 @@ public class LoginServlet extends HttpServlet {
     public static final String FORM_ATT = "form";
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        LoginForm form = new LoginForm();
+        LoginManager form = new LoginManager();
         User user = form.logUser(req);
 
         if( form.getErrors().isEmpty() ) {
