@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class RegistrationForm  {
+public final class RegistrationManager {
 
     private static final String USERNAME_FIELD = "username";
     private static final String EMAIL_FIELD = "email";
