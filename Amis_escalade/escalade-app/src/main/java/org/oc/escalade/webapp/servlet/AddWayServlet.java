@@ -1,7 +1,6 @@
 package org.oc.escalade.webapp.servlet;
 
-import org.oc.escalade.business.WaysForm;
-import org.oc.escalade.model.Rating;
+import org.oc.escalade.business.WaysManager;
 import org.oc.escalade.model.Site;
 import org.oc.escalade.model.Way;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.file.WatchService;
 import java.util.List;
 
 @WebServlet(name = "AddWayServlet", urlPatterns = "/auth/addWay")
@@ -23,7 +21,7 @@ public class AddWayServlet extends HttpServlet {
     public static final String WAY_ATT = "way";
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        WaysForm form = new WaysForm();
+        WaysManager form = new WaysManager();
         Way way = form.addWay(req);
         //req.getServletContext().setAttribute(WAY_ATT, way);
         Site site = (Site) req.getServletContext().getAttribute(SITE_ATT);
@@ -31,7 +29,7 @@ public class AddWayServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        WaysForm form = new WaysForm();
+        WaysManager form = new WaysManager();
         List<String> ratingValues = form.getAllRatings();
         req.getServletContext().setAttribute(RATINGS_ATT, ratingValues);
         this.getServletContext().getRequestDispatcher(ADD_WAY_VIEW).forward(req, res);
