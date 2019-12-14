@@ -8,7 +8,7 @@ import org.oc.escalade.model.Site;
 
 import javax.servlet.http.HttpServletRequest;
 
-public final class SectorsForm {
+public final class SectorsManager {
     private static final String NAME_FIELD = "sectorName";
     private static final String  NB_WAYS_FIELD = "numberWay";
     private SectorDao sectorDao = DaoFactory.getSectorDao();
