@@ -1,6 +1,6 @@
 package org.oc.escalade.webapp.servlet;
 
-import org.oc.escalade.business.SectorsForm;
+import org.oc.escalade.business.SectorsManager;
 import org.oc.escalade.model.Sector;
 import org.oc.escalade.model.Site;
 
@@ -19,8 +19,8 @@ public class AddSectorServlet extends HttpServlet {
     public static final String SITE_ATT = "site";
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        SectorsForm sectorsForm = new SectorsForm();
-        Sector sector = sectorsForm.addSector(req);
+        SectorsManager sectorsManager = new SectorsManager();
+        Sector sector = sectorsManager.addSector(req);
 
         req.getServletContext().setAttribute(SECTOR_ATT, sector);
         Site site = (Site) req.getServletContext().getAttribute(SITE_ATT);
