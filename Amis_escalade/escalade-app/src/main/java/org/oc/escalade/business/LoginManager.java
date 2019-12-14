@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class LoginForm {
+public final class LoginManager {
 
     private static final String IDENTIFIER_FIELD = "identifier";
     private static final String PASS_FIELD = "password";
