@@ -8,7 +8,7 @@ import org.oc.escalade.model.Way;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public final class WaysForm {
+public final class WaysManager {
 
     private static String WAY_NAME_FIELD = "wayName";
     private static String RATING_FIELD = "rating";
