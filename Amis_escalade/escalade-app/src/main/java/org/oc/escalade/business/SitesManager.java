@@ -10,7 +10,7 @@ import org.oc.escalade.model.User;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-public final class SitesBusiness {
+public final class SitesManager {
 
     private SiteDao siteDao = DaoFactory.getSiteDao();
     private PlaceDao placeDao = DaoFactory.getPlaceDao();
