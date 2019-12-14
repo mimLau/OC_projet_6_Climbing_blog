@@ -1,6 +1,6 @@
 package org.oc.escalade.webapp.servlet;
 
-import org.oc.escalade.business.SitesBusiness;
+import org.oc.escalade.business.SitesManager;
 import org.oc.escalade.model.Site;
 
 import javax.servlet.ServletException;
@@ -22,13 +22,13 @@ public class AddSiteServlet extends HttpServlet {
     public static final String SITE_ATT = "site";
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        SitesBusiness siteBu = new SitesBusiness();
+        SitesManager siteBu = new SitesManager();
         Site site = siteBu.addSite(req);
         req.getServletContext().setAttribute(SITE_ATT, site);
         res.sendRedirect(req.getContextPath() + LIST_SITES_VIEW );
     }
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        SitesBusiness siteBu = new SitesBusiness();
+        SitesManager siteBu = new SitesManager();
         Map<String, List<String>> countriesWithRegions = siteBu.listOfCountriesRegions();
         req.setAttribute(COUNTRYREGION_ATT, countriesWithRegions);
 
