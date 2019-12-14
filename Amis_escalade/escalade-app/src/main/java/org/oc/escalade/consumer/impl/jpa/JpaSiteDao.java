@@ -55,7 +55,7 @@ public class JpaSiteDao implements SiteDao {
         Site site = new Site();
 
         try {
-            Query query = em.createQuery("SELECT s FROM Site AS s LEFT JOIN FETCH s.sectors WHERE s.id= :id");
+            Query query = em.createQuery("SELECT s FROM Site AS s LEFT JOIN FETCH s.sectors WHERE s.id= :id ");
             query.setParameter("id", id);
             site = (Site) query.getSingleResult();
         } finally {
