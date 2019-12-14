@@ -1,6 +1,6 @@
 package org.oc.escalade.webapp.servlet.admin;
 
-import org.oc.escalade.business.PlaceForm;
+import org.oc.escalade.business.PlaceManager;
 import org.oc.escalade.model.Place;
 
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ public class AddPlaceServlet extends HttpServlet {
 
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        PlaceForm form = new PlaceForm();
+        PlaceManager form = new PlaceManager();
         Place place = form.addPlace( req );
         req.setAttribute( PLACE_ATT, place );
         req.setAttribute( FORM_ATT, form );
