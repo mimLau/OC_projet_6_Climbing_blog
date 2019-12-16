@@ -1,11 +1,11 @@
 package org.oc.escalade.business;
 
-import org.oc.escalade.consumer.DaoFactory;
-import org.oc.escalade.consumer.PlaceDao;
-import org.oc.escalade.consumer.SiteDao;
-import org.oc.escalade.model.Place;
-import org.oc.escalade.model.Site;
-import org.oc.escalade.model.User;
+import org.oc.escalade.consumers.DaoFactory;
+import org.oc.escalade.consumers.PlaceDao;
+import org.oc.escalade.consumers.SiteDao;
+import org.oc.escalade.models.Place;
+import org.oc.escalade.models.Site;
+import org.oc.escalade.models.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
