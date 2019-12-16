@@ -1,7 +1,7 @@
-package org.oc.escalade.webapp.servlet.admin;
+package org.oc.escalade.controlers.servlets.admin;
 
 import org.oc.escalade.business.PlaceManager;
-import org.oc.escalade.model.Place;
+import org.oc.escalade.models.Place;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
