@@ -1,4 +1,4 @@
-package org.oc.escalade.controlers.filters;
+package org.oc.escalade.controllers.filters;
 
 import org.oc.escalade.models.User;
 
