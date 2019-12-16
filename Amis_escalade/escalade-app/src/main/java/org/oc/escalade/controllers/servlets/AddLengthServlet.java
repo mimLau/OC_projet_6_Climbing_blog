@@ -1,4 +1,4 @@
-package org.oc.escalade.controlers.servlets;
+package org.oc.escalade.controllers.servlets;
 
 import org.oc.escalade.business.LengthManager;
 import org.oc.escalade.models.Length;
