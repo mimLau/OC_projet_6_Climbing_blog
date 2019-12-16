@@ -14,9 +14,5 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-    <c:if test="${sessionScope.user.role == 'ADMIN'}">
-        <a href="${pageContext.request.contextPath}/admin/addPlace">Page admin</a>
-    </c:if>
-
 </body>
 </DOCTYPE>
