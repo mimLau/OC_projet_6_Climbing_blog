@@ -1,7 +1,7 @@
-package org.oc.escalade.consumer.impl.jpa;
+package org.oc.escalade.consumers.impl.jpa;
 
-import org.oc.escalade.consumer.PlaceDao;
-import org.oc.escalade.model.Place;
+import org.oc.escalade.consumers.PlaceDao;
+import org.oc.escalade.models.Place;
 
 import javax.persistence.*;
 import java.util.ArrayList;
