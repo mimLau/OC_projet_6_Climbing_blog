@@ -1,4 +1,4 @@
-package org.oc.escalade.webapp.servlet;
+package org.oc.escalade.controllers.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
