@@ -1,8 +1,8 @@
 package org.oc.escalade.business;
 
-import org.oc.escalade.consumer.DaoFactory;
-import org.oc.escalade.consumer.UserDao;
-import org.oc.escalade.model.User;
+import org.oc.escalade.consumers.DaoFactory;
+import org.oc.escalade.consumers.UserDao;
+import org.oc.escalade.models.User;
 import org.oc.escalade.utils.HashGenerator;
 
 import javax.servlet.http.HttpServletRequest;
