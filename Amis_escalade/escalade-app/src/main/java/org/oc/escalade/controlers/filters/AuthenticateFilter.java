@@ -1,6 +1,6 @@
-package org.oc.escalade.webapp.filter;
+package org.oc.escalade.controlers.filters;
 
-import org.oc.escalade.model.User;
+import org.oc.escalade.models.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
