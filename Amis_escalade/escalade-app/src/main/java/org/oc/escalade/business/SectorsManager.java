@@ -1,21 +1,22 @@
 package org.oc.escalade.business;
 
 
-import org.oc.escalade.consumer.DaoFactory;
-import org.oc.escalade.consumer.SectorDao;
-import org.oc.escalade.model.Sector;
-import org.oc.escalade.model.Site;
+import org.oc.escalade.consumers.DaoFactory;
+import org.oc.escalade.consumers.SectorDao;
+import org.oc.escalade.models.Sector;
+import org.oc.escalade.models.Site;
 
 import javax.servlet.http.HttpServletRequest;
 
 public final class SectorsManager {
     private static final String NAME_FIELD = "sectorName";
     private static final String  NB_WAYS_FIELD = "numberWay";
+    private static final String ID_PARAM_NAME = "id";
     private SectorDao sectorDao = DaoFactory.getSectorDao();
 
     public Sector addSector( HttpServletRequest req ) {
-        String name = getFieldValue(req, NAME_FIELD );
-        String nbOfWays = getFieldValue(req, NB_WAYS_FIELD );
+        String name = getParameterValue(req, NAME_FIELD );
+        String nbOfWays = getParameterValue(req, NB_WAYS_FIELD );
         Site site = ( Site ) req.getServletContext().getAttribute("site" );
         Sector sector = new Sector();
         sector.setName( name );
@@ -25,8 +26,23 @@ public final class SectorsManager {
         return sector;
     }
 
-    private static String getFieldValue(HttpServletRequest req, String field ){
-        String fieldValue = req.getParameter(field);
-        return fieldValue;
+    public Sector getSectorById ( HttpServletRequest req ) {
+        String idParameter = getParameterValue(req, ID_PARAM_NAME);
+        Sector requestedSector = new Sector();
+
+        if(idParameter != null) {
+            try {
+                final Long idLong = Long.parseLong( idParameter );
+                requestedSector = sectorDao.findSectorById( idLong );
+            } catch( NumberFormatException nfe ) {
+                System.out.println("ERROR: l'id entré n'est pas un nombre.");
+            }
+        }
+        return requestedSector;
+    }
+
+    private static String getParameterValue( HttpServletRequest req, String param ){
+        String paramValue = req.getParameter( param );
+        return paramValue;
     }
 }
