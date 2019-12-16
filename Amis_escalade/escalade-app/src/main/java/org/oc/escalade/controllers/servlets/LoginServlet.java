@@ -1,7 +1,7 @@
-package org.oc.escalade.webapp.servlet;
+package org.oc.escalade.controllers.servlets;
 
 import org.oc.escalade.business.LoginManager;
-import org.oc.escalade.model.User;
+import org.oc.escalade.models.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
