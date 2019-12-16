@@ -1,7 +1,7 @@
-package org.oc.escalade.consumer.impl.jpa;
+package org.oc.escalade.consumers.impl.jpa;
 
-import org.oc.escalade.consumer.SiteDao;
-import org.oc.escalade.model.Site;
+import org.oc.escalade.consumers.SiteDao;
+import org.oc.escalade.models.Site;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
