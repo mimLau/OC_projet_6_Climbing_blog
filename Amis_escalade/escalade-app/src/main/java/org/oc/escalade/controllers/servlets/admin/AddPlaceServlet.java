@@ -1,4 +1,4 @@
-package org.oc.escalade.controlers.servlets.admin;
+package org.oc.escalade.controllers.servlets.admin;
 
 import org.oc.escalade.business.PlaceManager;
 import org.oc.escalade.models.Place;
