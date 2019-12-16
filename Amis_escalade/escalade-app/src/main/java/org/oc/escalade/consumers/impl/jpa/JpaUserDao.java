@@ -1,7 +1,7 @@
-package org.oc.escalade.consumer.impl.jpa;
+package org.oc.escalade.consumers.impl.jpa;
 
-import org.oc.escalade.consumer.UserDao;
-import org.oc.escalade.model.User;
+import org.oc.escalade.consumers.UserDao;
+import org.oc.escalade.models.User;
 
 import javax.persistence.*;
 
