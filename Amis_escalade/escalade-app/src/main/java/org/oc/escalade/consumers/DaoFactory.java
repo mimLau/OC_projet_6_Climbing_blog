@@ -1,6 +1,6 @@
-package org.oc.escalade.consumer;
+package org.oc.escalade.consumers;
 
-import org.oc.escalade.consumer.impl.jpa.*;
+import org.oc.escalade.consumers.impl.jpa.*;
 import org.oc.escalade.utils.PersistenceManager;
 
 public class DaoFactory {
@@ -31,4 +31,10 @@ public class DaoFactory {
         return new JpaWayDao(
                 PersistenceManager.getEntityManagerFactory());
     }
+
+    public static LengthDao getLengthDao() {
+        return new JpaLengthDao(
+                PersistenceManager.getEntityManagerFactory());
+    }
+
 }
