@@ -1,8 +1,8 @@
-package org.oc.escalade.webapp.servlet;
+package org.oc.escalade.controlers.servlets;
 
 import org.oc.escalade.business.SectorsManager;
-import org.oc.escalade.model.Sector;
-import org.oc.escalade.model.Site;
+import org.oc.escalade.models.Sector;
+import org.oc.escalade.models.Site;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
