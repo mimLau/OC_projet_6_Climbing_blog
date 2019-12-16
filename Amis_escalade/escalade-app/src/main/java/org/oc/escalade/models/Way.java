@@ -1,6 +1,7 @@
-package org.oc.escalade.model;
+package org.oc.escalade.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ways")
@@ -18,11 +19,15 @@ public class Way {
     @JoinColumn(name = "sector_fk")
     private Sector sector;
 
+
+    @OneToMany(mappedBy = "way")
+    private List<Length> lengths;
+
     public Long getId() {
         return id;
     }
 
-    public void setId(int wayId) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,4 +71,11 @@ public class Way {
         this.sector = sector;
     }
 
+    public List<Length> getLengths() {
+        return lengths;
+    }
+
+    public void setLengths(List<Length> lengths) {
+        this.lengths = lengths;
+    }
 }
