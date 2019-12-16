@@ -1,7 +1,7 @@
-package org.oc.escalade.webapp.servlet;
+package org.oc.escalade.controllers.servlets;
 
 import org.oc.escalade.business.SitesManager;
-import org.oc.escalade.model.Site;
+import org.oc.escalade.models.Site;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +17,6 @@ public class ListSitesServlet extends HttpServlet {
     public static final String SITES_ATT = "sites";
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-
     }
 
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
