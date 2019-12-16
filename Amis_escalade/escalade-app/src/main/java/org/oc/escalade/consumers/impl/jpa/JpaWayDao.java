@@ -1,7 +1,7 @@
-package org.oc.escalade.consumer.impl.jpa;
+package org.oc.escalade.consumers.impl.jpa;
 
-import org.oc.escalade.consumer.WayDao;
-import org.oc.escalade.model.Way;
+import org.oc.escalade.consumers.WayDao;
+import org.oc.escalade.models.Way;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,6 +47,21 @@ public class JpaWayDao implements WayDao {
         }
 
         return allWays;
+    }
+
+    @Override
+    public Way findWayById( Long id ) {
+        final EntityManager em = emf.createEntityManager();
+        Way way = new Way();
+
+        try {
+            Query query = em.createQuery("SELECT w FROM Way AS w LEFT JOIN FETCH w.lengths WHERE w.id= :id ");
+            query.setParameter("id", id);
+            way = ( Way) query.getSingleResult();
+        } finally {
+            em.close();
+        }
+        return way;
     }
 
 }
