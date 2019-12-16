@@ -1,4 +1,4 @@
-package org.oc.escalade.model;
+package org.oc.escalade.models;
 
 import java.util.ArrayList;
 import java.util.List;
