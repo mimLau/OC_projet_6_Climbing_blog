@@ -1,8 +1,7 @@
-package org.oc.escalade.consumer;
+package org.oc.escalade.consumers;
 
-import org.oc.escalade.model.Site;
+import org.oc.escalade.models.Site;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface SiteDao {
