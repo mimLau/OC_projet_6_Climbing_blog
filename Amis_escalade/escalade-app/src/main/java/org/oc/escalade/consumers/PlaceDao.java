@@ -1,6 +1,6 @@
-package org.oc.escalade.consumer;
+package org.oc.escalade.consumers;
 
-import org.oc.escalade.model.Place;
+import org.oc.escalade.models.Place;
 
 import java.util.List;
 
