@@ -1,6 +1,6 @@
-package org.oc.escalade.consumer;
+package org.oc.escalade.consumers;
 
-import org.oc.escalade.model.User;
+import org.oc.escalade.models.User;
 
 public interface UserDao {
 
