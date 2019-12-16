@@ -1,9 +1,9 @@
 package org.oc.escalade.business;
 
-import org.oc.escalade.consumer.DaoFactory;
-import org.oc.escalade.consumer.WayDao;
-import org.oc.escalade.model.Rating;
-import org.oc.escalade.model.Way;
+import org.oc.escalade.consumers.DaoFactory;
+import org.oc.escalade.consumers.WayDao;
+import org.oc.escalade.models.Rating;
+import org.oc.escalade.models.Way;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -13,6 +13,7 @@ public final class WaysManager {
     private static String WAY_NAME_FIELD = "wayName";
     private static String RATING_FIELD = "rating";
     private static String  LENGTH_FIELD = "length";
+    private static final String ID_PARAM_NAME = "id";
     private WayDao wayDao = DaoFactory.getWayDao();
 
     public Way addWay( HttpServletRequest req ) {
@@ -29,8 +30,19 @@ public final class WaysManager {
         return way;
     }
 
-    public List<String> getAllRatings() {
-       return  Rating.getAllRtingsValues();
+    public Way getWayById ( HttpServletRequest req ) {
+        String idParameter = getParamValue(req, ID_PARAM_NAME);
+        Way requestedWay = new Way();
+
+        if(idParameter != null) {
+            try {
+                final Long idLong = Long.parseLong( idParameter );
+                requestedWay = wayDao.findWayById( idLong );
+            } catch( NumberFormatException nfe ) {
+                System.out.println("ERROR: l'id entré n'est pas un nombre.");
+            }
+        }
+        return requestedWay;
     }
 
     private static String getParamValue( HttpServletRequest req, String param ){
