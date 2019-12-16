@@ -1,4 +1,4 @@
-package org.oc.escalade.model;
+package org.oc.escalade.models;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,7 +9,7 @@ public class Site {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String name;
     private String description;
     private int nbOfSectors;
@@ -26,11 +26,11 @@ public class Site {
     @OneToMany(mappedBy = "site", fetch = FetchType.LAZY)
     private List<Sector> sectors;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
