@@ -1,8 +1,9 @@
-package org.oc.escalade.webapp.servlet;
+package org.oc.escalade.controlers.servlets;
 
 import org.oc.escalade.business.WaysManager;
-import org.oc.escalade.model.Site;
-import org.oc.escalade.model.Way;
+import org.oc.escalade.models.Site;
+import org.oc.escalade.models.Way;
+import org.oc.escalade.utils.RatingManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,8 +30,8 @@ public class AddWayServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        WaysManager form = new WaysManager();
-        List<String> ratingValues = form.getAllRatings();
+        //WaysManager form = new WaysManager();
+        List<String> ratingValues = RatingManager.getAllRatings();
         req.getServletContext().setAttribute(RATINGS_ATT, ratingValues);
         this.getServletContext().getRequestDispatcher(ADD_WAY_VIEW).forward(req, res);
 
