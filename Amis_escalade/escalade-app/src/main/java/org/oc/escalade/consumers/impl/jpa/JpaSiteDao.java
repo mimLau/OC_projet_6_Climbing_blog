@@ -63,4 +63,25 @@ public class JpaSiteDao implements SiteDao {
         }
         return site;
     }
+
+    @Override
+    public void updateNbOfSectors(Long id) {
+        final EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+
+        try {
+            t.begin();
+            Query query = em.createQuery("UPDATE Site s SET s.nbOfSectors = s.nbOfSectors + :increment WHERE s.id= :id");
+            query.setParameter("increment", 1);
+            query.setParameter("id", id);
+
+            query.executeUpdate();
+            t.commit();
+        }finally {
+            if ( t.isActive() ) {
+                t.rollback();
+            }
+                em.close();
+            }
+        }
 }
