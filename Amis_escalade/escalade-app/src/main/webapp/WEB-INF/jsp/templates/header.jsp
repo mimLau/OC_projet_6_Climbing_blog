@@ -22,8 +22,10 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="${pageContext.request.contextPath}/home">Accueil <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="${pageContext.request.contextPath}/listSites">Sites</a>
+                <c:if test="${sessionScope.user.role == 'ADMIN'}">
+                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/admin/addPlace">Page admin</a>
+                </c:if>
             </div>
-
         </div>
         <div>
             <div class="navbar-text" style="float: right">
@@ -42,7 +44,6 @@
                 <a href="${pageContext.request.contextPath}/login" tabindex="-1" aria-disabled="true">Se connecter</a>
             </c:if>
         </div>
-
     </nav>
 </body>
 </html>
