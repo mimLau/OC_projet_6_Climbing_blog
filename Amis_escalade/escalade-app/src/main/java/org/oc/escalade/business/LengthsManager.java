@@ -9,7 +9,7 @@ import org.oc.escalade.models.Way;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class LengthManager {
+public class LengthsManager {
     private static final String NAME_FIELD = "lengthName";
     private static String RATING_FIELD = "rating";
     private static String  LENGTH_FIELD = "lengthLength";
@@ -34,7 +34,7 @@ public class LengthManager {
         return length;
     }
     public Length getLengthById ( HttpServletRequest req ) {
-        String idParameter = getParameterValue(req, ID_PARAM_NAME);
+        String idParameter = getParameterValue( req, ID_PARAM_NAME );
         Length requestedLength = new Length();
 
         if(idParameter != null) {
@@ -47,7 +47,6 @@ public class LengthManager {
         }
         return requestedLength;
     }
-
 
     private static String getParameterValue( HttpServletRequest req, String param ){
         String paramValue = req.getParameter( param );
