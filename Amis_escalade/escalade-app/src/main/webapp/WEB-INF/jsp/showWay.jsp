@@ -14,16 +14,27 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-    <div>
         <c:if test="${way != null}">
-            <c:forEach items="${way.lengths}" var="length">
-                <a href="${pageContext.request.contextPath}/showLength?id=${length.id}"><c:out value="${length.name}"/></a><br/>
-            </c:forEach>
+            <div>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Nom de la longeur</th>
+                        <th>Longueur</th>
+                        <th>Cotation</th>
+                    </tr>
+                    <c:forEach items="${way.lengths}" var="length">
+                        <tr>
+                            <td><a style="text-decoration: none" href="${pageContext.request.contextPath}/showLength?id=${length.id}"><c:out value="${length.name}"/></a></td>
+                            <td><c:out value="${length.length}"/></td>
+                            <td><c:out value="${length.rating}"/></td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
         </c:if>
-    </div>
     <div>
         <c:if test="${sessionScope.user.username != null}">
-            <a href="${pageContext.request.contextPath}/auth/addLength">Ajouter une longeur</a>
+            <a class="btn btn-primary stretched-link" href="${pageContext.request.contextPath}/auth/addLength">Ajouter une longeur</a>
         </c:if>
     </div>
 </body>
