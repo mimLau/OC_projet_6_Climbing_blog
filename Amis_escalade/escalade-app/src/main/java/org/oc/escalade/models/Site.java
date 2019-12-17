@@ -1,5 +1,7 @@
 package org.oc.escalade.models;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,7 +15,9 @@ public class Site {
     private String name;
     private String description;
     private int nbOfSectors;
-    private boolean isTagged;
+
+    @Type(type="numeric_boolean")
+    private boolean tagged;
 
     @ManyToOne
     @JoinColumn(name="user_fk")
@@ -59,11 +63,11 @@ public class Site {
     }
 
     public boolean isTagged() {
-        return isTagged;
+        return tagged;
     }
 
     public void setTagged(boolean tagged) {
-        isTagged = tagged;
+        this.tagged = tagged;
     }
 
     public User getSiteOwner() {
