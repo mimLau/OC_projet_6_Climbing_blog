@@ -64,4 +64,26 @@ public class JpaWayDao implements WayDao {
         return way;
     }
 
+    @Override
+    public void updateNbOfLengths(Long id) {
+        final EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+
+        try {
+            t.begin();
+            Query query = em.createQuery("UPDATE Way w SET w.nbOfLengths = w.nbOfLengths + :increment WHERE w.id= :id");
+            query.setParameter("increment", 1);
+            query.setParameter("id", id);
+
+            query.executeUpdate();
+            t.commit();
+        }finally {
+            if ( t.isActive() ) {
+                t.rollback();
+            }
+            em.close();
+        }
+    }
+    }
+
 }
