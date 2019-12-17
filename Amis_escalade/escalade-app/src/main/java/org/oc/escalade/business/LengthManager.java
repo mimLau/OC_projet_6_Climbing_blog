@@ -33,6 +33,21 @@ public class LengthManager {
         wayDao.updateNbOfLengths(way.getId());
         return length;
     }
+    public Length getLengthById ( HttpServletRequest req ) {
+        String idParameter = getParameterValue(req, ID_PARAM_NAME);
+        Length requestedLength = new Length();
+
+        if(idParameter != null) {
+            try {
+                final Long idLong = Long.parseLong( idParameter );
+                requestedLength = lengthDao.findLengthById( idLong );
+            } catch( NumberFormatException nfe ) {
+                System.out.println("ERROR: l'id entré n'est pas un nombre.");
+            }
+        }
+        return requestedLength;
+    }
+
 
     private static String getParameterValue( HttpServletRequest req, String param ){
         String paramValue = req.getParameter( param );
