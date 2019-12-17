@@ -84,6 +84,4 @@ public class JpaWayDao implements WayDao {
             em.close();
         }
     }
-    }
-
 }
