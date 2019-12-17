@@ -21,7 +21,7 @@
                 <li class="list-group-item">Secteur : <c:out value="${sector.name}"></c:out></li>
                 <li class="list-group-item">Voie : <c:out value="${way.name}"></c:out></li><br/><br/>
             </ul>
-            <p> Liste des longueur existants:</p><br/>
+            <p> Liste des longueurs existants:</p><br/>
             <div>
                 <table class="table table-hover">
                     <tr>
@@ -41,7 +41,7 @@
         </c:if>
     <div>
         <c:if test="${sessionScope.user.username != null}">
-            <a class="btn btn-primary stretched-link" href="${pageContext.request.contextPath}/auth/addLength">Ajouter une longeur</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/addLength">Ajouter une longeur</a>
         </c:if>
     </div>
 </body>
