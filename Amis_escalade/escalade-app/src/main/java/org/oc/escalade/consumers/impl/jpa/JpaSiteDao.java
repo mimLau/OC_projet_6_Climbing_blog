@@ -84,4 +84,24 @@ public class JpaSiteDao implements SiteDao {
                 em.close();
             }
         }
+
+    @Override
+    public void updateTag(Long sitId) {
+        final EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+
+        try {
+            t.begin();
+            Query query = em.createQuery("UPDATE Site s SET s.tagged = true WHERE s.id= :id");
+            query.setParameter("id", sitId);
+
+            query.executeUpdate();
+            t.commit();
+        }finally {
+            if ( t.isActive() ) {
+                t.rollback();
+            }
+            em.close();
+        }
+    }
 }
