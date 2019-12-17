@@ -81,6 +81,11 @@ public final class SitesManager {
         return requestedSite;
     }
 
+    public void updateTag(HttpServletRequest req) {
+        String idParameter = getParameterValue(req, ID_PARAMETER_NAME );
+        siteDao.updateTag(Long.parseLong(idParameter));
+    }
+
     private static String getParameterValue( HttpServletRequest req, String param ){
         String paramValue = req.getParameter( param );
         return paramValue;
