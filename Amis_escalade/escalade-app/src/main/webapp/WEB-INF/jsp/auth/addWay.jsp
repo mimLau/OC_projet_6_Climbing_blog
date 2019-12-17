@@ -16,7 +16,7 @@
 <body>
     <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
 
-        <form method="post" action="${pageContext.request.contextPath}/auth/addSector">
+        <form method="post" action="${pageContext.request.contextPath}/auth/addWay">
             <h1><c:out value="${site.name}"/></h1><br/>
             <h2><c:out value="${sector.name}"/></h2><br/>
 
