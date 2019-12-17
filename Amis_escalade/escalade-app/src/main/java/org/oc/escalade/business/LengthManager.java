@@ -15,6 +15,7 @@ public class LengthManager {
     private static String  LENGTH_FIELD = "lengthLength";
     private static final String ID_PARAM_NAME = "id";
     private LengthDao lengthDao = DaoFactory.getLengthDao();
+    private WayDao wayDao = DaoFactory.getWayDao();
 
     public Length addLength(HttpServletRequest req ) {
         String name = getParameterValue( req, NAME_FIELD );
@@ -27,8 +28,9 @@ public class LengthManager {
         length.setLength( lengthLength );
         length.setWay( way );
         length.setRating(rating);
-
         length = lengthDao.addLength( length );
+
+        wayDao.updateNbOfLengths(way.getId());
         return length;
     }
 
