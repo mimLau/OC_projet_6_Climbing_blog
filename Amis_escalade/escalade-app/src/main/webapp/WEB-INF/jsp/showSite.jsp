@@ -14,10 +14,10 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
+    <div class="text-center"><h3 class="card-title">Site - <c:out value="${site.name}"></c:out></h3></div><br/><br/>
+    <h6 class="card-subtitle mb-2 text-muted">Description du site:</h6>
+    <div style="width: 50rem;"><c:out value="${site.description}"></c:out></div><br/>
     <c:if test="${site.sectors != null}">
-        <div class="text-center"><h3 class="card-title"><c:out value="${site.name}"></c:out></h3></div><br/><br/>
-        <h6 class="card-subtitle mb-2 text-muted">Description du site:</h6>
-        <div><c:out value="${site.description}"></c:out></div>
         <p>Ce site présente différents secteurs, dont vous trouverez  la liste dans le tableau ci-dessous.</p><br/>
         <div>
             <table class="table table-hover">
