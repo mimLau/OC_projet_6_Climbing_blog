@@ -47,7 +47,7 @@
         </c:choose>
         <c:if test="${sessionScope.user.username != null}">
             <div>
-            <a class="btn btn-primary stretched-link" href="${pageContext.request.contextPath}/auth/addWay">Ajouter une voie</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/addWay">Ajouter une voie</a>
             </div>
         </c:if>
     </body>
