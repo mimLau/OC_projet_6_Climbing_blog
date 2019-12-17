@@ -1,6 +1,6 @@
 package org.oc.escalade.controllers.servlets;
 
-import org.oc.escalade.business.LengthManager;
+import org.oc.escalade.business.LengthsManager;
 import org.oc.escalade.models.Length;
 import org.oc.escalade.models.Way;
 import org.oc.escalade.utils.RatingManager;
@@ -21,8 +21,8 @@ public class AddLengthServlet extends HttpServlet {
     public static final String WAY_ATT = "way";
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        LengthManager lengthManager = new LengthManager();
-        Length length = lengthManager.addLength( req );
+        LengthsManager lengthsManager = new LengthsManager();
+        Length length = lengthsManager.addLength( req );
 
         Way way = (Way) req.getServletContext().getAttribute(WAY_ATT);
         res.sendRedirect(req.getContextPath() + SHOW_WAY_PAGE + way.getId());
