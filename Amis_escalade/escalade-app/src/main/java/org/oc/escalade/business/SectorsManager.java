@@ -3,6 +3,7 @@ package org.oc.escalade.business;
 
 import org.oc.escalade.consumers.DaoFactory;
 import org.oc.escalade.consumers.SectorDao;
+import org.oc.escalade.consumers.SiteDao;
 import org.oc.escalade.models.Sector;
 import org.oc.escalade.models.Site;
 
@@ -13,16 +14,19 @@ public final class SectorsManager {
     private static final String  NB_WAYS_FIELD = "numberWay";
     private static final String ID_PARAM_NAME = "id";
     private SectorDao sectorDao = DaoFactory.getSectorDao();
+    private SiteDao siteDao = DaoFactory.getSiteDao();
 
     public Sector addSector( HttpServletRequest req ) {
         String name = getParameterValue(req, NAME_FIELD );
-        String nbOfWays = getParameterValue(req, NB_WAYS_FIELD );
+        //String nbOfWays = getParameterValue(req, NB_WAYS_FIELD );
         Site site = ( Site ) req.getServletContext().getAttribute("site" );
         Sector sector = new Sector();
         sector.setName( name );
         sector.setSite( site );
         sector = sectorDao.addSector( sector );
 
+
+        siteDao.updateNbOfSectors(site.getId());
         return sector;
     }
 
