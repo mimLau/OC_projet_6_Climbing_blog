@@ -25,7 +25,6 @@ public final class SectorsManager {
         sector.setSite( site );
         sector = sectorDao.addSector( sector );
 
-
         siteDao.updateNbOfSectors(site.getId());
         return sector;
     }
