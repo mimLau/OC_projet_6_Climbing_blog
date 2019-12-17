@@ -24,21 +24,30 @@
                 <th>Nom du site</th>
                 <th>Nombre de secteurs</th>
                 <th>Créé par</th>
+                <th></th>
             </tr>
             <c:forEach items="${sites}" var="site">
             <tr>
-               <td><a style="text-decoration: none" href="${pageContext.request.contextPath}/showSite?id=${site.id}" > <c:out value="${site.name}"/></a><br></td>
+               <td><a style="text-decoration: none" href="${pageContext.request.contextPath}/showSite?id=${site.id}"> <c:out value="${site.name}"/></a></td>
                <td> <c:out value="${site.nbOfSectors}"></c:out></td>
                <td><c:out value="${site.siteOwner.username}"/></td>
+               <td>
+                   <c:choose>
+                       <c:when test="${site.tagged}"> Site officiel: Les amis de l'escalade</c:when>
+                       <c:otherwise>
+                           <c:if test="${sessionScope.user.role == 'MEMBRE' || sessionScope.user.role == 'ADMIN'}">
+                               <a href="${pageContext.request.contextPath}/auth/addTag?id=${site.id}">Tagguer le site</a>
+                           </c:if>
+                       </c:otherwise>
+                   </c:choose>
+               </td>
             </tr>
             </c:forEach>
         </table>
-
     </div>
     <div>
         <c:if test="${sessionScope.user.username != null}">
-            <a class="btn btn-primary stretched-link"
-               href="${pageContext.request.contextPath}/auth/addSite" tabindex="-1" aria-disabled="true">Ajouter un nouveau site</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/addSite" tabindex="-1" aria-disabled="true">Ajouter un nouveau site</a>
         </c:if>
     </div>
 </body>
