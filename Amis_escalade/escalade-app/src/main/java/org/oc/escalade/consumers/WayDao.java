@@ -8,4 +8,5 @@ public interface WayDao {
     Way addWay(Way way);
     List<Way> getAllWays();
     Way findWayById(Long id);
+    void updateNbOfLengths(Long id);
 }
