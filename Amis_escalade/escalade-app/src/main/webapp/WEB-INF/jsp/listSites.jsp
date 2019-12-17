@@ -14,14 +14,31 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
+    <br/>
     <div>
-        <c:forEach items="${sites}" var="site">
-            <a href="${pageContext.request.contextPath}/showSite?id=${site.id}" > <c:out value="${site.name}"/></a><br>
-        </c:forEach>
+        <p class="text-center">Découvrez les différents sites d'escalade répertoriés sur notre site!</p><br/>
+    </div>
+    <div>
+        <table class="table table-hover">
+            <tr>
+                <th>Nom du site</th>
+                <th>Nombre de secteurs</th>
+                <th>Créé par</th>
+            </tr>
+            <c:forEach items="${sites}" var="site">
+            <tr>
+               <td><a style="text-decoration: none" href="${pageContext.request.contextPath}/showSite?id=${site.id}" > <c:out value="${site.name}"/></a><br></td>
+               <td> <c:out value="${site.nbOfSectors}"></c:out></td>
+               <td><c:out value="${site.siteOwner.username}"/></td>
+            </tr>
+            </c:forEach>
+        </table>
+
     </div>
     <div>
         <c:if test="${sessionScope.user.username != null}">
-            <a href="${pageContext.request.contextPath}/auth/addSite" tabindex="-1" aria-disabled="true">Ajouter un nouveau site d'escalade.</a>
+            <a class="btn btn-primary stretched-link"
+               href="${pageContext.request.contextPath}/auth/addSite" tabindex="-1" aria-disabled="true">Ajouter un nouveau site</a>
         </c:if>
     </div>
 </body>
