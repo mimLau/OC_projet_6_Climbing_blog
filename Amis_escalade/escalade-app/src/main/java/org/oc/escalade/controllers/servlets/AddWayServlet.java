@@ -1,6 +1,7 @@
 package org.oc.escalade.controllers.servlets;
 
 import org.oc.escalade.business.WaysManager;
+import org.oc.escalade.models.Sector;
 import org.oc.escalade.models.Site;
 import org.oc.escalade.models.Way;
 import org.oc.escalade.utils.RatingManager;
@@ -20,13 +21,14 @@ public class AddWayServlet extends HttpServlet {
     public static final String RATINGS_ATT = "ratings";
     public static final String SITE_ATT = "site";
     public static final String WAY_ATT = "way";
+    public static final String SECTOR_ATT = "sector";
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         WaysManager form = new WaysManager();
         Way way = form.addWay(req);
         //req.getServletContext().setAttribute(WAY_ATT, way);
-        Site site = (Site) req.getServletContext().getAttribute(SITE_ATT);
-        res.sendRedirect(req.getContextPath() + SHOW_SECTOR_PAGE + site.getId());
+        Sector sector = (Sector) req.getServletContext().getAttribute(SECTOR_ATT);
+        res.sendRedirect(req.getContextPath() + SHOW_SECTOR_PAGE + sector.getId());
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
