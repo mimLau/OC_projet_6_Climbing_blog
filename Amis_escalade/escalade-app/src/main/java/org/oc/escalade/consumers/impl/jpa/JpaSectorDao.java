@@ -43,4 +43,25 @@ public class JpaSectorDao implements SectorDao {
         }
         return sector;
     }
+
+    @Override
+    public void updateNbOfWays(Long id) {
+        final EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+
+        try {
+            t.begin();
+            Query query = em.createQuery("UPDATE Sector s SET s.nbOfWays = s.nbOfWays + :increment WHERE s.id= :id");
+            query.setParameter("increment", 1);
+            query.setParameter("id", id);
+
+            query.executeUpdate();
+            t.commit();
+        }finally {
+            if ( t.isActive() ) {
+                t.rollback();
+            }
+            em.close();
+        }
+    }
 }
