@@ -15,6 +15,13 @@
 <body>
     <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
         <c:if test="${way != null}">
+            <div class="text-center"><h3 class="card-title"><c:out value="${way.name}"></c:out></h3></div><br/><br/>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" style="list-style-type: none">Site: <c:out value="${site.name}"></c:out></li>
+                <li class="list-group-item">Secteur : <c:out value="${sector.name}"></c:out></li>
+                <li class="list-group-item">Voie : <c:out value="${way.name}"></c:out></li><br/><br/>
+            </ul>
+            <p> Liste des longueur existants:</p><br/>
             <div>
                 <table class="table table-hover">
                     <tr>
