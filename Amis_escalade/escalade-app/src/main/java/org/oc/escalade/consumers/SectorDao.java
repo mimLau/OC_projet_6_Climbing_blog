@@ -6,4 +6,5 @@ public interface SectorDao {
 
     Sector addSector(Sector sector);
     Sector findSectorById(Long id);
+    void updateNbOfWays(Long id);
 }
