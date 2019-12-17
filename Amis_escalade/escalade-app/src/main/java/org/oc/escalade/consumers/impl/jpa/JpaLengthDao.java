@@ -6,6 +6,7 @@ import org.oc.escalade.models.Length;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 public class JpaLengthDao implements LengthDao {
         private EntityManagerFactory emf;
@@ -26,5 +27,20 @@ public class JpaLengthDao implements LengthDao {
             }
             return length;
         }
+
+    @Override
+    public Length findLengthById(Long id) {
+        final EntityManager em = emf.createEntityManager();
+        Length length = new Length();
+
+        try {
+            Query query = em.createQuery("SELECT l FROM Length AS s WHERE l.id= :id ");
+            query.setParameter("id", id);
+            length = ( Length) query.getSingleResult();
+        } finally {
+            em.close();
+        }
+        return length;
+    }
 
 }
