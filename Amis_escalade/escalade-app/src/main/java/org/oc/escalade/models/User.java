@@ -23,6 +23,12 @@ public class User {
     @OneToMany(mappedBy = "siteOwner")
     private List<Site> sites;
 
+    @OneToMany(mappedBy = "commentOwner")
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "topoOwner")
+    private List<Topo> topos;
+
 
     public Long getUserId() {
         return userId;
@@ -94,5 +100,21 @@ public class User {
 
     public void setSites(List<Site> sites) {
         this.sites = sites;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Topo> getTopos() {
+        return topos;
+    }
+
+    public void setTopos(List<Topo> topos) {
+        this.topos = topos;
     }
 }
