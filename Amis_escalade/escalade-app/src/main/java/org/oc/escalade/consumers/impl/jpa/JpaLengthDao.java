@@ -14,6 +14,7 @@ public class JpaLengthDao implements LengthDao {
         public JpaLengthDao(EntityManagerFactory emf){
             this.emf=emf;
         }
+
         @Override
         public Length addLength(Length length) {
             final EntityManager em = emf.createEntityManager();
