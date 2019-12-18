@@ -37,4 +37,13 @@ public class DaoFactory {
                 PersistenceManager.getEntityManagerFactory());
     }
 
+    public static CommentDao getCommentDao() {
+        return new JpaCommentDao(
+                PersistenceManager.getEntityManagerFactory());
+    }
+
+    public static TopoDao getTopoDao() {
+        return new JpaTopoDao(
+                PersistenceManager.getEntityManagerFactory());
+    }
 }
