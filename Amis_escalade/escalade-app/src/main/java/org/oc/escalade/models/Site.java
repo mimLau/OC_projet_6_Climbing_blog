@@ -30,6 +30,9 @@ public class Site {
     @OneToMany(mappedBy = "site", fetch = FetchType.LAZY)
     private List<Sector> sectors;
 
+    @OneToMany(mappedBy = "siteComment", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
     public Long getId() {
         return id;
     }
@@ -100,5 +103,13 @@ public class Site {
 
     public void setSectors(List<Sector> sectors) {
         this.sectors = sectors;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
