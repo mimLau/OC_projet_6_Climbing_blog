@@ -57,10 +57,10 @@
         <c:if test="${sessionScope.user.username != null}">
             <div class="text-center"><h3 class="card-title">Laisser un commentaire</h3></div>
             <form method="post" action="${pageContext.request.contextPath}/showSite">
-                <textarea name="contents" cols="100"></textarea>
-                <input type="text" class="form-control" id="username" name="username">
-                <input type="email" class="form-control" id="email" name="email">
-                <button type="submit" name="AddSite" class="btn btn-primary">Ajouter</button>
+                <textarea name="comment_contents" cols="100" rows="5" placeholder="Votre commentaire" aria-required="true"></textarea>
+                <div class="form-group">
+                    <input name="submit" type="submit" id="submit" class="submit" class="btn btn-primary" value="Publier">
+                </div>
             </form>
         </c:if>
 
