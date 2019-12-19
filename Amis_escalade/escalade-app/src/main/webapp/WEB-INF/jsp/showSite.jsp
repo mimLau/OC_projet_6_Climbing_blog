@@ -42,5 +42,32 @@
         <c:if test="${sessionScope.user.username != null}">
             <div><a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/addSector">Ajouter un secteur</a></div>
         </c:if>
+        <div>
+            <div class="text-center"><h3 class="card-title">COMMENTAIRES</h3></div><br/>
+            <c:if test="${! empty site.comments}">
+                    <c:forEach items="${site.comments}" var="comment">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><c:out value="${comment.commentOwner.username}"/></li>
+                            <li class="list-group-item"><c:out value="${comment.date}"/></li>
+                            <li class="list-group-item"><c:out value="${comment.contents}"/></li>
+                        </ul>
+                    </c:forEach>
+            </c:if>
+        </div>
+        <c:if test="${sessionScope.user.username != null}">
+            <div class="text-center"><h3 class="card-title">Laisser un commentaire</h3></div>
+            <form method="post" action="${pageContext.request.contextPath}/showSite">
+                <textarea name="contents" cols="100"></textarea>
+                <input type="text" class="form-control" id="username" name="username">
+                <input type="email" class="form-control" id="email" name="email">
+                <button type="submit" name="AddSite" class="btn btn-primary">Ajouter</button>
+            </form>
+        </c:if>
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
     </body>
 </html>
