@@ -27,10 +27,10 @@ public class Site {
     @JoinColumn(name = "place_fk")
     private Place place;
 
-    @OneToMany(mappedBy = "site", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "site")
     private List<Sector> sectors;
 
-    @OneToMany(mappedBy = "siteComment", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "siteComment")
     private List<Comment> comments;
 
     public Long getId() {
