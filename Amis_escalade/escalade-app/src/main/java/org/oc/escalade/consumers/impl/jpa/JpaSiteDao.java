@@ -49,15 +49,19 @@ public class JpaSiteDao implements SiteDao {
     }
 
     @Override
-    @Transactional
     public Site findSiteById(long id) {
         final EntityManager em = emf.createEntityManager();
         Site site = new Site();
 
         try {
-            Query query = em.createQuery("SELECT s FROM Site AS s LEFT JOIN FETCH s.sectors WHERE s.id= :id ");
+            Query query = em.createQuery("SELECT DISTINCT s FROM Site AS s LEFT JOIN FETCH s.sectors  WHERE s.id= :id ");
             query.setParameter("id", id);
             site = (Site) query.getSingleResult();
+
+            Query  query2 = em.createQuery("SELECT DISTINCT s FROM Site AS s LEFT JOIN FETCH s.comments WHERE  s IN :site");
+            query2.setParameter("site", site);
+            site = (Site) query2.getSingleResult();
+
         } finally {
             em.close();
         }
