@@ -25,7 +25,6 @@ public class AddSectorServlet extends HttpServlet {
         req.getServletContext().setAttribute(SECTOR_ATT, sector);
         Site site = (Site) req.getServletContext().getAttribute(SITE_ATT);
         res.sendRedirect(req.getContextPath() + SHOW_SITE_PAGE + site.getId());
-        //this.getServletContext().getRequestDispatcher(ADD_SECTOR_VIEW).forward(req, res);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
