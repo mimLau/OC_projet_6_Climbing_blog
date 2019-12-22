@@ -12,6 +12,25 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script>
+        window.onload = function() {
+          var appBanners = document.getElementsByClassName('editComForm');
+          for (var i = 0; i < appBanners.length; i ++) {
+                appBanners[i].style.display = 'none';
+          }
+        }
+
+        function showEditCommForm( clickedButtnNb ) {
+            document.getElementById("form_" + clickedButtnNb).style.display = 'block';
+        }
+
+        function cancelEdition( form_nb) {
+            document.getElementById("form_" + form_nb).reset();
+            document.getElementById("form_" + form_nb).style.display = 'none';
+        }
+
+    </script>
 </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
@@ -57,7 +76,7 @@
                 </h3>
             </div><br/>
             <c:if test="${! empty site.comments}">
-                    <c:forEach items="${site.comments}" var="comment">
+                    <c:forEach items="${site.comments}" var="comment" varStatus="nb">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <c:out value="${fn:toUpperCase(comment.commentOwner.username)}"/><br/>
@@ -65,6 +84,14 @@
                                 <c:out value="${comment.contents}"/><br/>
                                 <c:if test="${sessionScope.user.role == 'MEMBRE' || sessionScope.user.role == 'ADMIN'}">
                                     <a class="btn btn-primary"  href="${pageContext.request.contextPath}/auth/deleteComm?id=${comment.id}" >Supprimer</a>
+                                    <button type="submit"  class="btn btn-primary" onclick="showEditCommForm( <c:out value="${nb.index}"></c:out> )">Editer</button>
+                                    <form method="post" action="${pageContext.request.contextPath}/auth/editComm" id="form_<c:out value="${nb.index}"></c:out>" class="editComForm">
+                                        <textarea name="comment_contents" cols="100" rows="5" placeholder="Votre commentaire" aria-required="true"></textarea>
+                                        <div class="form-group">
+                                            <a class="btn btn-primary"  href="${pageContext.request.contextPath}/auth/updateComm?id=${comment.id}" >Valider</a>
+                                            <input type="button"  class="btn btn-primary" value="Annuler" onclick="cancelEdition( <c:out value="${nb.index}"></c:out> )">
+                                        </div>
+                                    </form>
                                 </c:if>
                             </li>
                         </ul>
