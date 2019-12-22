@@ -14,14 +14,13 @@ import java.util.Date;
 public class CommentsManager {
     private CommentDao commentDao = DaoFactory.getCommentDao();
     private final static String COMMENT_CONTENTS_FIELD = "comment_contents";
-    private static final String ID_PARAMETER_NAME = "id";
+    private final static String ID_COMMENT_PARAM = "id";
     private static final String SITE_ATT =  "site";
 
     public Comment addComment( HttpServletRequest req ) {
         String commentContents = getParameterValue( req, COMMENT_CONTENTS_FIELD );
         User user = (User) req.getSession().getAttribute("user");
         Site site = (Site) req.getServletContext().getAttribute("site");
-        Long siteId = site.getId();
         req.getServletContext().setAttribute( SITE_ATT, site );
 
         DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
@@ -36,6 +35,11 @@ public class CommentsManager {
         commentDao.addComment( comment );
 
         return comment;
+    }
+
+    public void deleteComment( HttpServletRequest req ) {
+        Long commentId = Long.parseLong(getParameterValue( req,  ID_COMMENT_PARAM ));
+        commentDao.deleteComById(commentId);
     }
 
     private static String getParameterValue( HttpServletRequest req, String param ){
