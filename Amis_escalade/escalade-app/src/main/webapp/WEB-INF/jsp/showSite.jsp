@@ -5,6 +5,7 @@
   Time: 21:30
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>Site - <c:out value="${site.name}"></c:out></title>
@@ -40,16 +41,32 @@
             </c:otherwise>
         </c:choose>
         <c:if test="${sessionScope.user.username != null}">
-            <div><a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/addSector">Ajouter un secteur</a></div>
+            <div><a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/addSector">Ajouter un secteur</a></div><br/>
         </c:if>
         <div>
-            <div class="text-center"><h3 class="card-title">COMMENTAIRES</h3></div><br/>
+            <div class="text-center">
+                <h3 class="card-title">
+                    <c:if test="${! empty site.comments}">
+                        <c:choose>
+                            <c:when test="${fn:length(site.comments) gt 1}">${fn:length(site.comments)} COMMENTAIRES </c:when>
+                            <c:otherwise>
+                                ${fn:length(site.comments)} COMMENTAIRE
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                </h3>
+            </div><br/>
             <c:if test="${! empty site.comments}">
                     <c:forEach items="${site.comments}" var="comment">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><c:out value="${comment.commentOwner.username}"/></li>
-                            <li class="list-group-item"><c:out value="${comment.date}"/></li>
-                            <li class="list-group-item"><c:out value="${comment.contents}"/></li>
+                            <li class="list-group-item">
+                                <c:out value="${fn:toUpperCase(comment.commentOwner.username)}"/><br/>
+                                <c:out value="${comment.date}"/><br/>
+                                <c:out value="${comment.contents}"/><br/>
+                                <c:if test="${sessionScope.user.role == 'MEMBRE' || sessionScope.user.role == 'ADMIN'}">
+                                    <a class="btn btn-primary"  href="${pageContext.request.contextPath}/auth/deleteComm?id=${comment.id}" >Supprimer</a>
+                                </c:if>
+                            </li>
                         </ul>
                     </c:forEach>
             </c:if>
