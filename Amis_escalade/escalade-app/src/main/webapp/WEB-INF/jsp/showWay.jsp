@@ -14,15 +14,17 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-        <c:if test="${way != null}">
-            <div class="text-center"><h3 class="card-title"><c:out value="${way.name}"></c:out></h3></div><br/><br/>
+        <div class="text-center"><h3 class="card-title"><c:out value="${way.name}"></c:out></h3></div><br/><br/>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" style="list-style-type: none">Site: <c:out value="${site.name}"></c:out></li>
                 <li class="list-group-item">Secteur : <c:out value="${sector.name}"></c:out></li>
                 <li class="list-group-item">Voie : <c:out value="${way.name}"></c:out></li><br/><br/>
             </ul>
-            <p> Liste des longueurs existants:</p><br/>
-            <div>
+        <div>
+    <c:choose>
+        <c:when test="${! empty way.lengths}">
+            <p> Liste des longueurs existantes :</p><br/>
+
                 <table class="table table-hover">
                     <tr>
                         <th>Nom de la longeur</th>
@@ -38,7 +40,12 @@
                     </c:forEach>
                 </table>
             </div>
-        </c:if>
+        </c:when>
+        <c:otherwise>
+            <p> Aucune longueur n'a été ajoutée pour cette voie.</p><br/>
+        </c:otherwise>
+
+    </c:choose>
     <div>
         <c:if test="${sessionScope.user.username != null}">
             <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/addLength">Ajouter une longeur</a>
