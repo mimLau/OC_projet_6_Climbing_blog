@@ -73,7 +73,7 @@
         </div>
         <c:if test="${sessionScope.user.username != null}">
             <div class="text-center"><h3 class="card-title">Laisser un commentaire</h3></div>
-            <form method="post" action="${pageContext.request.contextPath}/showSite">
+            <form method="post" action="${pageContext.request.contextPath}/auth/addComment">
                 <textarea name="comment_contents" cols="100" rows="5" placeholder="Votre commentaire" aria-required="true"></textarea>
                 <div class="form-group">
                     <input name="submit" type="submit" id="submit" class="submit" class="btn btn-primary" value="Publier">
