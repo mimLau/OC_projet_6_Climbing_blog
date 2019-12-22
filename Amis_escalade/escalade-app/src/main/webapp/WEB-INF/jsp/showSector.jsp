@@ -14,15 +14,15 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-        <c:choose>
-            <c:when test="${!empty sector.ways}">
-                <div class="text-center"><h3 class="card-title"><c:out value="${sector.name}"></c:out></h3></div><br/><br/>
+            <div class="text-center"><h3 class="card-title"><c:out value="${sector.name}"></c:out></h3></div><br/><br/>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" style="list-style-type: none">Site: <c:out value="${site.name}"></c:out></li>
                     <li class="list-group-item">Secteur: <c:out value="${sector.name}"></c:out></li><br/><br/>
                 </ul>
+            <div>
+        <c:choose>
+            <c:when test="${!empty sector.ways}">
                 <p> Liste des voies existantes:</p><br/>
-                <div>
                     <table class="table table-hover">
                         <tr>
                             <th>Nom de la voie</th>
@@ -42,7 +42,7 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <p> Aucune voie n'a été ajoutée pour ce secteur</p><br/>
+                <p> Aucune voie n'a été ajoutée pour ce secteur.</p><br/>
             </c:otherwise>
         </c:choose>
         <c:if test="${sessionScope.user.username != null}">
