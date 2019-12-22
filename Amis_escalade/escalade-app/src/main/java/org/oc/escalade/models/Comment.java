@@ -2,6 +2,7 @@ package org.oc.escalade.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "comments")
@@ -19,6 +20,13 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "site_fk")
     private Site siteComment;
+
+    @ManyToOne
+    @JoinColumn(name="answer_comment_fk")
+    private Comment answerComment;
+
+    @OneToMany(mappedBy = "answerComment")
+    private List<Comment> answerComments;
 
     public Long getId() {
         return id;
