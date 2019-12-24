@@ -11,4 +11,5 @@ public interface SiteDao {
      Site findSiteById(long id);
      void updateNbOfSectors(Long id);
      void updateTag(Long id);
+     List<Site> getSitesByPlaceId( Long placeId );
 }
