@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         User user = form.logUser(req);
 
         if( form.getErrors().isEmpty() ) {
-            req.getSession().setAttribute("user", user);
+            req.getSession().setAttribute(USER_ATT, user);
             res.sendRedirect(req.getContextPath() + HOME_PAGE );
         } else {
             req.setAttribute( FORM_ATT, form );
