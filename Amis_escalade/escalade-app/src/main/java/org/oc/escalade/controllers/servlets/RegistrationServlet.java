@@ -27,7 +27,6 @@ public class RegistrationServlet extends HttpServlet {
 
         if( form.getErrors().isEmpty() ) {
             req.getSession().setAttribute("user", user);
-            //this.getServletContext().getRequestDispatcher( HOME_VIEW ).forward( req, res );
             res.sendRedirect(req.getContextPath() + HOME_PAGE );
         } else {
             this.getServletContext().getRequestDispatcher( REGISTRATION_VIEW ).forward( req, res );
