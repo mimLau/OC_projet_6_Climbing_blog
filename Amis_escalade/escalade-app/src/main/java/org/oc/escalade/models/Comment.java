@@ -13,7 +13,7 @@ public class Comment {
     private Date date;
     private String contents;
     private boolean edited;
-    private Date editionDate;
+    private Date editedDate;
 
     @ManyToOne
     @JoinColumn(name= "user_fk")
@@ -62,12 +62,12 @@ public class Comment {
         this.edited = edited;
     }
 
-    public Date getEditionDate() {
-        return editionDate;
+    public Date getEditedDate() {
+        return editedDate;
     }
 
-    public void setEditionDate(Date editionDate) {
-        this.editionDate = editionDate;
+    public void setEditedDate(Date editedDate) {
+        this.editedDate = editedDate;
     }
 
     public User getCommentOwner() {
