@@ -62,4 +62,25 @@ public class JpaCommentDao implements CommentDao {
         }
         em.close();
     }
+
+    @Override
+    public void updateCommentById(Long id, String contents) {
+        final EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+
+        try {
+            t.begin();
+            Query query = em.createQuery("UPDATE Comment c SET c.contents= :contents WHERE c.id= :id");
+            query.setParameter("contents", contents);
+            query.setParameter("id", id);
+
+            query.executeUpdate();
+            t.commit();
+        }finally {
+            if ( t.isActive() ) {
+                t.rollback();
+            }
+            em.close();
+        }
+    }
 }
