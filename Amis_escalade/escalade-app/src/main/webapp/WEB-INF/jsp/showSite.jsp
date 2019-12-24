@@ -82,6 +82,9 @@
                                 <c:out value="${fn:toUpperCase(comment.commentOwner.username)}"/><br/>
                                 <c:out value="${comment.date}"/><br/>
                                 <c:out value="${comment.contents}"/><br/>
+                                <c:if test="${comment.edited == true}">
+                                    <br/><span style="font-size: x-small;float:right;">Edité le: <c:out value="${comment.editedDate}"/><br/></span>
+                                </c:if>
                                 <c:if test="${sessionScope.user.role == 'MEMBRE' || sessionScope.user.role == 'ADMIN'}">
                                     <a class="btn btn-primary"  href="${pageContext.request.contextPath}/auth/deleteComm?id=${comment.id}" >Supprimer</a>
                                     <button type="submit"  class="btn btn-primary" onclick="showEditCommForm( <c:out value="${nb.index}"></c:out> )">Editer</button>
