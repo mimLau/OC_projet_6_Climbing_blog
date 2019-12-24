@@ -3,6 +3,7 @@ package org.oc.escalade.models;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.text.DateFormat;
 import java.util.Date;
 
 @Entity
@@ -22,6 +23,12 @@ public class Topo {
     @ManyToOne
     @JoinColumn(name = "user_fk")
     private User topoOwner;
+
+    public Topo() {}
+
+    public Topo(boolean borrowed) {
+        this.borrowed = borrowed;
+    }
 
     public Long getId() {
         return id;
