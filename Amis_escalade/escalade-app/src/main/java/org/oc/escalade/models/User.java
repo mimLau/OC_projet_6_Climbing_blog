@@ -1,6 +1,7 @@
 package org.oc.escalade.models;
 
 import javax.persistence.*;
+import java.awt.print.Book;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,9 @@ public class User {
 
     @OneToMany(mappedBy = "topoOwner")
     private List<Topo> topos;
+
+    @OneToMany(mappedBy = "userRequest")
+    private List<Booking> bookings;
 
 
     public Long getUserId() {
