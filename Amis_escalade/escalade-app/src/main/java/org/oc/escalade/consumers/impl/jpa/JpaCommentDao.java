@@ -9,6 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class JpaCommentDao implements CommentDao {
@@ -64,14 +65,15 @@ public class JpaCommentDao implements CommentDao {
     }
 
     @Override
-    public void updateCommentById(Long id, String contents) {
+    public void updateCommentById(Long id, String newContents, Date editedDate) {
         final EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();
 
         try {
             t.begin();
-            Query query = em.createQuery("UPDATE Comment c SET c.contents= :contents WHERE c.id= :id");
-            query.setParameter("contents", contents);
+            Query query = em.createQuery("UPDATE Comment c SET c.contents= :contents, c.editedDate= :date, c.edited = TRUE WHERE c.id= :id");
+            query.setParameter("contents", newContents );
+            query.setParameter("date", editedDate );
             query.setParameter("id", id);
 
             query.executeUpdate();
