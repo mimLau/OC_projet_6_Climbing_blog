@@ -85,11 +85,11 @@
                                 <c:if test="${sessionScope.user.role == 'MEMBRE' || sessionScope.user.role == 'ADMIN'}">
                                     <a class="btn btn-primary"  href="${pageContext.request.contextPath}/auth/deleteComm?id=${comment.id}" >Supprimer</a>
                                     <button type="submit"  class="btn btn-primary" onclick="showEditCommForm( <c:out value="${nb.index}"></c:out> )">Editer</button>
-                                    <form method="post" action="${pageContext.request.contextPath}/auth/editComm" id="form_<c:out value="${nb.index}"></c:out>" class="editComForm">
-                                        <textarea name="comment_contents" cols="100" rows="5" placeholder="Votre commentaire" aria-required="true"></textarea>
+                                    <form method="post" action="${pageContext.request.contextPath}/auth/updateComm?id=${comment.id}" id="form_<c:out value="${nb.index}"></c:out>" class="editComForm">
+                                        <textarea name="comment_edit_contents" cols="100" rows="5" placeholder="Votre commentaire" aria-required="true"> <c:out value="${comment.contents}"/></textarea>
                                         <div class="form-group">
-                                            <a class="btn btn-primary"  href="${pageContext.request.contextPath}/auth/updateComm?id=${comment.id}" >Valider</a>
-                                            <input type="button"  class="btn btn-primary" value="Annuler" onclick="cancelEdition( <c:out value="${nb.index}"></c:out> )">
+                                            <input type="submit" class="submit" class="btn btn-primary" value="Valider">
+                                            <input type="button"   class="submit" value="Annuler" onclick="cancelEdition( <c:out value="${nb.index}"></c:out> )">
                                         </div>
                                     </form>
                                 </c:if>
@@ -103,7 +103,7 @@
             <form method="post" action="${pageContext.request.contextPath}/auth/addComment">
                 <textarea name="comment_contents" cols="100" rows="5" placeholder="Votre commentaire" aria-required="true"></textarea>
                 <div class="form-group">
-                    <input name="submit" type="submit" id="submit" class="submit" class="btn btn-primary" value="Publier">
+                    <input type="submit" class="submit" class="btn btn-primary" value="Publier">
                 </div>
             </form>
         </c:if>
