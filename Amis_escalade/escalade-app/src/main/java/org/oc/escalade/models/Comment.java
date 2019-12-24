@@ -12,6 +12,8 @@ public class Comment {
     private Long id;
     private Date date;
     private String contents;
+    private boolean edited;
+    private Date editionDate;
 
     @ManyToOne
     @JoinColumn(name= "user_fk")
@@ -50,6 +52,22 @@ public class Comment {
 
     public void setContents(String contents) {
         this.contents = contents;
+    }
+
+    public boolean isEdited() {
+        return edited;
+    }
+
+    public void setEdited(boolean edited) {
+        this.edited = edited;
+    }
+
+    public Date getEditionDate() {
+        return editionDate;
+    }
+
+    public void setEditionDate(Date editionDate) {
+        this.editionDate = editionDate;
     }
 
     public User getCommentOwner() {
