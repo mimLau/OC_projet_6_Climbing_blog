@@ -14,6 +14,7 @@ import java.util.Date;
 public class CommentsManager {
     private CommentDao commentDao = DaoFactory.getCommentDao();
     private final static String COMMENT_CONTENTS_FIELD = "comment_contents";
+    private final static String COMMENT_EDIT_CONTENTS_FIELD = "comment_edit_contents";
     private final static String ID_COMMENT_PARAM = "id";
     private static final String SITE_ATT =  "site";
 
@@ -40,6 +41,12 @@ public class CommentsManager {
     public void deleteComment( HttpServletRequest req ) {
         Long commentId = Long.parseLong(getParameterValue( req,  ID_COMMENT_PARAM ));
         commentDao.deleteComById(commentId);
+    }
+
+    public void updateComment( HttpServletRequest req ) {
+        Long commentId = Long.parseLong(getParameterValue( req,  ID_COMMENT_PARAM ));
+        String commentContents = getParameterValue(  req, COMMENT_EDIT_CONTENTS_FIELD );
+        commentDao.updateCommentById( commentId, commentContents );
     }
 
     private static String getParameterValue( HttpServletRequest req, String param ){
