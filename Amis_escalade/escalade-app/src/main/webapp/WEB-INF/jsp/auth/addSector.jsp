@@ -15,8 +15,9 @@
 </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
+
+        <h1><c:out value="${site.name}"/></h1><br/>
         <form method="post" action="${pageContext.request.contextPath}/auth/addSector">
-            <h1><c:out value="${site.name}"/></h1><br/>
             <div class="form-group">
                 <label for="sectorName">Nom du secteur</label>
                 <input type="text" name="sectorName" class="form-control" id="sectorName">
