@@ -12,20 +12,16 @@ import java.io.IOException;
 
 @WebServlet(name = "AddCommentServlet", urlPatterns = "/auth/addComment")
 public class AddCommentServlet extends HttpServlet {
-    public static final String COMMENT_ATT = "comment";
     public static final String  SHOW_SITE_PAGE = "/showSite?id=";
     public static final String SITE_ATT = "site";
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         CommentsManager commentsManager = new CommentsManager();
         commentsManager.addComment( req );
-        req.getServletContext().getAttribute( COMMENT_ATT );
         Site site = (Site) req.getServletContext().getAttribute( SITE_ATT );
-
         res.sendRedirect(req.getContextPath() + SHOW_SITE_PAGE + site.getId());
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
     }
 }
