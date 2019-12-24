@@ -10,4 +10,5 @@ public interface CommentDao {
     Comment addComment( Comment comment );
     List<Comment> getCommentsBySiteId( Site site );
     void deleteComById( Long id );
+    void updateCommentById( Long id, String content );
 }
