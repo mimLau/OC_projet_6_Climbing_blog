@@ -39,6 +39,11 @@
                                     </c:if>
                                 </td>
                                 <td><c:out value="${topo.topoOwner.username}"/></td>
+                                <td>
+                                    <c:if test="${topo.borrowed == false}">
+                                        <button><a href="#">Réserver</a></button>
+                                    </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                     </table>
