@@ -22,6 +22,10 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="${pageContext.request.contextPath}/home">Accueil <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="${pageContext.request.contextPath}/listSites">Sites</a>
+                <a class="nav-item nav-link" href="${pageContext.request.contextPath}/listAllTopos">Topos</a>
+                <c:if test="${sessionScope.user.username != null}">
+                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/auth/listTopos">Mes topos</a>
+                </c:if>
             </div>
         </div>
         <div>
