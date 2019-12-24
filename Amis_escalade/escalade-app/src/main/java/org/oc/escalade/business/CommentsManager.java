@@ -46,7 +46,8 @@ public class CommentsManager {
     public void updateComment( HttpServletRequest req ) {
         Long commentId = Long.parseLong(getParameterValue( req,  ID_COMMENT_PARAM ));
         String commentContents = getParameterValue(  req, COMMENT_EDIT_CONTENTS_FIELD );
-        commentDao.updateCommentById( commentId, commentContents );
+        Date editedDate = new Date();
+        commentDao.updateCommentById( commentId, commentContents , editedDate );
     }
 
     private static String getParameterValue( HttpServletRequest req, String param ){
