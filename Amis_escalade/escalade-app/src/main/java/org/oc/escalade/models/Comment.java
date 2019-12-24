@@ -1,5 +1,7 @@
 package org.oc.escalade.models;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -12,8 +14,10 @@ public class Comment {
     private Long id;
     private Date date;
     private String contents;
-    private boolean edited;
     private Date editedDate;
+
+    @Type(type = "numeric_boolean")
+    private boolean edited;
 
     @ManyToOne
     @JoinColumn(name= "user_fk")
