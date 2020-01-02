@@ -10,7 +10,9 @@ import org.oc.escalade.utils.RetrieveParamValue;
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 public class CommentsManager {
     private CommentDao commentDao = DaoFactory.getCommentDao();
@@ -23,17 +25,21 @@ public class CommentsManager {
     public Comment addComment( HttpServletRequest req ) {
         String commentContents = RetrieveParamValue.getParameterValue( req, COMMENT_CONTENTS_FIELD );
         User user = (User) req.getSession().getAttribute( USER_SESSION );
-        Site site = (Site) req.getServletContext().getAttribute( USER_SESSION );
+        Site site = (Site) req.getServletContext().getAttribute( SITE_ATT );
         req.getServletContext().setAttribute( SITE_ATT, site );
 
-        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-        Date date = new Date();
+        Date today = new Date();
+
+        DateFormat shortDateFormat = DateFormat.getDateTimeInstance(
+                DateFormat.MEDIUM,
+                DateFormat.MEDIUM, new Locale("FR", "fr"));
+
 
         Comment comment = new Comment();
         comment.setContents( commentContents );
         comment.setCommentOwner( user );
         comment.setSiteComment( site );
-        comment.setDate( date );
+        comment.setDate( shortDateFormat.format( today ));
 
         commentDao.addComment( comment );
 
