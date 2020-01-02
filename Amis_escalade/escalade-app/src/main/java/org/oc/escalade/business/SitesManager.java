@@ -1,11 +1,7 @@
 package org.oc.escalade.business;
 
-import org.oc.escalade.consumers.DaoFactory;
-import org.oc.escalade.consumers.PlaceDao;
-import org.oc.escalade.consumers.SiteDao;
-import org.oc.escalade.models.Place;
-import org.oc.escalade.models.Site;
-import org.oc.escalade.models.User;
+import org.oc.escalade.consumers.*;
+import org.oc.escalade.models.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -14,10 +10,16 @@ public final class SitesManager {
 
     private SiteDao siteDao = DaoFactory.getSiteDao();
     private PlaceDao placeDao = DaoFactory.getPlaceDao();
+    private WayDao wayDao = DaoFactory.getWayDao();
+    private LengthDao lengthDao = DaoFactory.getLengthDao();
     private static final String NAME_FIELD = "name";
     private static final String REGION_FIELD = "region";
     private static final String DESCRIPTION_FIELD = "description";
     private static final String ID_PARAMETER_NAME = "id";
+    private static final String TAG_PARAMETER_NAME = "tag";
+    private static final String OFFICIAL_CHECK_BOX = "official";
+    private static final String RATING_FIELD = "rating";
+    private static final String SECTOR_NB_FIELD ="sectorsNb";
 
     public List<Site> getAllSites() {
          return siteDao.getAllSites();
@@ -82,13 +84,46 @@ public final class SitesManager {
     }
 
     public void updateTag(HttpServletRequest req) {
-        String idParameter = getParameterValue(req, ID_PARAMETER_NAME );
-        siteDao.updateTag(Long.parseLong(idParameter));
+        Long idParameter = Long.parseLong(getParameterValue( req, ID_PARAMETER_NAME ));
+        Boolean tag = Boolean.parseBoolean(getParameterValue( req, TAG_PARAMETER_NAME ));
+        siteDao.updateTag( idParameter,tag );
+    }
+
+    public List<Site> searchSite(HttpServletRequest req ) {
+        List<Site> site;
+        String region = getParameterValue( req, REGION_FIELD );
+        String rating = getParameterValue( req, RATING_FIELD );
+        String officialSite = getParameterValue( req, OFFICIAL_CHECK_BOX );
+        String sectorNbP = getParameterValue( req, SECTOR_NB_FIELD );
+        Boolean tagged = false;
+        int sectorNb = 0;
+        Place place = null;
+        List<Long> siteId = new ArrayList<>();
+
+        if( officialSite != null ) tagged = true;
+        if( sectorNbP != null && !sectorNbP.isEmpty() ) sectorNb = Integer.parseInt( sectorNbP );
+        if( region != null && !region.isEmpty() ) place = placeDao.getPlaceByRegionName( region );
+        if( rating != null && !rating.isEmpty() ) {
+
+             List<Way> ways = wayDao.findWaysByRating( rating );
+             List<Length> lengths = lengthDao.findLengthsByRating( rating );
+
+             for( Length length : lengths ) {
+                    siteId.add(length.getWay().getSector().getSite().getId());
+             }
+
+             for( Way way : ways ) {
+                 Long id = way.getSector().getSite().getId();
+                 if(!siteId.contains( id )) siteId.add( id );
+             }
+        }
+
+        site = siteDao.getSiteBySearchParams( place, sectorNb, tagged, siteId );
+        return site;
     }
 
     private static String getParameterValue( HttpServletRequest req, String param ){
         String paramValue = req.getParameter( param );
         return paramValue;
     }
-
 }
