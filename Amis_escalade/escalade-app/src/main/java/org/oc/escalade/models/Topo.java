@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "topos")
@@ -23,6 +24,9 @@ public class Topo {
     @ManyToOne
     @JoinColumn(name = "user_fk")
     private User topoOwner;
+
+    @OneToMany(mappedBy = "topo")
+    private List<Booking> bookings;
 
     public Topo() {}
 
