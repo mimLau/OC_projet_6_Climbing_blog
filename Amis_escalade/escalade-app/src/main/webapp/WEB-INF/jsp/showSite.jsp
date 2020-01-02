@@ -64,7 +64,7 @@
         </c:if>
         <div>
             <div class="text-center">
-                <h3 class="card-title">
+                <span class="card-title">
                     <c:if test="${! empty site.comments}">
                         <c:choose>
                             <c:when test="${fn:length(site.comments) gt 1}">${fn:length(site.comments)} COMMENTAIRES </c:when>
@@ -73,7 +73,10 @@
                             </c:otherwise>
                         </c:choose>
                     </c:if>
-                </h3>
+                    <c:if test="${empty site.comments}">
+                        Il n'y a pas de commentaire.
+                    </c:if>
+                </span>
             </div><br/>
             <c:if test="${! empty site.comments}">
                     <c:forEach items="${site.comments}" var="comment" varStatus="nb">
