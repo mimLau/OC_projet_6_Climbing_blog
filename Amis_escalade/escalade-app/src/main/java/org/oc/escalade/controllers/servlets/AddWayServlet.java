@@ -19,20 +19,16 @@ public class AddWayServlet extends HttpServlet {
     public static final String  ADD_WAY_VIEW = "/WEB-INF/jsp/auth/addWay.jsp";
     public static final String  SHOW_SECTOR_PAGE = "/showSector?id=";
     public static final String RATINGS_ATT = "ratings";
-    public static final String SITE_ATT = "site";
-    public static final String WAY_ATT = "way";
     public static final String SECTOR_ATT = "sector";
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         WaysManager form = new WaysManager();
-        Way way = form.addWay(req);
-        //req.getServletContext().setAttribute(WAY_ATT, way);
+        form.addWay(req);
         Sector sector = (Sector) req.getServletContext().getAttribute(SECTOR_ATT);
         res.sendRedirect(req.getContextPath() + SHOW_SECTOR_PAGE + sector.getId());
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        //WaysManager form = new WaysManager();
         List<String> ratingValues = RatingManager.getAllRatings();
         req.getServletContext().setAttribute(RATINGS_ATT, ratingValues);
         this.getServletContext().getRequestDispatcher(ADD_WAY_VIEW).forward(req, res);
