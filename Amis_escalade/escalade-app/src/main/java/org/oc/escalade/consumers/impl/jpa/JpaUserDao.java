@@ -29,29 +29,28 @@ public class JpaUserDao implements UserDao {
     @Override
     public User findUserByUsername(String username) {
         final EntityManager em = emf.createEntityManager();
-        User u = new User();
+        User user;
 
         try {
             Query query = em.createQuery("SELECT u FROM User AS u WHERE u.username= :username");
             query.setParameter("username", username);
-            u = (User) query.getSingleResult();
+            user = (User) query.getSingleResult();
         }finally {
             em.close();
         }
-        return u;
+        return user;
     }
 
     @Override
     public boolean usernameExists(String username) {
         final EntityManager em = emf.createEntityManager();
         boolean usernameExists = true;
-        User u = new User();
 
         try {
             Query query = em.createQuery("SELECT u FROM User AS u WHERE u.username= :username");
             query.setParameter("username", username);
             try {
-                u = (User) query.getSingleResult();
+                User user = (User) query.getSingleResult();
             } catch (NoResultException e) {
                 usernameExists = false;
             }
@@ -64,15 +63,15 @@ public class JpaUserDao implements UserDao {
     @Override
     public User findUserByEmail(String email) {
         final EntityManager em = emf.createEntityManager();
-        User u = new User();
+        User user;
 
         try {
             Query query = em.createQuery("SELECT u FROM User AS u WHERE u.email= :email");
             query.setParameter("email", email);
-            u = (User) query.getSingleResult();
+            user = (User) query.getSingleResult();
         } finally {
             em.close();
         }
-        return u;
+        return user;
     }
 }
