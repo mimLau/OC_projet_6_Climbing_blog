@@ -81,4 +81,12 @@ public class Topo {
     public void setTopoOwner(User topoOwner) {
         this.topoOwner = topoOwner;
     }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 }
