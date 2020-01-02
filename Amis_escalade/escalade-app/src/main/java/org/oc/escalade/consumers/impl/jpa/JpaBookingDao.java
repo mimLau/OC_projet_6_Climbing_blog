@@ -56,10 +56,8 @@ public class JpaBookingDao implements BookingDao  {
 
         try {
             Query query = em.createQuery("SELECT b FROM Booking AS b WHERE b.userRequest.userId= :u_id AND b.status= :s1");
-            //Query query = em.createQuery("SELECT b FROM Booking AS b WHERE b.userRequest.userId= :u_id AND b.status= :s1 OR b.status= :s2");
             query.setParameter("u_id", userRequestId);
             query.setParameter("s1", Status.IN_PROGRESS);
-            //query.setParameter("s2", Status.ACCEPTED);
 
             try {
                 bookings = (List<Booking> )query.getResultList();
@@ -73,27 +71,6 @@ public class JpaBookingDao implements BookingDao  {
     }
 
     @Override
-
-    /*public void updateBookingStatusToAccepted(Long bookingId) {
-        final EntityManager em = emf.createEntityManager();
-        EntityTransaction t = em.getTransaction();
-
-        try {
-            t.begin();
-            Query query = em.createQuery("UPDATE Booking b SET b.status = :status WHERE b.id= :id");
-            query.setParameter("id", bookingId);
-            query.setParameter("status", Status.ACCEPTED);
-
-            query.executeUpdate();
-            t.commit();
-        }finally {
-            if ( t.isActive() ) {
-                t.rollback();
-            }
-            em.close();
-        }
-    }*/
-
     public void updateBookingStatus(Long bookingId, Status status) {
         final EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();
@@ -113,9 +90,6 @@ public class JpaBookingDao implements BookingDao  {
             em.close();
         }
     }
-
-
-
 
     @Override
     public Booking findBookingById(Long bookingId) {
