@@ -46,4 +46,9 @@ public class DaoFactory {
         return new JpaTopoDao(
                 PersistenceManager.getEntityManagerFactory());
     }
+
+    public static BookingDao getBookingDao() {
+        return new JpaBookingDao(
+                PersistenceManager.getEntityManagerFactory());
+    }
 }
