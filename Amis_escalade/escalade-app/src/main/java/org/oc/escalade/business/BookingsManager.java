@@ -10,7 +10,6 @@ import org.oc.escalade.models.User;
 import org.oc.escalade.utils.RetrieveParamValue;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class BookingsManager {
