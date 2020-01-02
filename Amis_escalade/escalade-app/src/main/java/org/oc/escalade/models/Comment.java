@@ -3,6 +3,7 @@ package org.oc.escalade.models;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Date date;
+    private String date;
     private String contents;
     private Date editedDate;
 
@@ -42,11 +43,11 @@ public class Comment {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
