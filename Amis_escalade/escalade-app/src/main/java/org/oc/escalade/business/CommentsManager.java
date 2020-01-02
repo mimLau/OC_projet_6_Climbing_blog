@@ -5,14 +5,10 @@ import org.oc.escalade.consumers.DaoFactory;
 import org.oc.escalade.models.Comment;
 import org.oc.escalade.models.Site;
 import org.oc.escalade.models.User;
+import org.oc.escalade.utils.LocalDate;
 import org.oc.escalade.utils.RetrieveParamValue;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
 
 public class CommentsManager {
     private CommentDao commentDao = DaoFactory.getCommentDao();
@@ -22,40 +18,42 @@ public class CommentsManager {
     private static final String SITE_ATT =  "site";
     private final static String USER_SESSION = "user";
 
+    /**
+     * Add a new comment in BDD.
+     * @param req
+     * @return The created comment.
+     */
     public Comment addComment( HttpServletRequest req ) {
-        String commentContents = RetrieveParamValue.getParameterValue( req, COMMENT_CONTENTS_FIELD );
-        User user = (User) req.getSession().getAttribute( USER_SESSION );
-        Site site = (Site) req.getServletContext().getAttribute( SITE_ATT );
-        req.getServletContext().setAttribute( SITE_ATT, site );
-
-        Date today = new Date();
-
-        DateFormat shortDateFormat = DateFormat.getDateTimeInstance(
-                DateFormat.MEDIUM,
-                DateFormat.MEDIUM, new Locale("FR", "fr"));
-
+        String commentContents = RetrieveParamValue.getParameterValue( req, COMMENT_CONTENTS_FIELD ); // Retrieve the comment contents from the field comment_contents
+        User user = (User) req.getSession().getAttribute( USER_SESSION ); // Retrieve the connected user.
+        Site site = (Site) req.getServletContext().getAttribute( SITE_ATT ); //Retrieve the site linked to the new comment.
 
         Comment comment = new Comment();
         comment.setContents( commentContents );
         comment.setCommentOwner( user );
         comment.setSiteComment( site );
-        comment.setDate( shortDateFormat.format( today ));
+        comment.setDate( LocalDate.getLocalDate() );
 
         commentDao.addComment( comment );
-
         return comment;
     }
 
+    /**
+     * Delete a comment from its id.
+     * @param req
+     */
     public void deleteComment( HttpServletRequest req ) {
-        Long commentId = Long.parseLong(RetrieveParamValue.getParameterValue( req,  ID_COMMENT_PARAM ));
+        Long commentId = Long.parseLong(RetrieveParamValue.getParameterValue( req,  ID_COMMENT_PARAM )); // Retrieve the id of the comment which will be deleted.
         commentDao.deleteComById(commentId);
     }
 
+    /**
+     * Update a comment in the BDD.
+     * @param req
+     */
     public void updateComment( HttpServletRequest req ) {
-        Long commentId = Long.parseLong(RetrieveParamValue.getParameterValue( req,  ID_COMMENT_PARAM ));
-        String commentContents = RetrieveParamValue.getParameterValue(  req, COMMENT_EDIT_CONTENTS_FIELD );
-        Date editedDate = new Date();
-        commentDao.updateCommentById( commentId, commentContents , editedDate );
+        Long commentId = Long.parseLong(RetrieveParamValue.getParameterValue( req,  ID_COMMENT_PARAM )); // Retrieve the id of the comment which will be edited.
+        String commentContents = RetrieveParamValue.getParameterValue(  req, COMMENT_EDIT_CONTENTS_FIELD ); // Retrieve the edited contents from the comment_contents field.
+        commentDao.updateCommentById( commentId, commentContents , LocalDate.getLocalDate() );
     }
-
 }
