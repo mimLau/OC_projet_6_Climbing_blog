@@ -1,16 +1,18 @@
 package org.oc.escalade.business;
 
+import org.oc.escalade.consumers.BookingDao;
 import org.oc.escalade.consumers.DaoFactory;
 import org.oc.escalade.consumers.TopoDao;
 import org.oc.escalade.consumers.UserDao;
+import org.oc.escalade.models.Booking;
+import org.oc.escalade.models.Status;
 import org.oc.escalade.models.Topo;
 import org.oc.escalade.models.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ToposManager {
     private final static String DESCRIPTION_FIELD = "topoDesc";
@@ -20,7 +22,7 @@ public class ToposManager {
     private static final String DISP_PARAMETER = "disp";
     private TopoDao topoDao = DaoFactory.getTopoDao();
     private UserDao userDao = DaoFactory.getUserDao();
-
+    private BookingDao bookingDao = DaoFactory.getBookingDao();
 
     public List<Topo> userTopos( HttpServletRequest req ) {
         User user = (User) req.getSession().getAttribute("user");
@@ -46,17 +48,37 @@ public class ToposManager {
         return topo;
     }
 
-    public List<Topo> getAllTopos() {
-        List<Topo> userTopos = topoDao.getAllTopos();
-        return userTopos;
+    public Map<Topo, Boolean> getAllTopos( HttpServletRequest req ) {
+        List<Topo> allTopos = topoDao.getAllTopos();
+        Map<Topo, Boolean> topos = new HashMap<>();
+        List<Topo> bookedTopos = new ArrayList<>();
+
+        BookingsManager bookingsManager = new BookingsManager();
+        List<Booking> userBookings = bookingsManager.getBookingsByUserRequestId( req );
+
+        for ( Booking booking : userBookings )  bookedTopos.add(booking.getTopo());
+
+        for( Topo topo : (allTopos )) {
+            if( bookedTopos.size() != 0) {
+                for( Topo top : bookedTopos) {
+                    if (top.getId() == topo.getId()) {
+                        topos.put(topo, true);
+                    }
+                     else topos.put(topo, false);
+                }
+            } else
+                topos.put(topo, false);
+        }
+        return topos;
     }
 
     public void updateTopoDisp( HttpServletRequest req ) {
-        String idTopo = getParameterValue( req, ID_PARAMETER );
-        String disp = getParameterValue( req, DISP_PARAMETER );
-        topoDao.updateTopoState( Long.parseLong( idTopo ) , Boolean.parseBoolean(disp) );
+        Long idTopo =  Long.parseLong( getParameterValue( req, ID_PARAMETER ));
+        Boolean  disp =  Boolean.parseBoolean( getParameterValue( req, DISP_PARAMETER ));
+        topoDao.updateTopoStatus( idTopo, disp );
+        Booking booking = bookingDao.findBookingByStatusAndTopoId(Status.ACCEPTED, idTopo );
+        bookingDao.updateBookingStatus( booking.getId(), Status.EXPIRED );
     }
-
 
     private static String getParameterValue( HttpServletRequest req, String param ){
         String paramValue = req.getParameter( param );
