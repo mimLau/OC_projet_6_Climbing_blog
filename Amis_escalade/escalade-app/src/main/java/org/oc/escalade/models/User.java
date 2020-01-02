@@ -31,7 +31,10 @@ public class User {
     private List<Topo> topos;
 
     @OneToMany(mappedBy = "userRequest")
-    private List<Booking> bookings;
+    private List<Booking> bookingsReq;
+
+    @OneToMany(mappedBy = "userLender")
+    private List<Booking> bookingsLend;
 
 
     public Long getUserId() {
@@ -120,5 +123,21 @@ public class User {
 
     public void setTopos(List<Topo> topos) {
         this.topos = topos;
+    }
+
+    public List<Booking> getBookingsReq() {
+        return bookingsReq;
+    }
+
+    public void setBookingsReq(List<Booking> bookingsReq) {
+        this.bookingsReq = bookingsReq;
+    }
+
+    public List<Booking> getBookingsLend() {
+        return bookingsLend;
+    }
+
+    public void setBookingsLend(List<Booking> bookingsLend) {
+        this.bookingsLend = bookingsLend;
     }
 }
