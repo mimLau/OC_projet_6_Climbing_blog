@@ -55,7 +55,7 @@ public class JpaTopoDao implements TopoDao {
         List<Topo> allTopos = new ArrayList<Topo>();
 
         try {
-            Query query = em.createQuery("SELECT t FROM Topo as t");
+            Query query = em.createQuery("SELECT t FROM Topo as t ORDER BY t.id");
             try {
                 allTopos = (List<Topo>) query.getResultList();
             } catch ( NoResultException noResultE ) {
@@ -69,8 +69,9 @@ public class JpaTopoDao implements TopoDao {
         return allTopos;
     }
 
+
     @Override
-    public void updateTopoState(Long topoId, boolean borrowed) {
+    public void updateTopoStatus(Long topoId, boolean borrowed) {
         final EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();
 
@@ -88,5 +89,41 @@ public class JpaTopoDao implements TopoDao {
             }
             em.close();
         }
+    }
+
+    @Override
+    public void updateTopoStatusToTrue(Long topoId) {
+            final EntityManager em = emf.createEntityManager();
+            EntityTransaction t = em.getTransaction();
+
+            try {
+                t.begin();
+                Query query = em.createQuery("UPDATE Topo t SET t.borrowed= TRUE WHERE t.id= :id");
+                query.setParameter("id", topoId );
+
+                query.executeUpdate();
+                t.commit();
+            }finally {
+                if ( t.isActive() ) {
+                    t.rollback();
+                }
+                em.close();
+            }
+    }
+
+    @Override
+    public Topo findTopoById(Long id) {
+        final EntityManager em = emf.createEntityManager();
+        Topo topo;
+
+        try {
+            Query query = em.createQuery("SELECT t FROM Topo AS t LEFT JOIN FETCH t.topoOwner  WHERE t.id= :id ");
+            query.setParameter("id", id);
+            topo = (Topo) query.getSingleResult();
+
+        } finally {
+            em.close();
+        }
+        return topo;
     }
 }
