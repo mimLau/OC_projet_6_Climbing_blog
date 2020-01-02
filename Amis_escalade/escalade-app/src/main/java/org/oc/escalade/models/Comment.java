@@ -15,7 +15,7 @@ public class Comment {
     private Long id;
     private String date;
     private String contents;
-    private Date editedDate;
+    private String editedDate;
 
     @Type(type = "numeric_boolean")
     private boolean edited;
@@ -67,11 +67,11 @@ public class Comment {
         this.edited = edited;
     }
 
-    public Date getEditedDate() {
+    public String getEditedDate() {
         return editedDate;
     }
 
-    public void setEditedDate(Date editedDate) {
+    public void setEditedDate(String editedDate) {
         this.editedDate = editedDate;
     }
 
