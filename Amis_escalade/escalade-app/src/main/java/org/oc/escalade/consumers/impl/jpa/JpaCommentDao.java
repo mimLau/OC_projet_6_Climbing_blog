@@ -65,7 +65,7 @@ public class JpaCommentDao implements CommentDao {
     }
 
     @Override
-    public void updateCommentById(Long id, String newContents, Date editedDate) {
+    public void updateCommentById(Long id, String newContents, String editedDate) {
         final EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();
 
