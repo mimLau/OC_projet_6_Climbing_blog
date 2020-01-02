@@ -3,10 +3,7 @@ package org.oc.escalade.consumers.impl.jpa;
 import org.oc.escalade.consumers.WayDao;
 import org.oc.escalade.models.Way;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +52,7 @@ public class JpaWayDao implements WayDao {
         Way way = new Way();
 
         try {
-            Query query = em.createQuery("SELECT w FROM Way AS w LEFT JOIN FETCH w.lengths WHERE w.id= :id ");
+            Query query = em.createQuery("SELECT w FROM Way AS w LEFT JOIN FETCH w.lengths WHERE w.id= :id");
             query.setParameter("id", id);
             way = ( Way) query.getSingleResult();
         } finally {
@@ -83,5 +80,24 @@ public class JpaWayDao implements WayDao {
             }
             em.close();
         }
+    }
+
+    @Override
+    public List<Way> findWaysByRating(String rating) {
+        final EntityManager em = emf.createEntityManager();
+        List<Way> ways = new ArrayList<Way>();
+
+        try {
+            Query query = em.createQuery("SELECT w FROM Way AS w WHERE w.rating= :rating");
+            query.setParameter("rating", rating);
+            ways = (List<Way>) query.getResultList();
+
+        } catch (NoResultException noResultE) {
+            ways = null;
+
+        } finally {
+            em.close();
+        }
+        return ways;
     }
 }
