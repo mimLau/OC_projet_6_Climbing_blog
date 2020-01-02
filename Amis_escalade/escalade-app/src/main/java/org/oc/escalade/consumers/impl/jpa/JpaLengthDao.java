@@ -35,7 +35,12 @@ public class JpaLengthDao implements LengthDao {
         try {
             Query query = em.createQuery("SELECT l FROM Length AS l WHERE l.id= :id ");
             query.setParameter("id", id);
-            length = ( Length) query.getSingleResult();
+            try {
+                length = ( Length) query.getSingleResult();
+            } catch ( NoResultException noResultE ) {
+                length = null;
+            }
+
         } finally {
             em.close();
         }
