@@ -9,4 +9,5 @@ public interface WayDao {
     List<Way> getAllWays();
     Way findWayById(Long id);
     void updateNbOfLengths(Long id);
+    List<Way> findWaysByRating( String rating );
 }
