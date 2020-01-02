@@ -3,10 +3,8 @@ package org.oc.escalade.consumers.impl.jpa;
 import org.oc.escalade.consumers.LengthDao;
 import org.oc.escalade.models.Length;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.util.List;
 
 public class JpaLengthDao implements LengthDao {
         private EntityManagerFactory emf;
@@ -44,4 +42,22 @@ public class JpaLengthDao implements LengthDao {
         return length;
     }
 
+    @Override
+    public List<Length> findLengthsByRating(String rating) {
+        final EntityManager em = emf.createEntityManager();
+        List<Length> lengths;
+
+        try {
+            Query query = em.createQuery("SELECT l FROM Length AS l WHERE l.rating= :rating");
+            query.setParameter("rating", rating);
+            lengths = (List<Length>) query.getResultList();
+
+        } catch (NoResultException noResultE) {
+            lengths = null;
+
+        } finally {
+            em.close();
+        }
+        return lengths;
+    }
 }
