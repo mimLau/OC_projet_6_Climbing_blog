@@ -18,7 +18,7 @@ public class addTagServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         SitesManager sitesManager = new SitesManager();
-        sitesManager.updateTag(req);
+        sitesManager.updateTag( req );
         res.sendRedirect(req.getContextPath() + LIST_SITES_PAGE);
     }
 }
