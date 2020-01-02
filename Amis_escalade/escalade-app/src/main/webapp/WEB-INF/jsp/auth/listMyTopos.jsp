@@ -27,10 +27,10 @@
                                 <td> <c:out value="${topo.name}"></c:out></td>
                                 <td>
                                     <c:if test="${topo.borrowed == true}">
-                                        <button><a href="${pageContext.request.contextPath}/auth/updateTopo?id=${topo.id}&disp=false">Indisponible</a></button>
+                                        <button title="Cliquez pour rendre disponible le topo"><a style="text-decoration:none;" href="${pageContext.request.contextPath}/auth/updateTopo?id=${topo.id}&disp=false">Indisponible</a></button>
                                     </c:if>
                                     <c:if test="${topo.borrowed == false}">
-                                        <button><a href="${pageContext.request.contextPath}/auth/updateTopo?id=${topo.id}&disp=true">Disponible</a></button>
+                                        <button><a style="text-decoration:none;cursor:default;" href="${pageContext.request.contextPath}/auth/updateTopo?id=${topo.id}&disp=true">Disponible</a></button>
                                     </c:if>
                                 </td>
                             </tr>
