@@ -2,6 +2,7 @@ package org.oc.escalade.models;
 
 public enum Status {
 
-    DEMANDE_RESERVATION,
-    RESERVE;
+    IN_PROGRESS,
+    ACCEPTED,
+    EXPIRED;
 }
