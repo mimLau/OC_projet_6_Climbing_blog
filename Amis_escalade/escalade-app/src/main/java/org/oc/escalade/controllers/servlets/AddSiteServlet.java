@@ -15,22 +15,21 @@ import java.util.Map;
 
 @WebServlet(name = "AddSiteServlet", urlPatterns = "/auth/addSite")
 public class AddSiteServlet extends HttpServlet {
-    public static final String  ADD_SITE_VIEW = "/WEB-INF/jsp/auth/addSite.jsp";
-    public static final String  ADD_SECTOR_PAGE = "/auth/addSector";
-    public static final String  LIST_SITES_VIEW = "/listSites";
-    public static final String COUNTRYREGION_ATT = "countryRegions";
+    public static final String ADD_SITE_VIEW = "/WEB-INF/jsp/auth/addSite.jsp";
+    public static final String LIST_SITES_PAGE = "/listSites";
+    public static final String COUNTRY_REGION_ATT = "countryRegions";
     public static final String SITE_ATT = "site";
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        SitesManager siteBu = new SitesManager();
-        Site site = siteBu.addSite(req);
+        SitesManager sitesManager = new SitesManager();
+        Site site = sitesManager.addSite(req);
         req.getServletContext().setAttribute(SITE_ATT, site);
-        res.sendRedirect(req.getContextPath() + LIST_SITES_VIEW );
+        res.sendRedirect(req.getContextPath() + LIST_SITES_PAGE );
     }
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        SitesManager siteBu = new SitesManager();
-        Map<String, List<String>> countriesWithRegions = siteBu.listOfCountriesRegions();
-        req.setAttribute(COUNTRYREGION_ATT, countriesWithRegions);
+        SitesManager sitesManager = new SitesManager();
+        Map<String, List<String>> countriesWithRegions = sitesManager.listOfCountriesRegions();
+        req.setAttribute(COUNTRY_REGION_ATT, countriesWithRegions);
 
         this.getServletContext().getRequestDispatcher(ADD_SITE_VIEW).forward(req, res);
     }
