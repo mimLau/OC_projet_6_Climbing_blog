@@ -16,7 +16,7 @@ public class Topo {
     private Long id;
     private String name;
     private String description;
-    private Date releaseDate;
+    private String releaseDate;
 
     @Type(type = "numeric_boolean")
     private boolean borrowed;
@@ -58,11 +58,11 @@ public class Topo {
         this.description = description;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
