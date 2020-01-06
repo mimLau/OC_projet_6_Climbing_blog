@@ -13,13 +13,13 @@ public final class SitesManager {
     private WayDao wayDao = DaoFactory.getWayDao();
     private LengthDao lengthDao = DaoFactory.getLengthDao();
     private static final String NAME_FIELD = "name";
-    private static final String REGION_FIELD = "region";
+    private static final String REGION_INPUT = "region";
     private static final String DESCRIPTION_FIELD = "description";
     private static final String ID_PARAMETER_NAME = "id";
     private static final String TAG_PARAMETER_NAME = "tag";
-    private static final String OFFICIAL_CHECK_BOX = "official";
-    private static final String RATING_FIELD = "rating";
-    private static final String SECTOR_NB_FIELD ="sectorsNb";
+    private static final String OFFICIAL_INPUT = "official";
+    private static final String RATING_INPUT = "rating";
+    private static final String SECTOR_NB_INPUT ="sectorsNb";
 
     public List<Site> getAllSites() {
          return siteDao.getAllSites();
@@ -52,7 +52,7 @@ public final class SitesManager {
 
     public Site addSite(HttpServletRequest req) {
         String name = getParameterValue( req, NAME_FIELD );
-        String region = getParameterValue( req, REGION_FIELD );
+        String region = getParameterValue( req, REGION_INPUT );
         String description = getParameterValue( req, DESCRIPTION_FIELD );
 
         User user = (User) req.getSession().getAttribute("user");
@@ -89,37 +89,117 @@ public final class SitesManager {
         siteDao.updateTag( idParameter,tag );
     }
 
+    public int getSectorNbMax() {
+        return siteDao.getMaxNbSector();
+    }
+
+    /**
+     *
+     * @param req
+     * @return
+     */
     public List<Site> searchSite(HttpServletRequest req ) {
-        List<Site> site;
-        String region = getParameterValue( req, REGION_FIELD );
-        String rating = getParameterValue( req, RATING_FIELD );
-        String officialSite = getParameterValue( req, OFFICIAL_CHECK_BOX );
-        String sectorNbP = getParameterValue( req, SECTOR_NB_FIELD );
-        Boolean tagged = false;
-        int sectorNb = 0;
-        Place place = null;
-        List<Long> siteId = new ArrayList<>();
+        /*
+          Map which will contain all getSitesBySearchParams's parameters and their type.
+         */
+        Map<String, Object> criteriaResearchMap =new HashMap<String, Object>();
+        List<Long> sitesIds = new ArrayList<>();
+        List<Site> sites;
+        Place place;
+        Integer sectorNb;
+        Boolean officialSite;
 
-        if( officialSite != null ) tagged = true;
-        if( sectorNbP != null && !sectorNbP.isEmpty() ) sectorNb = Integer.parseInt( sectorNbP );
-        if( region != null && !region.isEmpty() ) place = placeDao.getPlaceByRegionName( region );
+        /*
+         Retrieve all INPUT' contents from research form.
+         */
+        String region = getParameterValue( req, REGION_INPUT );
+        String rating = getParameterValue( req, RATING_INPUT);
+        String officialSite_param = getParameterValue( req, OFFICIAL_INPUT );
+        String sectorNb_param = getParameterValue( req, SECTOR_NB_INPUT );
+
+        /*
+         Treatment of the search criteria "TAGGED" of the site.
+         If input officialSite isn't empty.
+         Add official value (which is true) and tagged key to the Map criteriaResearchMap.
+         Add tagged key  and true as value to the Map setActiveCriteria.
+         Register the "TAGGED" criteria research and its value in the context to add it to the next research.
+         */
+        if( officialSite_param != null ) {
+            officialSite = Boolean.parseBoolean( officialSite_param );
+            criteriaResearchMap.put("tagged", officialSite );
+            req.getServletContext().setAttribute("tagged_criteria", true);
+            req.getServletContext().setAttribute("chosen_tag", officialSite);
+
+
+        } else if (req.getServletContext().getAttribute("tagged_criteria") != null) {
+
+            if( req.getServletContext().getAttribute("tagged_criteria").equals(false) ) {
+                criteriaResearchMap.put("tagged", null );
+                req.getServletContext().setAttribute("chosen_tag", null );
+
+            } else if(req.getServletContext().getAttribute("tagged_criteria").equals(true) ) {
+                criteriaResearchMap.put( "tagged", req.getServletContext().getAttribute("chosen_tag") );
+            }
+
+        /*
+         If input officialSite is empty but was selected for a previous research.
+         And if it wasn't reset in the meantime, this criteria should be still in the context.
+         Verify if it is still in the context, if it is, we retrieve this criteria and its value and put them in
+         criteriaResearchMap to retrieve it as parameter for getSitesBySearchParams() method.
+         */
+        } else
+            criteriaResearchMap.put("tagged", null);
+
+        /*
+         Treatment of the search criteria "PLACE" of the site.
+         Same as search criteria "TAGGED".
+         */
+        if( region != null && !region.isEmpty() ) {
+            place = placeDao.getPlaceByRegionName( region );
+            criteriaResearchMap.put("place", place );
+            req.getServletContext().setAttribute("chosen_region", region );
+            req.getServletContext().setAttribute("chosen_place", place );
+
+        } else
+            criteriaResearchMap.put("place", null );
+
+        /*
+         Treatment of the search criteria "SECTOR NUMBER" of the site.
+         Same as search criteria "TAGGED".
+         */
+        if( sectorNb_param != null && !sectorNb_param.isEmpty() ) {
+            sectorNb = Integer.parseInt( sectorNb_param );
+            criteriaResearchMap.put("sectorNb", sectorNb );
+            req.getServletContext().setAttribute("chosen_sectorNb", sectorNb );
+
+        } else
+            criteriaResearchMap.put("sectorNb", null );
+        /*
+         Treatment of the search criteria "RATING" of the site.
+         Same as search criteria "TAGGED".
+         */
         if( rating != null && !rating.isEmpty() ) {
+            List<Way> ways = wayDao.findWaysByRating( rating );
+            List<Length> lengths = lengthDao.findLengthsByRating( rating );
 
-             List<Way> ways = wayDao.findWaysByRating( rating );
-             List<Length> lengths = lengthDao.findLengthsByRating( rating );
+            for( Length length : lengths ) {
+                sitesIds.add(length.getWay().getSector().getSite().getId());
+            }
 
-             for( Length length : lengths ) {
-                    siteId.add(length.getWay().getSector().getSite().getId());
-             }
+            for( Way way : ways ) {
+                Long id = way.getSector().getSite().getId();
+                if(!sitesIds.contains( id )) sitesIds.add( id );
+            }
 
-             for( Way way : ways ) {
-                 Long id = way.getSector().getSite().getId();
-                 if(!siteId.contains( id )) siteId.add( id );
-             }
-        }
+            criteriaResearchMap.put("sitesIds", sitesIds );
+            req.getServletContext().setAttribute("chosen_rating", rating );
+            req.getServletContext().setAttribute("sitesIds", sitesIds );
 
-        site = siteDao.getSiteBySearchParams( place, sectorNb, tagged, siteId );
-        return site;
+        } else
+            criteriaResearchMap.put("sitesIds", null );
+
+        sites = siteDao.getSitesBySearchParams( criteriaResearchMap );
+        return sites;
     }
 
     private static String getParameterValue( HttpServletRequest req, String param ){
