@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class JpaSiteDao implements SiteDao {
     private EntityManagerFactory emf;
@@ -110,7 +111,7 @@ public class JpaSiteDao implements SiteDao {
     @Override
     public List<Site> getSitesByPlaceId(Long placeId) {
         final EntityManager em = emf.createEntityManager();
-        List<Site> sites = new ArrayList<>();
+        List<Site> sites;
 
         Query query = em.createQuery("SELECT s FROM Site AS s  WHERE s.place.id= :id ");
         query.setParameter("id", placeId);
@@ -124,18 +125,85 @@ public class JpaSiteDao implements SiteDao {
     }
 
     @Override
-    public List<Site> getSiteBySearchParams( Place place, int nbOfSectors, Boolean tagged, List<Long> siteIds ) {
+    public int getMaxNbSector() {
+        final EntityManager em = emf.createEntityManager();
+        int nbSectorMax;
+
+        try {
+            Query query = em.createQuery("SELECT max(s.nbOfSectors) FROM Site AS s");
+            nbSectorMax = (int) query.getSingleResult();
+
+        } finally {
+            em.close();
+        }
+        return nbSectorMax;
+    }
+
+    @Override
+    public List<Site> getSitesByTag( Boolean tagged ) {
         final EntityManager em = emf.createEntityManager();
         List<Site> sites = new ArrayList<>();
 
+        Query query = em.createQuery("SELECT s FROM Site AS s  WHERE s.tagged= :tagged ");
+        query.setParameter("tagged", tagged);
+
+        try {
+            sites = (List<Site>) query.getResultList();
+        }catch ( NoResultException noResultE ) {
+
+        } finally {
+            em.close();
+        }
+        return sites;
+    }
+
+    @Override
+    public List<Site> getSitesBySearchParams( Map<String, Object> criteriaResearchMap ) {
+        final EntityManager em = emf.createEntityManager();
+        Boolean tagged = null;
+        Place place = null;
+        Integer sectorNb = null;
+        List<Long> sitesIds = null;
+
+        List<Site> sites = new ArrayList<>();
+        Query query;
+        String stringQuery = "SELECT s FROM Site AS s WHERE ";
+
+        for( Map.Entry<String, Object> entry : criteriaResearchMap.entrySet() ) {
+            if( entry.getKey().equals("sitesIds") ) {
+                sitesIds = (List<Long>) entry.getValue();
+
+            } else if( entry.getKey().equals("sectorNb") ) {
+                sectorNb = (Integer) entry.getValue();
+
+            } else if ( entry.getKey().equals("place") ) {
+                place = (Place) entry.getValue();
+
+            } else if ( entry.getKey().equals("tagged") ) {
+                tagged = (Boolean) entry.getValue();
+            }
+        }
+
         try {
 
-            if( place != null && nbOfSectors != 0 ) {
+            if( tagged != null && place != null && sectorNb != null ) {
+                stringQuery = stringQuery + " s.tagged= :tagged AND s.place= :place AND s.nbOfSectors= :sectorNb";
+                query = em.createQuery( stringQuery );
+                query.setParameter("tagged", tagged );
+                query.setParameter("place", place );
+                query.setParameter("sectorNb", sectorNb );
 
-                Query query = em.createQuery("SELECT s FROM Site AS s  WHERE s.place= :place AND s.nbOfSectors= :nbOfSectors AND s.tagged= :tagged");
-                query.setParameter("place", place);
-                query.setParameter("nbOfSectors", nbOfSectors);
-                query.setParameter("tagged", tagged);
+                try {
+                    sites = (List<Site>) query.getResultList();
+                } catch( NoResultException noResultE) {
+                    sites = null;
+                }
+
+            } else if( tagged == null && place != null && sectorNb != null ) {
+                stringQuery = stringQuery + " s.place= :place AND s.nbOfSectors= :sectorNb";
+                query = em.createQuery( stringQuery );
+                query.setParameter("place", place );
+                query.setParameter("sectorNb", sectorNb );
 
                 try {
                     sites = (List<Site>) query.getResultList();
@@ -143,56 +211,109 @@ public class JpaSiteDao implements SiteDao {
                     sites = null;
                 }
 
-            } else if ( place == null && nbOfSectors != 0 ) {
-
-                Query query = em.createQuery("SELECT s FROM Site AS s  WHERE s.nbOfSectors= :nbOfSectors AND s.tagged= :tagged");
-                query.setParameter("nbOfSectors", nbOfSectors);
-                query.setParameter("tagged", tagged);
+            } else if( tagged != null && place == null && sectorNb != null ) {
+                stringQuery = stringQuery + " s.tagged= :tagged AND s.nbOfSectors= :sectorNb";
+                query = em.createQuery( stringQuery );
+                query.setParameter("tagged", tagged );
+                query.setParameter("sectorNb", sectorNb );
 
                 try {
                     sites = (List<Site>) query.getResultList();
                 } catch( NoResultException noResultE) {
                     sites = null;
                 }
-            } else if ( place != null && nbOfSectors == 0 ) {
 
-                Query query = em.createQuery("SELECT s FROM Site AS s  WHERE s.place= :place AND s.tagged= :tagged");
-                query.setParameter("place", place);
-                query.setParameter("tagged", tagged);
+            } else if( tagged == null && place == null && sectorNb != null ) {
+                stringQuery = stringQuery + "s.nbOfSectors= :sectorNb";
+                query = em.createQuery( stringQuery );
+                query.setParameter("sectorNb", sectorNb );
 
                 try {
                     sites = (List<Site>) query.getResultList();
-                } catch (NoResultException noResultE) {
+                } catch( NoResultException noResultE) {
                     sites = null;
                 }
-            }
 
-            if( !siteIds.isEmpty() ) {
-                String stringQuery = "SELECT s FROM Site AS s  WHERE s.id IN :ids";
+            } else if( tagged != null && place != null && sectorNb == null ) {
+                stringQuery = stringQuery + " s.tagged= :tagged AND s.place= :place";
+                query = em.createQuery( stringQuery );
+                query.setParameter("tagged", tagged );
+                query.setParameter("place", place );
 
+                try {
+                    sites = (List<Site>) query.getResultList();
+                } catch( NoResultException noResultE) {
+                    sites = null;
+                }
+
+            } else if( tagged == null && place != null && sectorNb == null ) {
+                stringQuery = stringQuery + " s.place= :place";
+                query = em.createQuery( stringQuery );
+                query.setParameter("place", place );
+
+                try {
+                    sites = (List<Site>) query.getResultList();
+                } catch( NoResultException noResultE) {
+                    sites = null;
+                }
+
+            } else if( tagged != null && place == null && sectorNb == null ) {
+                stringQuery = stringQuery + "s.tagged= :tagged";
+                query = em.createQuery( stringQuery );
+                query.setParameter("tagged", tagged );
+
+                try {
+                    sites = (List<Site>) query.getResultList();
+                } catch( NoResultException noResultE) {
+                    sites = null;
+                }
+
+            } /*else if( tagged == null && place == null && sectorNb == null ) {
+                query = em.createQuery("SELECT s FROM Site AS s");
+
+                try {
+                    sites = (List<Site>) query.getResultList();
+                } catch( NoResultException noResultE) {
+                    sites = null;
+                }
+            }*/
+
+
+            if( sitesIds != null ) {
                 Query query2;
-                if( sites.isEmpty() ) {
-                   query2  = em.createQuery(stringQuery);
-                   query2.setParameter("ids", siteIds);
 
+                if ( !sitesIds.isEmpty() ) {
+                    String stringQuery2 = "SELECT s FROM Site AS s WHERE s.id IN :ids";
+
+                    if (tagged == null && place == null && sectorNb == null) {
+                        query2 = em.createQuery(stringQuery2);
+                        query2.setParameter("ids", sitesIds);
+
+                    } else if (sites.isEmpty() || sites == null) {
+                        query2 = null;
+                    } else {
+                        query2 = em.createQuery(stringQuery2 + " AND s IN :sites");
+
+                        query2.setParameter("ids", sitesIds);
+                        query2.setParameter("sites", sites);
+                    }
+
+                    try {
+                        sites = (List<Site>) query2.getResultList();
+                    } catch (NoResultException noResultE) {
+                        sites = null;
+                    } catch (NullPointerException n) {
+                        sites = null;
+                    }
                 } else {
-                    query2 = em.createQuery(stringQuery + " AND s IN :sites");
-
-                    query2.setParameter("ids", siteIds);
-                    query2.setParameter("sites", sites);
-                }
-
-                try {
-                    sites = (List<Site>) query2.getResultList();
-                } catch (NoResultException noResultE) {
                     sites = null;
                 }
             }
         } finally {
             em.close();
         }
-
         return sites;
-
     }
+
+
 }
