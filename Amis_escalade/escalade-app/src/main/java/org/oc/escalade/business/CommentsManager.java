@@ -5,7 +5,7 @@ import org.oc.escalade.consumers.DaoFactory;
 import org.oc.escalade.models.Comment;
 import org.oc.escalade.models.Site;
 import org.oc.escalade.models.User;
-import org.oc.escalade.utils.LocalDate;
+import org.oc.escalade.utils.DateManager;
 import org.oc.escalade.utils.RetrieveParamValue;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +32,7 @@ public class CommentsManager {
         comment.setContents( commentContents );
         comment.setCommentOwner( user );
         comment.setSiteComment( site );
-        comment.setDate( LocalDate.getLocalDate() );
+        comment.setDate( DateManager.getLocalDate() );
 
         commentDao.addComment( comment );
         return comment;
@@ -54,6 +54,6 @@ public class CommentsManager {
     public void updateComment( HttpServletRequest req ) {
         Long commentId = Long.parseLong(RetrieveParamValue.getParameterValue( req,  ID_COMMENT_PARAM )); // Retrieve the id of the comment which will be edited.
         String commentContents = RetrieveParamValue.getParameterValue(  req, COMMENT_EDIT_CONTENTS_FIELD ); // Retrieve the edited contents from the comment_contents field.
-        commentDao.updateCommentById( commentId, commentContents , LocalDate.getLocalDate() );
+        commentDao.updateCommentById( commentId, commentContents , DateManager.getLocalDate() );
     }
 }
