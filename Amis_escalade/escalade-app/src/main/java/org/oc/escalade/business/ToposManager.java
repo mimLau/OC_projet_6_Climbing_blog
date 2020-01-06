@@ -8,6 +8,7 @@ import org.oc.escalade.models.Booking;
 import org.oc.escalade.models.Status;
 import org.oc.escalade.models.Topo;
 import org.oc.escalade.models.User;
+import org.oc.escalade.utils.DateManager;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -36,12 +37,14 @@ public class ToposManager {
         String description = getParameterValue( req, DESCRIPTION_FIELD );
         String name = getParameterValue( req, NAME_FIELD );
         String date = getParameterValue( req, RELEASE_DATE );
-        Date releaseDate = new SimpleDateFormat("yyyy-MM-dd").parse( date );
+
+       SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd");
+        Date releaseDate = format.parse(date);
 
         Topo topo = new Topo(false );
         topo.setDescription( description );
         topo.setName( name );
-        topo.setReleaseDate( releaseDate );
+        topo.setReleaseDate( DateManager.getLocalDate(releaseDate) );
         topo.setTopoOwner( user );
         topoDao.addTopo( topo);
 
@@ -77,7 +80,10 @@ public class ToposManager {
         Boolean  disp =  Boolean.parseBoolean( getParameterValue( req, DISP_PARAMETER ));
         topoDao.updateTopoStatus( idTopo, disp );
         Booking booking = bookingDao.findBookingByStatusAndTopoId(Status.ACCEPTED, idTopo );
-        bookingDao.updateBookingStatus( booking.getId(), Status.EXPIRED );
+
+        if( booking != null ) {
+            bookingDao.updateBookingStatus( booking.getId(), Status.EXPIRED );
+        }
     }
 
     private static String getParameterValue( HttpServletRequest req, String param ){
