@@ -4,6 +4,7 @@ import org.oc.escalade.models.Place;
 import org.oc.escalade.models.Site;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SiteDao {
 
@@ -13,5 +14,7 @@ public interface SiteDao {
      void updateNbOfSectors( Long id );
      void updateTag( Long id, Boolean tag );
      List<Site> getSitesByPlaceId( Long placeId );
-     List<Site> getSiteBySearchParams(Place place, int nbOfSectors, Boolean tagged, List<Long> siteIds );
+     List<Site> getSitesByTag( Boolean tagged );
+     List<Site> getSitesBySearchParams( Map<String, Object> criteriaResearchMap);
+     int getMaxNbSector();
 }
