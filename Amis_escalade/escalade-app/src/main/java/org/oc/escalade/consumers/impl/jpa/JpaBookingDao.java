@@ -116,8 +116,12 @@ public class JpaBookingDao implements BookingDao  {
             Query query = em.createQuery("SELECT b FROM Booking AS b WHERE b.status= :status AND b.topo.id= :id");
             query.setParameter("status", status);
             query.setParameter("id", topoId);
-            booking = (Booking) query.getSingleResult();
 
+            try{
+                booking = (Booking) query.getSingleResult();
+            } catch ( NoResultException noResultE ) {
+                booking = null;
+            }
         }finally {
             em.close();
         }
