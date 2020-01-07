@@ -2,6 +2,7 @@ package org.oc.escalade.business;
 
 import org.oc.escalade.consumers.DaoFactory;
 import org.oc.escalade.consumers.UserDao;
+import org.oc.escalade.models.Role;
 import org.oc.escalade.models.User;
 import org.oc.escalade.utils.HashGenerator;
 
@@ -44,6 +45,7 @@ public final class RegistrationManager {
         user.setFirstname( firstname );
         lastnameValidation( lastname );
         user.setLastname( lastname );
+        user.setRole(Role.INVITE);
 
         if(errors.isEmpty()) {
             userDao.addUser(user);
