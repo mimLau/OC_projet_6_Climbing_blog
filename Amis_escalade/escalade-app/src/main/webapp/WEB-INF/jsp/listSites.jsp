@@ -86,7 +86,7 @@
             </c:choose>
 
         </c:if>
-    </div>
+    </div> <br/>
 
     <br/>
     <div class="list-searched-sites">
