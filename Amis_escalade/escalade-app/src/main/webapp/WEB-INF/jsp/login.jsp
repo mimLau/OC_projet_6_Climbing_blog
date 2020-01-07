@@ -20,7 +20,7 @@
         <div style="margin: 1rem;">
             <div class="row">
                 <div class="form-group col-sm-4">
-                    <span>Je me connecte</span>
+                    <br/><span>Je me connecte</span>
                 </div>
             </div>
             <form method="post" action="${pageContext.request.contextPath}/login">
