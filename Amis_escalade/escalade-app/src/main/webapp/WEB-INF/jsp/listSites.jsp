@@ -89,18 +89,17 @@
     </div>
 
     <br/>
-    <br/>
-    <br/>
-        <div class="list-searched-sites">
+    <div class="list-searched-sites">
         <c:if test="${list == true}">
             <div>
                 <p class="text-center">Découvrez les différents sites d'escalade répertoriés sur notre blog!</p><br/>
             </div>
         </c:if>
-            <div>
+        <div class="outer-div">
+            <div class= "col-sm-10" style="margin:0 auto;">
                 <c:choose>
                     <c:when test="${!empty sites}">
-                        <table class="table table-hover">
+                        <table class="table table-hover" style="border: 1px solid #DDD;">
                             <tr>
                                 <th>Nom du site</th>
                                 <th>Nombre de secteurs</th>
@@ -137,17 +136,17 @@
                         </table>
                     </c:when>
                     <c:otherwise>
-                        Il n'y a aucun résultat à votre recherche.
+                        <p class="text-center">Il n'y a aucun résultat à votre recherche.</p>
                     </c:otherwise>
                 </c:choose>
             </div>
+            <c:if test="${list == true}">
+                <div class= "col-sm-10" style="margin:0 auto;">
+                    <c:if test="${sessionScope.user.username != null}">
+                        <a class="btn btn-secondary" href="${pageContext.request.contextPath}/auth/addSite" tabindex="-1" aria-disabled="true">Ajouter un nouveau site</a>
+                    </c:if>
+                </div>
+            </c:if>
         </div>
-    <c:if test="${list == true}">
-    <div>
-        <c:if test="${sessionScope.user.username != null}">
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/addSite" tabindex="-1" aria-disabled="true">Ajouter un nouveau site</a>
-        </c:if>
-    </div>
-    </c:if>
 </body>
 </html>
