@@ -32,7 +32,7 @@
 </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-        <div class="text-center"><h3 class="card-title">Site - <c:out value="${site.name}"></c:out></h3></div><br/><br/>
+        <br/><div class="text-center"><h3 class="card-title">Site - <c:out value="${site.name}"></c:out></h3></div><br/><br/>
 
 
         <div class="outer-div">
@@ -117,15 +117,15 @@
                                             </c:if>
                                             <br/>
                                             <c:if test="${sessionScope.user.role == 'MEMBRE' || sessionScope.user.role == 'ADMIN'}">
-                                                <a class="btn btn-secondary btn-sm"  href="${pageContext.request.contextPath}/auth/deleteComm?id=${comment.id}" style="background-color:#CECEB7;border:none;opacity: 0.9;">Supprimer</a>
-                                                <button type="submit" class="btn btn-secondary btn-sm" onclick="showEditCommForm( <c:out value="${nb.index}"></c:out> )" style="background-color:#CECEB7;border:none;opacity: 0.9;">Editer</button>
+                                                <a class="btn btn-secondary btn-sm"  href="${pageContext.request.contextPath}/auth/deleteComm?id=${comment.id}" style="background-color:rgba(178, 201, 211, 0.9);border:none;">Supprimer</a>
+                                                <button type="submit" class="btn btn-secondary btn-sm" onclick="showEditCommForm( <c:out value="${nb.index}"></c:out> )" style="background-color:rgba(178, 201, 211, 0.9);border:none;">Editer</button>
 
                                                 <form class="editComForm" method="post" action="${pageContext.request.contextPath}/auth/updateComm?id=${comment.id}" id="form_<c:out value="${nb.index}"></c:out>">
                                                     <br/>
                                                     <textarea name="comment_edit_contents" rows="5" placeholder="Votre commentaire" aria-required="true" style="width:100%;"> <c:out value="${comment.contents}"/></textarea>
                                                     <div class="form-group" style="padding-top: 2px;">
-                                                        <input type="submit" class="submit btn-sm" value="Valider" style="color:white;background-color:#CECEB7;border:none;opacity: 0.5;">
-                                                        <input type="button"  class="submit btn-sm" value="Annuler" onclick="cancelEdition( <c:out value="${nb.index}"></c:out> )" style="color:white;background-color:#CECEB7;border:none;opacity: 0.5;">
+                                                        <input type="submit" class="submit btn-sm" value="Valider" style="color:white;background-color:rgba(162, 165, 167 , 0.5);border:none;">
+                                                        <input type="button"  class="submit btn-sm" value="Annuler" onclick="cancelEdition( <c:out value="${nb.index}"></c:out> )" style="color:white;background-color:rgba(162, 165, 167 , 0.5);border:none;">
                                                     </div>
                                                 </form>
                                             </c:if>
