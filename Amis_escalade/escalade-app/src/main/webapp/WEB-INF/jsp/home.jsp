@@ -14,19 +14,29 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src ="${pageContext.request.contextPath}/img/Escalade_car_1.jpg">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src ="${pageContext.request.contextPath}/img/Escalade_car_2.jpg">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src ="${pageContext.request.contextPath}/img/Escalade_car_3.jpg">
+        <div class="row">
+            <div class="col-sm-7" style="margin:0 auto;">
+                <br/><p class="text-center">Bienvenue sur notre blog!</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7" style="margin:0 auto;">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" style="margin:0 auto;">
+                        <div class="carousel-item active" style="display: block">
+                            <img class="d-block w-100" src ="${pageContext.request.contextPath}/img/Escalade_car_1.jpg">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src ="${pageContext.request.contextPath}/img/Escalade_car_2.jpg">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src ="${pageContext.request.contextPath}/img/Escalade_car_3.jpg">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
         <c:set var="previousPage" value="/home" scope="application"></c:set>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
