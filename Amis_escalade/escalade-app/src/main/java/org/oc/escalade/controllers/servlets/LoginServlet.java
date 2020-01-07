@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         User user = form.logUser(req);
 
         if( form.getErrors().isEmpty() ) {
-            req.getSession().setAttribute(USER_ATT, user);
+            req.getSession().setAttribute( USER_ATT, user );
             res.sendRedirect(req.getContextPath() + HOME_PAGE );
         } else {
             req.setAttribute( FORM_ATT, form );
@@ -31,6 +31,19 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher( LOGIN_VIEW ).forward( req,res );
-    }
+       req.setAttribute("login_page", true);
+       Boolean loginPageDisplayed;
+       loginPageDisplayed = (Boolean) req.getServletContext().getAttribute("login_disp");
+
+        if( loginPageDisplayed != null ) {
+            if( loginPageDisplayed == true) {
+                req.getServletContext().removeAttribute("login_disp");
+                req.getServletContext().setAttribute("login_disp", false);
+                res.sendRedirect(req.getContextPath() + (String) req.getServletContext().getAttribute("previousPage") );
+
+            } else
+                this.getServletContext().getRequestDispatcher( LOGIN_VIEW ).forward( req,res );
+        } else
+            this.getServletContext().getRequestDispatcher( LOGIN_VIEW ).forward( req,res );
+       }
 }
