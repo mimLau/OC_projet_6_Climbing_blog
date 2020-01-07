@@ -17,6 +17,7 @@ import java.util.Map;
 @WebServlet(name = "ListSitesServlet", urlPatterns = "/listSites")
 public class ListSitesServlet extends HttpServlet {
     public static final String SITE_VIEW = "/WEB-INF/jsp/listSites.jsp";
+    public static final String SITE_PAGE = "/listSites";
     public static final String ALL_SITES_ATT = "sites";
     public static final String SEARCHED_SITES_ATT = "sites";
     public static final String COUNTRY_REGION_ATT = "countryRegions";
@@ -54,6 +55,8 @@ public class ListSitesServlet extends HttpServlet {
         req.getServletContext().removeAttribute("chosen_tag");
         req.getServletContext().removeAttribute("chosen_sectorNb");
         req.getServletContext().removeAttribute("chosen_rating");
+
+        req.getServletContext().setAttribute("previousPage", SITE_PAGE);
 
         this.getServletContext().getRequestDispatcher(SITE_VIEW).forward(req, res);
     }
