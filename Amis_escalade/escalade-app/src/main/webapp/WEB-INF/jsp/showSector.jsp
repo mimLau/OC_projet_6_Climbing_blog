@@ -14,41 +14,62 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-            <div class="text-center"><h3 class="card-title"><c:out value="${sector.name}"></c:out></h3></div><br/><br/>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item" style="list-style-type: none">Site: <c:out value="${site.name}"></c:out></li>
-                    <li class="list-group-item">Secteur: <c:out value="${sector.name}"></c:out></li><br/><br/>
-                </ul>
-            <div>
-        <c:choose>
-            <c:when test="${!empty sector.ways}">
-                <p> Liste des voies existantes:</p><br/>
-                    <table class="table table-hover">
-                        <tr>
-                            <th>Nom de la voie</th>
-                            <th>Longueur</th>
-                            <th>Cotation</th>
-                            <th>Nombre de longueurs</th>
-                        </tr>
-                        <c:forEach items="${sector.ways}" var="way">
-                            <tr>
-                                <td><a style="text-decoration: none" href="${pageContext.request.contextPath}/showWay?id=${way.id}"><c:out value="${way.name}"/></a></td>
-                                <td><c:out value="${way.length}"/></td>
-                                <td><c:out value="${way.rating}"/></td>
-                                <td><c:out value="${way.nbOfLengths}"/></td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </div>
-            </c:when>
-            <c:otherwise>
-                <p> Aucune voie n'a été ajoutée pour ce secteur.</p><br/>
-            </c:otherwise>
-        </c:choose>
-        <c:if test="${sessionScope.user.username != null}">
-            <div>
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/addWay">Ajouter une voie</a>
+
+        <div class="outer-div">
+            <div class="col-sm-10" style="margin:0 auto;"><br/>
+                <div class="text-center"><h3 class="card-title">Secteur - <c:out value="${sector.name}"></c:out></h3>
+                </div><br/>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" style="list-style-type: none">Site: <c:out value="${site.name}"></c:out></li>
+                        <li class="list-group-item" style="border-bottom: none"><h6 class="card-subtitle mb-2 text-muted">Description du secteur :</h6><br/>
+                            <p class="text-justify">Integer malesuada elit vel massa porttitor sodales quis ut tellus. Nullam bibendum ante sed nulla iaculis rutrum. Suspendisse nec porttitor magna. In hac habitasse platea dictumst. Aenean quis lorem in orci fermentum laoreet vitae eu felis. Ut aliquet dui at quam fermentum, eget tincidunt magna sagittis. Aenean ut urna at ante viverra pulvinar. Sed luctus elit turpis, nec efficitur augue pretium a. Mauris et lacinia leo. Morbi posuere convallis leo, ornare tempor neque. Sed lobortis risus quis vehicula ultrices. Pellentesque gravida est non eros varius lobortis.</p>
+                        </li><br/><br/>
+                    </ul>
             </div>
-        </c:if>
+            <div class="row">
+                <div class="col-sm-10" style="margin:0 auto;">
+                    <c:choose>
+                        <c:when test="${!empty sector.ways}">
+                            <p class="text-center"> Liste des voies existantes :</p><br/>
+                                <table class="table table-hover" style="border: 1px solid #DDD;">
+                                    <tr>
+                                        <th>Nom de la voie</th>
+                                        <th>Longueur</th>
+                                        <th>Cotation</th>
+                                        <th>Nombre de longueurs</th>
+                                    </tr>
+                                    <c:forEach items="${sector.ways}" var="way">
+                                        <tr>
+                                            <td><a style="text-decoration: none" href="${pageContext.request.contextPath}/showWay?id=${way.id}"><c:out value="${way.name}"/></a></td>
+                                            <td><c:out value="${way.length}"/></td>
+                                            <td><c:out value="${way.rating}"/></td>
+                                            <td><c:out value="${way.nbOfLengths}"/></td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                        </c:when>
+                        <c:otherwise>
+                            <p class="text-center"> Aucune voie n'a été ajoutée pour ce secteur.</p><br/>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10" style="margin:0 auto;">
+                    <div style="float:left">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/showSite?id=${site.id}" style="text-decoration:none;">Retour</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div style="float: right">
+                        <c:if test="${sessionScope.user.username != null}">
+                            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/auth/addWay">Ajouter une voie</a>
+                        </c:if>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
