@@ -48,7 +48,7 @@
                                     <td>
                                         <c:if test="${booking.status == 'IN_PROGRESS'}">
                                             <c:if test="${booking.topo.borrowed != true}">
-                                                <button><a style="text-decoration:none;" href="${pageContext.request.contextPath}/auth/validateBooking?id=${booking.id}">Valider</a></button>
+                                                <button type="button" class="btn btn-secondary" style="width:115px;background-color:rgba(160, 161, 162, 0.8);border:none;"><a style="text-decoration:none;color:white;" href="${pageContext.request.contextPath}/auth/validateBooking?id=${booking.id}">Valider</a></button>
                                             </c:if>
 
                                         </c:if>
