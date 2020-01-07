@@ -14,49 +14,55 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-        <div>
-            <c:choose>
-                <c:when test="${! empty bookings}">
-                    <table class="table table-hover">
-                        <tr>
-                            <th>Nom du topo</th>
-                            <th>Demandeur</th>
-                            <th>Adresse email</th>
-                            <th>Statut</th>
-                        </tr>
-                        <c:forEach items="${bookings}" var="booking">
+
+        <div class="outer-div">
+            <div class="col-sm-10" style="margin:0 auto;">
+                <c:choose>
+                    <c:when test="${! empty bookings}">
+                        <br/>
+                        <p class="text-center"> Réservations de mes topos</p><br/>
+                        <table class="table table-hover" style="border: 1px solid #DDD;">
                             <tr>
-                                <td><c:out value="${booking.topo.name}"></c:out></td>
-                                <td><c:out value="${booking.userRequest.username}"></c:out></td>
-                                <td><c:out value="${booking.userRequest.email}"></c:out></td>
-                                <td>
-                                    <c:if test="${booking.status == 'IN_PROGRESS'}">
-                                        En attente
-                                    </c:if>
-                                    <c:if test="${booking.status == 'ACCEPTED'}">
-                                        Acceptée
-                                    </c:if>
-                                    <c:if test="${booking.status == 'EXPIRED'}">
-                                        expirée
-                                    </c:if>
-                                </td>
-                                <td>
-                                    <c:if test="${booking.status == 'IN_PROGRESS'}">
-                                        <c:if test="${booking.topo.borrowed != true}">
-                                            <button><a style="text-decoration:none;" href="${pageContext.request.contextPath}/auth/validateBooking?id=${booking.id}">Valider</a></button>
-                                        </c:if>
-
-                                    </c:if>
-                                </td>
+                                <th>Nom du topo</th>
+                                <th>Demandeur</th>
+                                <th>Adresse email</th>
+                                <th>Statut</th>
+                                <th></th>
                             </tr>
-                        </c:forEach>
-                    </table>
-                </c:when>
-                <c:otherwise>
-                    Il n'y a aucune demande de réservation.
-                </c:otherwise>
-            </c:choose>
-        </div>
+                            <c:forEach items="${bookings}" var="booking">
+                                <tr>
+                                    <td><c:out value="${booking.topo.name}"></c:out></td>
+                                    <td><c:out value="${booking.userRequest.username}"></c:out></td>
+                                    <td><c:out value="${booking.userRequest.email}"></c:out></td>
+                                    <td>
+                                        <c:if test="${booking.status == 'IN_PROGRESS'}">
+                                            En attente
+                                        </c:if>
+                                        <c:if test="${booking.status == 'ACCEPTED'}">
+                                            Acceptée
+                                        </c:if>
+                                        <c:if test="${booking.status == 'EXPIRED'}">
+                                            expirée
+                                        </c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${booking.status == 'IN_PROGRESS'}">
+                                            <c:if test="${booking.topo.borrowed != true}">
+                                                <button><a style="text-decoration:none;" href="${pageContext.request.contextPath}/auth/validateBooking?id=${booking.id}">Valider</a></button>
+                                            </c:if>
 
+                                        </c:if>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </c:when>
+                    <c:otherwise>
+                        <br/>
+                        <p class="text-center">Il n'y a aucune demande de réservation.</p>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
     </body>
 </html>
