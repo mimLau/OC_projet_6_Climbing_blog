@@ -65,7 +65,19 @@
                         <button type="submit" class="btn-primary form-control">Créer votre compte</button>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/login" style="text-decoration:none;">Retour</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </form>
         </div>
+
+        <c:set var="login_disp" value="${false}" scope="application"></c:set>
+
     </body>
 </html>
