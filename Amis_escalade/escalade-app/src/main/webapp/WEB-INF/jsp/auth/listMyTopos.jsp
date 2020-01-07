@@ -18,8 +18,8 @@
             <div class= "col-sm-10" style="margin:0 auto;">
                 <c:choose>
                     <c:when test="${! empty topos}">
-                        <br/>
-                        <p class="text-center"> Mes topos enregistrés</p>
+                        <br/><br/>
+                        <p class="text-center"> Mes topos enregistrés</p><br/>
                         <table class="table" style="border: 1px solid #DDD;">
                             <thead>
                                 <tr >
@@ -33,10 +33,10 @@
                                         <td> <c:out value="${topo.name}"></c:out></td>
                                         <td>
                                             <c:if test="${topo.borrowed == true}">
-                                                <button type="button" class="btn btn-secondary" title="Cliquez pour rendre le topo disponible" style="width:115px;background-color:#CECEB7;border:none;opacity: 0.9;"><a style="text-decoration:none;color:white;" href="${pageContext.request.contextPath}/auth/updateTopo?id=${topo.id}&disp=false">Indisponible</a></button>
+                                                <button type="button" class="btn btn-secondary" title="Cliquez pour rendre le topo disponible" style="width:115px;background-color:rgba(160, 161, 162, 0.8);border:none;"><a style="text-decoration:none;color:white;" href="${pageContext.request.contextPath}/auth/updateTopo?id=${topo.id}&disp=false">Indisponible</a></button>
                                             </c:if>
                                             <c:if test="${topo.borrowed == false}">
-                                                <button type="button" class="btn btn-secondary" title="Cliquez pour rendre le topo indisponible" style="width:115px;background-color:#CECEB7;border:none;opacity:0.9;"><a style="text-decoration:none;color:white;" href="${pageContext.request.contextPath}/auth/updateTopo?id=${topo.id}&disp=true">Disponible</a></button>
+                                                <button type="button" class="btn btn-secondary" title="Cliquez pour rendre le topo indisponible" style="width:115px;background-color:rgba(160, 161, 162, 0.8);border:none;"><a style="text-decoration:none;color:white;" href="${pageContext.request.contextPath}/auth/updateTopo?id=${topo.id}&disp=true">Disponible</a></button>
                                             </c:if>
                                         </td>
                                     </tr>
