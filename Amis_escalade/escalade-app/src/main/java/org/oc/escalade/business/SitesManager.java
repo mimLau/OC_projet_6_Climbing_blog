@@ -2,6 +2,7 @@ package org.oc.escalade.business;
 
 import org.oc.escalade.consumers.*;
 import org.oc.escalade.models.*;
+import org.oc.escalade.utils.RetrieveParamValue;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -51,9 +52,9 @@ public final class SitesManager {
     }
 
     public Site addSite(HttpServletRequest req) {
-        String name = getParameterValue( req, NAME_FIELD );
-        String region = getParameterValue( req, REGION_INPUT );
-        String description = getParameterValue( req, DESCRIPTION_FIELD );
+        String name = RetrieveParamValue.getParameterValue( req, NAME_FIELD );
+        String region = RetrieveParamValue.getParameterValue( req, REGION_INPUT );
+        String description = RetrieveParamValue.getParameterValue( req, DESCRIPTION_FIELD );
 
         User user = (User) req.getSession().getAttribute("user");
         Place place = placeDao.getPlaceByRegionName( region );
@@ -69,7 +70,7 @@ public final class SitesManager {
     }
 
     public Site getSiteById( HttpServletRequest req ) {
-        String idParameter = getParameterValue(req, ID_PARAMETER_NAME );
+        String idParameter = RetrieveParamValue.getParameterValue(req, ID_PARAMETER_NAME );
         Site requestedSite = new Site();
 
         if(idParameter != null) {
@@ -84,8 +85,8 @@ public final class SitesManager {
     }
 
     public void updateTag(HttpServletRequest req) {
-        Long idParameter = Long.parseLong(getParameterValue( req, ID_PARAMETER_NAME ));
-        Boolean tag = Boolean.parseBoolean(getParameterValue( req, TAG_PARAMETER_NAME ));
+        Long idParameter = Long.parseLong( RetrieveParamValue.getParameterValue( req, ID_PARAMETER_NAME ));
+        Boolean tag = Boolean.parseBoolean( RetrieveParamValue.getParameterValue( req, TAG_PARAMETER_NAME ));
         siteDao.updateTag( idParameter,tag );
     }
 
@@ -112,10 +113,10 @@ public final class SitesManager {
         /*
          Retrieve all INPUT' contents from research form.
          */
-        String region = getParameterValue( req, REGION_INPUT );
-        String rating = getParameterValue( req, RATING_INPUT);
-        String officialSite_param = getParameterValue( req, OFFICIAL_INPUT );
-        String sectorNb_param = getParameterValue( req, SECTOR_NB_INPUT );
+        String region = RetrieveParamValue.getParameterValue( req, REGION_INPUT );
+        String rating = RetrieveParamValue.getParameterValue( req, RATING_INPUT);
+        String officialSite_param = RetrieveParamValue.getParameterValue( req, OFFICIAL_INPUT );
+        String sectorNb_param = RetrieveParamValue.getParameterValue( req, SECTOR_NB_INPUT );
 
         /*
          Treatment of the search criteria "TAGGED" of the site.
@@ -127,28 +128,20 @@ public final class SitesManager {
         if( officialSite_param != null ) {
             officialSite = Boolean.parseBoolean( officialSite_param );
             criteriaResearchMap.put("tagged", officialSite );
-            req.getServletContext().setAttribute("tagged_criteria", true);
             req.getServletContext().setAttribute("chosen_tag", officialSite);
 
 
-        } else if (req.getServletContext().getAttribute("tagged_criteria") != null) {
-
-            if( req.getServletContext().getAttribute("tagged_criteria").equals(false) ) {
-                criteriaResearchMap.put("tagged", null );
-                req.getServletContext().setAttribute("chosen_tag", null );
-
-            } else if(req.getServletContext().getAttribute("tagged_criteria").equals(true) ) {
-                criteriaResearchMap.put( "tagged", req.getServletContext().getAttribute("chosen_tag") );
-            }
-
-        /*
+            /*
          If input officialSite is empty but was selected for a previous research.
          And if it wasn't reset in the meantime, this criteria should be still in the context.
          Verify if it is still in the context, if it is, we retrieve this criteria and its value and put them in
          criteriaResearchMap to retrieve it as parameter for getSitesBySearchParams() method.
          */
+
         } else
             criteriaResearchMap.put("tagged", null);
+
+
 
         /*
          Treatment of the search criteria "PLACE" of the site.
@@ -200,10 +193,5 @@ public final class SitesManager {
 
         sites = siteDao.getSitesBySearchParams( criteriaResearchMap );
         return sites;
-    }
-
-    private static String getParameterValue( HttpServletRequest req, String param ){
-        String paramValue = req.getParameter( param );
-        return paramValue;
     }
 }
