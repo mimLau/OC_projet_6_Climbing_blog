@@ -10,11 +10,13 @@ import java.io.IOException;
 @WebServlet(name = "HomeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
     public static final String HOME_VIEW = "/WEB-INF/jsp/home.jsp";
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public static final String HOME_PAGE = "/home";
 
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    this.getServletContext().getRequestDispatcher(HOME_VIEW).forward(req, res);
+        req.getServletContext().setAttribute("previousPage", HOME_PAGE);
+        this.getServletContext().getRequestDispatcher(HOME_VIEW).forward(req, res);
     }
 }
