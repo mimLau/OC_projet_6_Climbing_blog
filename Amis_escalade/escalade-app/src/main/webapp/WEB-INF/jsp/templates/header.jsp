@@ -14,7 +14,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/home"><img src ="${pageContext.request.contextPath}/img/Logo_bis.png"></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/home"><img src ="${pageContext.request.contextPath}/img/Logo_bis_b.png"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -40,7 +40,10 @@
                 </c:if>
 
                 <c:if test="${sessionScope.user.username == null}">
-                    <a href="${pageContext.request.contextPath}/login" tabindex="-1" aria-disabled="true" style="text-decoration:none;">Se connecter</a>
+                     <c:if test="${login_page != true}">
+                       <span>Mon compte<span/><br/>
+                       <a href="${pageContext.request.contextPath}/login" tabindex="-1" aria-disabled="true" style="text-decoration:none;">Me connecter</a>
+                     </c:if>
                 </c:if>
             </div>
         </nav>
