@@ -20,7 +20,7 @@
                 <c:choose>
                     <c:when test="${! empty topos}">
                         <br/>
-                        <p class="text-center">Nos amis de l'escalade vous proposent les topos suivant:</p>
+                        <p class="text-center">Nos amis de l'escalade vous proposent les topos suivants :</p>
                         <br/>
                         <table class="table table-hover" style="border: 1px solid #DDD;">
                             <tr>
@@ -50,24 +50,24 @@
                                             <c:choose>
                                                 <c:when  test="${topo.value == false}">
                                                     <c:if test="${topo.key.topoOwner.username != sessionScope.user.username }">
-                                                        <button><a style="text-decoration:none;" href="${pageContext.request.contextPath}/auth/bookingTopo?id=${topo.key.id}">Réserver</a></button>
+                                                        <button type="button" class="btn btn-secondary" style="width:115px;background-color:rgba(160, 161, 162, 0.8);border:none;"><a style="text-decoration:none;color:white;" href="${pageContext.request.contextPath}/auth/bookingTopo?id=${topo.key.id}">Réserver</a></button>
                                                     </c:if>
                                                     <c:if test="${topo.key.topoOwner.username == sessionScope.user.username }">
-                                                        <button style="color:#D8D5D5;cursor: default;" title="Vous ne pouvez pas réserver votre propre topo.">Réserver</button>
+                                                        <button type="button" class="btn btn-secondary" style="width:115px;background-color:rgba(167, 173, 176 , 0.4);border:none;cursor:default;color:#D8D5D5;" title="Vous ne pouvez pas réserver votre propre topo.">Réserver</button>
                                                     </c:if>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <button style="color:#D8D5D5;cursor: default;" title="Une demande de réservation est déjà en cours.">Réserver</button>
+                                                    <button type="button" class="btn btn-secondary" style="width:115px;background-color:rgba(167, 173, 176 , 0.4);cursor:default;border:none;color:#D8D5D5;" title="Une demande de réservation est déjà en cours.">Réserver</button>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:if>
                                         <c:if test="${topo.key.borrowed == true}">
                                             <c:choose>
                                                 <c:when test="${topo.key.topoOwner.username == sessionScope.user.username }">
-                                                    <button style="color:#D8D5D5;cursor: default;" title="Topo indisponible. Vous ne pouvez pas réserver votre propre topo.">Réserver</button>
+                                                    <button type="button" class="btn btn-secondary" style="width:115px;border:none;background-color:rgba(167, 173, 176 , 0.4);color:#D8D5D5;cursor: default;" title="Topo indisponible. Vous ne pouvez pas réserver votre propre topo.">Réserver</button>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <button style="color:#D8D5D5;cursor: default;" title="Topo indisponible.">Réserver</button>
+                                                    <button type="button" class="btn btn-secondary" style="width:115px;border:none;background-color:rgba(167, 173, 176 , 0.4);color:#D8D5D5;cursor: default;" title="Topo indisponible.">Réserver</button>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:if>
