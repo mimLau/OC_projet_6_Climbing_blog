@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
@@ -19,7 +20,12 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
         LoginManager form = new LoginManager();
-        User user = form.logUser(req);
+        User user = null;
+        try {
+            user = form.logUser(req);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
         if( form.getErrors().isEmpty() ) {
             req.getSession().setAttribute( USER_ATT, user );
@@ -31,7 +37,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
-       req.setAttribute("login_page", true);
+       //req.setAttribute("login_page", true);
        Boolean loginPageDisplayed;
        loginPageDisplayed = (Boolean) req.getServletContext().getAttribute("login_disp");
 
