@@ -10,13 +10,13 @@
         <title>Secteur - ${sector.name}</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive_table.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
-
         <div class="outer-div">
-            <div class="col-sm-10" style="margin:0 auto;"><br/>
+            <div class="responsive-table-line" style="margin:0px auto;max-width:600px;"><br/>
                 <div class="text-center"><h3 class="card-title">Secteur - <c:out value="${sector.name}"></c:out></h3>
                 </div><br/>
                     <ul class="list-group list-group-flush">
@@ -26,26 +26,30 @@
                         </li><br/><br/>
                     </ul>
             </div>
-            <div class="row">
-                <div class="col-sm-10" style="margin:0 auto;">
+            <div class="outer-div">
+                <div class="responsive-table-line" style="margin:0px auto;max-width:600px;">
                     <c:choose>
                         <c:when test="${!empty sector.ways}">
                             <p class="text-center"> Liste des voies existantes :</p><br/>
                                 <table class="table table-hover" style="border: 1px solid #DDD;">
-                                    <tr>
-                                        <th>Nom de la voie</th>
-                                        <th>Longueur</th>
-                                        <th>Cotation</th>
-                                        <th>Nombre de longueurs</th>
-                                    </tr>
-                                    <c:forEach items="${sector.ways}" var="way">
+                                    <thead>
                                         <tr>
-                                            <td><a style="text-decoration: none" href="${pageContext.request.contextPath}/showWay?id=${way.id}"><c:out value="${way.name}"/></a></td>
-                                            <td><c:out value="${way.length}"/></td>
-                                            <td><c:out value="${way.rating}"/></td>
-                                            <td><c:out value="${way.nbOfLengths}"/></td>
+                                            <th>Nom de la voie</th>
+                                            <th>Longueur</th>
+                                            <th>Cotation</th>
+                                            <th>Nombre de longueurs</th>
                                         </tr>
-                                    </c:forEach>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${sector.ways}" var="way">
+                                            <tr>
+                                                <td data-title="Nom de la voie"><a style="text-decoration: none" href="${pageContext.request.contextPath}/showWay?id=${way.id}"><c:out value="${way.name}"/></a></td>
+                                                <td data-title="Longueur"><c:out value="${way.length}"/></td>
+                                                <td data-title="Cotation"><c:out value="${way.rating}"/></td>
+                                                <td data-title="Nombre de longueurs"><c:out value="${way.nbOfLengths}"/></td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
                                 </table>
                         </c:when>
                         <c:otherwise>
