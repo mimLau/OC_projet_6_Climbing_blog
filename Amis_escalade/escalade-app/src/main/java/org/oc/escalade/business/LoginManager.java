@@ -8,6 +8,7 @@ import org.oc.escalade.utils.RetrieveParamValue;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public final class LoginManager {
      * @param req
      * @return
      */
-    public User logUser(HttpServletRequest req) {
+    public User logUser(HttpServletRequest req) throws NoSuchAlgorithmException {
         String identifier = RetrieveParamValue.getParameterValue( req, IDENTIFIER_FIELD ); // Retrieve the identifier value from the field identifier.
         String password = RetrieveParamValue.getParameterValue( req, PASS_FIELD ); // Retrieve the password value from the field password.
         boolean authenticationOk;
@@ -72,12 +73,14 @@ public final class LoginManager {
      * @param password The user password.
      * @return True if the password is the good one, otherwise return false.
      */
-    private boolean authentication( User user, String password ) {
+    private boolean authentication( User user, String password ) throws NoSuchAlgorithmException {
         boolean authenticationOk = false;
         String retrievedPass = user.getPassword();  // Get the password of the user that want to connect.
-        if( HashGenerator.cryptoMD5( password ).equals( retrievedPass ) ) { // Verify if this password matches with the typed password.
+        if( HashGenerator.toHexString( password ).equals( retrievedPass ) ) { // Verify if this password matches with the typed password.
             authenticationOk = true;
         }
+        System.out.println("---------------------------------- hash " + HashGenerator.toHexString(password));
+
         return authenticationOk;
     }
 
