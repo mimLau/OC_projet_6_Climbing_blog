@@ -34,17 +34,16 @@
         <jsp:include page="/WEB-INF/jsp/templates/header.jsp"/>
         <br/><div class="text-center"><h3 class="card-title">Site - <c:out value="${site.name}"></c:out></h3></div><br/><br/>
 
-
         <div class="outer-div">
 
-            <div class="col-sm-11" style="margin:0 auto;">
-                <h6 class="card-subtitle mb-2 text-muted">Description du site:</h6>
-                <div >
-                    <p class="text-justify"><c:out value="${site.description}"></c:out></p>
-                </div><br/>
-            </div>
+                <div class="col-sm-10" style="margin:0 auto;">
+                    <h6 class="card-subtitle mb-2 text-muted">Description du site:</h6>
+                    <div >
+                        <p class="text-justify"><c:out value="${site.description}"></c:out></p>
+                    </div><br/>
+                </div>
+
             <br/>
-            <div class="row">
                 <div class="col-sm-10" style="margin:0 auto;">
                     <c:choose>
                         <c:when test="${!empty site.sectors}">
@@ -63,34 +62,28 @@
                                     </c:forEach>
                                 </table>
                             </div>
+                            <div style="float:left">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/listSites" style="text-decoration:none;">Retour</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div style="float: right">
+                                <c:if test="${sessionScope.user.username != null}">
+                                    <div><a class="btn btn-secondary" href="${pageContext.request.contextPath}/auth/addSector">Ajouter un secteur</a></div><br/>
+                                </c:if>
+                            </div>
                         </c:when>
                         <c:otherwise>
                             <p class="text-center"> Aucun secteur n'a été ajouté pour ce site.</p><br/>
                         </c:otherwise>
                     </c:choose>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-10" style="margin:0 auto;">
-                    <div style="float:left">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/listSites" style="text-decoration:none;">Retour</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div style="float: right">
-                        <c:if test="${sessionScope.user.username != null}">
-                            <div><a class="btn btn-secondary" href="${pageContext.request.contextPath}/auth/addSector">Ajouter un secteur</a></div><br/>
-                        </c:if>
-                    </div>
-            </div>
-            </div><br/>
+                <br/><br/>
 
-            <div class="row">
                 <div class="col-sm-10" style="margin:0 auto;">
-                    <div class="text-center">
-                        <span class="card-title">
+                    <p class="text-center">
                             <c:if test="${! empty site.comments}">
                                 <c:choose>
                                     <c:when test="${fn:length(site.comments) gt 1}">${fn:length(site.comments)} COMMENTAIRES </c:when>
@@ -102,8 +95,7 @@
                             <c:if test="${empty site.comments}">
                                 Il n'y a pas de commentaire.
                             </c:if>
-                        </span>
-                    </div><br/>
+                    </p><br/>
                     <div >
                         <c:if test="${! empty site.comments}">
                                 <c:forEach items="${site.comments}" var="comment" varStatus="nb">
@@ -134,30 +126,28 @@
                                 </c:forEach>
                         </c:if>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-10" style="margin:0 auto;">
-                    <c:if test="${sessionScope.user.username != null}">
-                        <div class="text-center"><h3 class="card-title">Laisser un commentaire</h3></div>
-                        <form method="post" action="${pageContext.request.contextPath}/auth/addComment">
-                            <textarea name="comment_contents" style="width:100%;" rows="5" placeholder="Votre commentaire" aria-required="true"></textarea>
-                            <div class="form-group" style="padding-top:2px;">
-                                <div style="float:left">
-                                    <nav aria-label="Page navigation example">
-                                        <ul class="pagination">
-                                            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/listSites" style="text-decoration:none;">Retour</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                                <div style="float: right">
-                                    <button type="submit" class="btn-sm btn-primary">Publier</button>
-                                </div>
 
+        </div>
+            <div class="col-sm-10" style="margin:0 auto;"><br/>
+                <c:if test="${sessionScope.user.username != null}">
+                    <div class="text-center"><h3 class="card-title">Laisser un commentaire</h3></div><br/>
+                    <form method="post" action="${pageContext.request.contextPath}/auth/addComment">
+                        <textarea name="comment_contents" style="width:100%;" rows="5" placeholder="Votre commentaire" aria-required="true"></textarea>
+                        <div class="form-group" style="padding-top:2px;">
+                            <div style="float:left">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/listSites" style="text-decoration:none;">Retour</a></li>
+                                    </ul>
+                                </nav>
                             </div>
-                        </form>
-                    </c:if>
-                </div>
+                            <div style="float: right">
+                                <button type="submit" class="btn-sm btn-primary">Publier</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </c:if>
             </div>
         </div>
 
