@@ -14,12 +14,13 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light" style=" background-color: rgba(137, 175, 192, 0.5);">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/home"><img src ="${pageContext.request.contextPath}/img/Logo_Mont.png"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/home"><img src ="${pageContext.request.contextPath}/img/Logo_Mont.png"></a>
                     <a class="nav-item nav-link active" href="${pageContext.request.contextPath}/home">Accueil <span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/listSites">Sites</a>
                     <c:if test="${sessionScope.user != null}">
@@ -31,11 +32,8 @@
 
             </div>
             <div class="navbar-text" style="float:right;margin-top:20px;">
-                <c:if test="${sessionScope.user.username != null}">
-                <span>Bonjour ${sessionScope.user.username}<span/><br/>
-                </c:if>
-
-                <c:if test="${sessionScope.user.username != null}">
+                             <c:if test="${sessionScope.user.username != null}">
+                    <span>Bonjour ${sessionScope.user.username}<span/><br/>
                     <a href="${pageContext.request.contextPath}/logout" tabindex="-1" aria-disabled="true" style="text-decoration:none;">Se déconnecter</a>
                 </c:if>
 
@@ -46,6 +44,8 @@
                      </c:if>
                 </c:if>
             </div>
+
+
         </nav>
     </body>
 </html>
