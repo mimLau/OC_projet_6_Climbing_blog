@@ -7,6 +7,7 @@ import org.oc.escalade.models.User;
 import org.oc.escalade.utils.HashGenerator;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public final class RegistrationManager {
         return errors;
     }
 
-    public User registerUser(HttpServletRequest req){
+    public User registerUser(HttpServletRequest req) throws NoSuchAlgorithmException {
         String email = getFieldValue(req, EMAIL_FIELD );
         String username = getFieldValue(req, USERNAME_FIELD );
         String passsword = getFieldValue(req, PASS_FIELD );
@@ -40,7 +41,7 @@ public final class RegistrationManager {
         usernameValidation( username );
         user.setUsername(username);
         passValidation( passsword, passConf );
-        user.setPassword( HashGenerator.cryptoMD5( passsword ) );
+        user.setPassword( HashGenerator.toHexString( passsword ) );
         firstnameValidation( firstname );
         user.setFirstname( firstname );
         lastnameValidation( lastname );
