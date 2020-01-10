@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
 public class RegistrationServlet extends HttpServlet {
@@ -20,7 +21,12 @@ public class RegistrationServlet extends HttpServlet {
 
     protected void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
         RegistrationManager form = new RegistrationManager();
-        User user = form.registerUser(req);
+        User user = null;
+        try {
+            user = form.registerUser(req);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
         req.setAttribute(FORM_ATT, form);
         req.setAttribute(USER_ATT, user);
