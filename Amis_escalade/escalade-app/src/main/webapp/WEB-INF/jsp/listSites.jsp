@@ -125,6 +125,7 @@
                                             <th>Nom du site</th>
                                             <th>Nombre de secteurs</th>
                                             <th>Créé par</th>
+                                            <th>Statut</th>
                                             <th>Site officiel</th>
                                         </tr>
                                     </thead>
@@ -134,6 +135,7 @@
                                                 <td data-title="Non du site"><a style="text-decoration: none" href="${pageContext.request.contextPath}/showSite?id=${site.id}"> <c:out value="${site.name}"/></a></td>
                                                 <td data-title="Nombre de secteurs"> <c:out value="${site.nbOfSectors}"></c:out></td>
                                                 <td data-title="Créé par"><c:out value="${site.siteOwner.username}"/></td>
+                                                <td data-title="Statut"><c:out value="${site.siteOwner.role}"/></td>
                                                 <td data-title="Site offciel">
                                                     <c:choose>
                                                         <c:when test="${site.tagged}">
